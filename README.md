@@ -1,0 +1,14 @@
+# Lens
+
+![](https://img.shields.io/badge/swift-4.0-orange.svg)
+![](https://img.shields.io/badge/platform-iOS-lightgray.svg)
+![](https://img.shields.io/badge/iOS-8+-green.svg)
+[![](https://img.shields.io/badge/license-LGPL-000000.svg)](https://github.com/archie-yu/Lens/blob/master/LICENSE)
+
+An iOS application targeted for searching cameras, lenses and accessories.
+
+## Design
+
+See Sketch [`file`](https://github.com/archie-yu/Lens-Sketch)
+
+<img src="https://github.com/archie-yu/Lens-Sketch/blob/master/Export/Equipment_Lens.png" height="25%" width="25%" />
