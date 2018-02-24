@@ -9,6 +9,6 @@ An iOS application targeted for searching cameras, lenses and accessories.
 
 ## Design
 
-See Sketch [`file`](https://github.com/archie-yu/Lens-Sketch)
+![](https://github.com/archie-yu/Lens-Sketch/blob/master/Export.jpg)
 
-<img src="https://github.com/archie-yu/Lens-Sketch/blob/master/Export/Equipment_Lens.png" height="25%" width="25%" />
+See [`Sketch`](https://github.com/archie-yu/Lens-Sketch).
