@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2120A54E2042A8E600DDA6B8 /* MineUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120A54D2042A8E600DDA6B8 /* MineUserCell.swift */; };
 		2120A5502042B27800DDA6B8 /* MineBudgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120A54F2042B27800DDA6B8 /* MineBudgetCell.swift */; };
+		2120A5522042EC6300DDA6B8 /* EquipmentPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120A5512042EC6300DDA6B8 /* EquipmentPagerTabStripViewController.swift */; };
 		215B0833203FFF3000802011 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215B0832203FFF3000802011 /* AppDelegate.swift */; };
 		215B0838203FFF3000802011 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 215B0836203FFF3000802011 /* Main.storyboard */; };
 		215B083A203FFF3000802011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 215B0839203FFF3000802011 /* Assets.xcassets */; };
@@ -16,11 +17,14 @@
 		2166ACA720426E35002D1C36 /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2166ACA620426E35002D1C36 /* HomeTabBarController.swift */; };
 		2166ACAB20427FC9002D1C36 /* TabNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2166ACAA20427FC9002D1C36 /* TabNavigationBar.swift */; };
 		2166ACAD2042A1A3002D1C36 /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2166ACAC2042A1A3002D1C36 /* MineViewController.swift */; };
+		21F1AD812042F45700825242 /* EquipmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F1AD802042F45700825242 /* EquipmentTableViewController.swift */; };
+		BB39128EB2D50871D9AC8058 /* Pods_Lens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A8BAC57CEB1F7D86CC66E6A /* Pods_Lens.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2120A54D2042A8E600DDA6B8 /* MineUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineUserCell.swift; sourceTree = "<group>"; };
 		2120A54F2042B27800DDA6B8 /* MineBudgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBudgetCell.swift; sourceTree = "<group>"; };
+		2120A5512042EC6300DDA6B8 /* EquipmentPagerTabStripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentPagerTabStripViewController.swift; sourceTree = "<group>"; };
 		215B082F203FFF3000802011 /* Lens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		215B0832203FFF3000802011 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		215B0837203FFF3000802011 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -30,6 +34,10 @@
 		2166ACA620426E35002D1C36 /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		2166ACAA20427FC9002D1C36 /* TabNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigationBar.swift; sourceTree = "<group>"; };
 		2166ACAC2042A1A3002D1C36 /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
+		21F1AD802042F45700825242 /* EquipmentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentTableViewController.swift; sourceTree = "<group>"; };
+		4C59144F0A95C64492F28879 /* Pods-Lens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lens.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lens/Pods-Lens.release.xcconfig"; sourceTree = "<group>"; };
+		8A8BAC57CEB1F7D86CC66E6A /* Pods_Lens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D950ABC2CB84B87C24E6F271 /* Pods-Lens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lens.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Lens/Pods-Lens.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB39128EB2D50871D9AC8058 /* Pods_Lens.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +57,8 @@
 			children = (
 				215B0831203FFF3000802011 /* Lens */,
 				215B0830203FFF3000802011 /* Products */,
+				93BCAD10BA1493645A107934 /* Pods */,
+				D70938D01D5D60FBDAFD8D10 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,8 +83,27 @@
 				2166ACAC2042A1A3002D1C36 /* MineViewController.swift */,
 				2120A54D2042A8E600DDA6B8 /* MineUserCell.swift */,
 				2120A54F2042B27800DDA6B8 /* MineBudgetCell.swift */,
+				2120A5512042EC6300DDA6B8 /* EquipmentPagerTabStripViewController.swift */,
+				21F1AD802042F45700825242 /* EquipmentTableViewController.swift */,
 			);
 			path = Lens;
+			sourceTree = "<group>";
+		};
+		93BCAD10BA1493645A107934 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D950ABC2CB84B87C24E6F271 /* Pods-Lens.debug.xcconfig */,
+				4C59144F0A95C64492F28879 /* Pods-Lens.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D70938D01D5D60FBDAFD8D10 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8A8BAC57CEB1F7D86CC66E6A /* Pods_Lens.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,9 +113,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 215B0841203FFF3000802011 /* Build configuration list for PBXNativeTarget "Lens" */;
 			buildPhases = (
+				0AE103A90305C42F3DB81CAC /* [CP] Check Pods Manifest.lock */,
 				215B082B203FFF3000802011 /* Sources */,
 				215B082C203FFF3000802011 /* Frameworks */,
 				215B082D203FFF3000802011 /* Resources */,
+				8F388892BA6FBAAECD954F1B /* [CP] Embed Pods Frameworks */,
+				E6730EDF8ACC38C0DFB7F3EB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -143,6 +176,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0AE103A90305C42F3DB81CAC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Lens-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F388892BA6FBAAECD954F1B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Lens/Pods-Lens-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/XLPagerTabStrip/XLPagerTabStrip.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XLPagerTabStrip.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Lens/Pods-Lens-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6730EDF8ACC38C0DFB7F3EB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Lens/Pods-Lens-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		215B082B203FFF3000802011 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -151,6 +238,8 @@
 				215B0833203FFF3000802011 /* AppDelegate.swift in Sources */,
 				2120A5502042B27800DDA6B8 /* MineBudgetCell.swift in Sources */,
 				2166ACAB20427FC9002D1C36 /* TabNavigationBar.swift in Sources */,
+				2120A5522042EC6300DDA6B8 /* EquipmentPagerTabStripViewController.swift in Sources */,
+				21F1AD812042F45700825242 /* EquipmentTableViewController.swift in Sources */,
 				2166ACA720426E35002D1C36 /* HomeTabBarController.swift in Sources */,
 				2120A54E2042A8E600DDA6B8 /* MineUserCell.swift in Sources */,
 				2166ACAD2042A1A3002D1C36 /* MineViewController.swift in Sources */,
@@ -288,6 +377,7 @@
 		};
 		215B0842203FFF3000802011 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D950ABC2CB84B87C24E6F271 /* Pods-Lens.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -304,6 +394,7 @@
 		};
 		215B0843203FFF3000802011 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C59144F0A95C64492F28879 /* Pods-Lens.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
