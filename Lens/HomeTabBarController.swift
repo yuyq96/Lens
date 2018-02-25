@@ -21,6 +21,13 @@ class HomeTabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//        var tabFrame = self.tabBar.frame
+//        tabFrame.size.height = 49
+//        tabFrame.origin.y = self.view.frame.size.height - 49
+//        self.tabBar.frame = tabFrame
+//    }
 
     /*
     // MARK: - Navigation

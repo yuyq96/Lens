@@ -12,7 +12,7 @@
 		215B083A203FFF3000802011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 215B0839203FFF3000802011 /* Assets.xcassets */; };
 		215B083D203FFF3000802011 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 215B083B203FFF3000802011 /* LaunchScreen.storyboard */; };
 		2166ACA720426E35002D1C36 /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2166ACA620426E35002D1C36 /* HomeTabBarController.swift */; };
-		2166ACA9204274D1002D1C36 /* LensNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2166ACA8204274D1002D1C36 /* LensNavigationBar.xib */; };
+		2166ACAB20427FC9002D1C36 /* TabNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2166ACAA20427FC9002D1C36 /* TabNavigationBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +23,7 @@
 		215B083C203FFF3000802011 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		215B083E203FFF3000802011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2166ACA620426E35002D1C36 /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
-		2166ACA8204274D1002D1C36 /* LensNavigationBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LensNavigationBar.xib; sourceTree = "<group>"; };
+		2166ACAA20427FC9002D1C36 /* TabNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 				215B083B203FFF3000802011 /* LaunchScreen.storyboard */,
 				215B083E203FFF3000802011 /* Info.plist */,
 				2166ACA620426E35002D1C36 /* HomeTabBarController.swift */,
-				2166ACA8204274D1002D1C36 /* LensNavigationBar.xib */,
+				2166ACAA20427FC9002D1C36 /* TabNavigationBar.swift */,
 			);
 			path = Lens;
 			sourceTree = "<group>";
@@ -127,7 +127,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				215B083D203FFF3000802011 /* LaunchScreen.storyboard in Resources */,
-				2166ACA9204274D1002D1C36 /* LensNavigationBar.xib in Resources */,
 				215B083A203FFF3000802011 /* Assets.xcassets in Resources */,
 				215B0838203FFF3000802011 /* Main.storyboard in Resources */,
 			);
@@ -141,6 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				215B0833203FFF3000802011 /* AppDelegate.swift in Sources */,
+				2166ACAB20427FC9002D1C36 /* TabNavigationBar.swift in Sources */,
 				2166ACA720426E35002D1C36 /* HomeTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -100,7 +100,10 @@
         <scene sceneID="rBs-QP-qOd">
             <objects>
                 <navigationController id="dR2-Mk-T7n" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Mine" id="hTe-y1-5CH"/>
+                    <tabBarItem key="tabBarItem" title="Mine" image="Mine" selectedImage="Mine_S" id="hTe-y1-5CH">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-12"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="16"/>
+                    </tabBarItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="h5G-Yu-m2J">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -118,7 +121,10 @@
         <scene sceneID="PAX-DH-mKH">
             <objects>
                 <navigationController id="XR8-B1-t8G" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="News" id="Q2P-PL-gzb"/>
+                    <tabBarItem key="tabBarItem" title="News" image="News" selectedImage="News_S" id="Q2P-PL-gzb">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-12"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="16"/>
+                    </tabBarItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="jc5-G4-Ulh">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -136,7 +142,10 @@
         <scene sceneID="Up3-ed-mPL">
             <objects>
                 <navigationController id="O1l-kX-Tvj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Equipment" id="WY0-o8-DDp"/>
+                    <tabBarItem key="tabBarItem" title="Equipment" image="Lens" selectedImage="Lens_S" id="WY0-o8-DDp">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-12"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="16"/>
+                    </tabBarItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="ZiK-4p-mr4">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -172,4 +181,12 @@
             <point key="canvasLocation" x="-438" y="-65"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Lens" width="22" height="22"/>
+        <image name="Lens_S" width="22" height="22"/>
+        <image name="Mine" width="22" height="22"/>
+        <image name="Mine_S" width="22" height="22"/>
+        <image name="News" width="22" height="22"/>
+        <image name="News_S" width="22" height="22"/>
+    </resources>
 </document>
