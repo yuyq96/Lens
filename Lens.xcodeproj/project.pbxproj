@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2120A54E2042A8E600DDA6B8 /* MineUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120A54D2042A8E600DDA6B8 /* MineUserCell.swift */; };
+		2120A5502042B27800DDA6B8 /* MineBudgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120A54F2042B27800DDA6B8 /* MineBudgetCell.swift */; };
 		215B0833203FFF3000802011 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215B0832203FFF3000802011 /* AppDelegate.swift */; };
 		215B0838203FFF3000802011 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 215B0836203FFF3000802011 /* Main.storyboard */; };
 		215B083A203FFF3000802011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 215B0839203FFF3000802011 /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2120A54D2042A8E600DDA6B8 /* MineUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineUserCell.swift; sourceTree = "<group>"; };
+		2120A54F2042B27800DDA6B8 /* MineBudgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBudgetCell.swift; sourceTree = "<group>"; };
 		215B082F203FFF3000802011 /* Lens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		215B0832203FFF3000802011 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		215B0837203FFF3000802011 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -66,6 +70,8 @@
 				2166ACA620426E35002D1C36 /* HomeTabBarController.swift */,
 				2166ACAA20427FC9002D1C36 /* TabNavigationBar.swift */,
 				2166ACAC2042A1A3002D1C36 /* MineViewController.swift */,
+				2120A54D2042A8E600DDA6B8 /* MineUserCell.swift */,
+				2120A54F2042B27800DDA6B8 /* MineBudgetCell.swift */,
 			);
 			path = Lens;
 			sourceTree = "<group>";
@@ -143,8 +149,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				215B0833203FFF3000802011 /* AppDelegate.swift in Sources */,
+				2120A5502042B27800DDA6B8 /* MineBudgetCell.swift in Sources */,
 				2166ACAB20427FC9002D1C36 /* TabNavigationBar.swift in Sources */,
 				2166ACA720426E35002D1C36 /* HomeTabBarController.swift in Sources */,
+				2120A54E2042A8E600DDA6B8 /* MineUserCell.swift in Sources */,
 				2166ACAD2042A1A3002D1C36 /* MineViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

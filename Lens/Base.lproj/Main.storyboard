@@ -8,6 +8,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Courier.ttc">
+            <string>Courier</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Equipment-->
         <scene sceneID="7VX-W7-JGX">
@@ -18,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="xuG-LC-6ma">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EquipmentCell" id="xuG-LC-6ma">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xuG-LC-6ma" id="Vpr-t9-fO5">
@@ -47,7 +52,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="KYA-2t-dcM">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsCell" id="KYA-2t-dcM">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KYA-2t-dcM" id="Jr1-NY-HDc">
@@ -76,13 +81,94 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MineCell" id="hH0-1f-xzY">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MineUserCell" rowHeight="72" id="hH0-1f-xzY" customClass="MineUserCell" customModule="Lens" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hH0-1f-xzY" id="5QX-Sb-VBd">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="71.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userhead" translatesAutoresizingMaskIntoConstraints="NO" id="oNX-EU-dIT">
+                                            <rect key="frame" x="16" y="7.5" width="56" height="56.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="56" id="v5T-QO-Ajh"/>
+                                                <constraint firstAttribute="width" constant="56" id="vhc-Lg-iHq"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <integer key="value" value="28"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90r-FT-VXN">
+                                            <rect key="frame" x="80" y="15" width="245" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="mqL-4a-hU1"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xc-d3-tYb">
+                                            <rect key="frame" x="80" y="40.5" width="245" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="1xc-d3-tYb" firstAttribute="trailing" secondItem="90r-FT-VXN" secondAttribute="trailing" id="2nY-xb-N3X"/>
+                                        <constraint firstItem="90r-FT-VXN" firstAttribute="top" secondItem="5QX-Sb-VBd" secondAttribute="top" constant="15" id="42e-d8-7Bi"/>
+                                        <constraint firstAttribute="trailing" secondItem="90r-FT-VXN" secondAttribute="trailing" constant="16" id="4Pw-In-Ptw"/>
+                                        <constraint firstItem="1xc-d3-tYb" firstAttribute="leading" secondItem="90r-FT-VXN" secondAttribute="leading" id="6mq-2B-O6E"/>
+                                        <constraint firstItem="oNX-EU-dIT" firstAttribute="top" secondItem="5QX-Sb-VBd" secondAttribute="top" constant="7.5" id="ADO-Yv-rOj"/>
+                                        <constraint firstAttribute="bottom" secondItem="oNX-EU-dIT" secondAttribute="bottom" constant="7.5" id="EL6-Y4-Cxa"/>
+                                        <constraint firstItem="oNX-EU-dIT" firstAttribute="leading" secondItem="5QX-Sb-VBd" secondAttribute="leading" constant="16" id="Scj-Zd-iai"/>
+                                        <constraint firstItem="90r-FT-VXN" firstAttribute="leading" secondItem="oNX-EU-dIT" secondAttribute="trailing" constant="8" id="YLT-Te-8mF"/>
+                                        <constraint firstItem="1xc-d3-tYb" firstAttribute="top" secondItem="90r-FT-VXN" secondAttribute="bottom" constant="4" id="yQk-DW-NMt"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="userhead" destination="oNX-EU-dIT" id="EJq-Jg-Uxh"/>
+                                    <outlet property="userid" destination="1xc-d3-tYb" id="ATk-s8-dOe"/>
+                                    <outlet property="username" destination="90r-FT-VXN" id="hbZ-bF-eJw"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MineCell" id="Ixb-JX-WZ9">
+                                <rect key="frame" x="0.0" y="127.5" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ixb-JX-WZ9" id="iO6-xg-FuX">
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MineBudgetCell" id="Fl6-9b-1n5" customClass="MineBudgetCell" customModule="Lens" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="171.5" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fl6-9b-1n5" id="oDx-Jg-U1k">
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="****" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9q-xi-RSw">
+                                            <rect key="frame" x="304.5" y="12" width="36.5" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="TR0-F1-9QD"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="15"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="q9q-xi-RSw" secondAttribute="bottom" constant="10.5" id="6ap-XJ-6Xa"/>
+                                        <constraint firstItem="q9q-xi-RSw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oDx-Jg-U1k" secondAttribute="leading" id="Dw6-CJ-RBr"/>
+                                        <constraint firstItem="q9q-xi-RSw" firstAttribute="top" secondItem="oDx-Jg-U1k" secondAttribute="top" constant="12" id="cVo-58-lef"/>
+                                        <constraint firstAttribute="trailing" secondItem="q9q-xi-RSw" secondAttribute="trailing" id="ruE-Mq-D8N"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="budget" destination="q9q-xi-RSw" id="BcB-Ph-Wvh"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -94,7 +180,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bXQ-HZ-JCq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1574" y="657"/>
+            <point key="canvasLocation" x="1573.5999999999999" y="656.22188905547227"/>
         </scene>
         <!--Mine-->
         <scene sceneID="rBs-QP-qOd">
@@ -197,5 +283,6 @@
         <image name="Mine_S" width="22" height="22"/>
         <image name="News" width="22" height="22"/>
         <image name="News_S" width="22" height="22"/>
+        <image name="userhead" width="56" height="56"/>
     </resources>
 </document>

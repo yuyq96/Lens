@@ -9,7 +9,7 @@
 import UIKit
 
 class MineViewController: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,6 +18,12 @@ class MineViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = false
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,12 +34,10 @@ class MineViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         switch(section) {
             case 0: return 1
             case 1: return 3
@@ -44,32 +48,35 @@ class MineViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MineCell", for: indexPath)
-        
-//        cell.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.1)
-//        cell.textLabel?.textColor = .white
-        
-        cell.accessoryType = .disclosureIndicator
+        var cell: UITableViewCell
         switch indexPath.section {
         case 0:
+            cell = tableView.dequeueReusableCell(withIdentifier: "MineUserCell", for: indexPath)
             switch indexPath.row {
             case 0:
-                cell.textLabel?.text = "Riach"
+                (cell as! MineUserCell).username?.text = "Riach"
+                (cell as! MineUserCell).userid?.text = "@riach"
             default:
                 break
             }
         case 1:
             switch indexPath.row {
             case 0:
+                cell = tableView.dequeueReusableCell(withIdentifier: "MineCell", for: indexPath)
                 cell.textLabel?.text = "My Equipment"
             case 1:
+                cell = tableView.dequeueReusableCell(withIdentifier: "MineCell", for: indexPath)
                 cell.textLabel?.text = "Wishlist"
             case 2:
+                cell = tableView.dequeueReusableCell(withIdentifier: "MineBudgetCell", for: indexPath)
                 cell.textLabel?.text = "Budget"
+                (cell as! MineBudgetCell).budget?.text = "****"
             default:
+                cell = tableView.dequeueReusableCell(withIdentifier: "MineCell", for: indexPath)
                 break
             }
         case 2:
+            cell = tableView.dequeueReusableCell(withIdentifier: "MineCell", for: indexPath)
             switch indexPath.row {
             case 0:
                 cell.textLabel?.text = "Settings"
@@ -79,9 +86,22 @@ class MineViewController: UITableViewController {
                 break
             }
         default:
+            cell = tableView.dequeueReusableCell(withIdentifier: "MineCell", for: indexPath)
             break
         }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 8
+        } else {
+            return 4
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 4
     }
     
     /*
