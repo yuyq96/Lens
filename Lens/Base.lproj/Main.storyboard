@@ -176,7 +176,7 @@
         <!--News-->
         <scene sceneID="auO-L7-4PE">
             <objects>
-                <viewController id="gQj-83-9Yt" customClass="EquipmentPagerTabStripViewController" customModule="Lens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gQj-83-9Yt" customClass="BrowsePagerTabStripViewController" customModule="Lens" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eQ6-P3-7gu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -216,7 +216,7 @@
         <!--Equipment-->
         <scene sceneID="zCp-y0-w23">
             <objects>
-                <viewController id="AOe-22-u7e" customClass="EquipmentPagerTabStripViewController" customModule="Lens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="AOe-22-u7e" customClass="BrowsePagerTabStripViewController" customModule="Lens" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pc4-rV-3vG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -227,35 +227,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uar-TT-5XT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1574" y="-770"/>
-        </scene>
-        <!--Equipment Table View Controller-->
-        <scene sceneID="ezb-Tr-1CN">
-            <objects>
-                <tableViewController id="tiR-V4-jKu" customClass="EquipmentTableViewController" customModule="Lens" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ih5-5u-yTn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EquipmentCell" id="p2Q-l6-vzt">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p2Q-l6-vzt" id="Qlx-uc-8Aw">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="tiR-V4-jKu" id="DB5-37-7fG"/>
-                            <outlet property="delegate" destination="tiR-V4-jKu" id="fdi-8A-MzA"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="I2J-Rm-grG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2543" y="-770"/>
+            <point key="canvasLocation" x="1573.5999999999999" y="-770.46476761619192"/>
         </scene>
         <!--Home Tab Bar Controller-->
         <scene sceneID="cb8-sm-n0T">

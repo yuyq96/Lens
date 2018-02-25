@@ -9,8 +9,9 @@
 import UIKit
 import XLPagerTabStrip
 
-class EquipmentTableViewController: UITableViewController, IndicatorInfoProvider {
+class BrowseTableViewController: UITableViewController, IndicatorInfoProvider {
     
+    var type: String!
     var info: String!
 
     override func viewDidLoad() {
@@ -21,6 +22,17 @@ class EquipmentTableViewController: UITableViewController, IndicatorInfoProvider
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = false
+        }
+        tableView.estimatedSectionHeaderHeight = 0
+        tableView.estimatedSectionFooterHeight = 0
+        
+        tableView.register(UINib(nibName: "EquipmentCell", bundle: nil), forCellReuseIdentifier: "EquipmentCell")
+        tableView.register(UINib(nibName: "PictureNewsCell", bundle: nil), forCellReuseIdentifier: "PictureNewsCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,24 +47,36 @@ class EquipmentTableViewController: UITableViewController, IndicatorInfoProvider
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 8
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        var cell: UITableViewCell
+        if type == "News" {
+            cell = tableView.dequeueReusableCell(withIdentifier: "PictureNewsCell")!
+            (cell as! PictureNewsCell).newsImage?.image = UIImage(named: "userhead")
+            (cell as! PictureNewsCell).newsTitle?.text = "Sigma 14-24mm F2.8 DG HSM Art"
+            (cell as! PictureNewsCell).newsInfo?.text = "dpreview    Feb. 23 2018"
+            (cell as! PictureNewsCell).newsContent?.text = "When Sigma announced the 14-24mm F2.8 DG HSM Art lens, the company held off on sharing pricing or availability. Fortunately, Sigma didn't make us wait long, revealing today that the ultra-wide angle zoom will ship in mid-March for the very reasonable price of $1,300."
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "EquipmentCell")!
+            (cell as! EquipmentCell).productImage?.image = UIImage(named: "userhead")
+            (cell as! EquipmentCell).productName?.text = "Sigma 85mm F1.4 DG HSM A Nikon"
+        }
         return cell
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 8
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 8
+    }
 
     /*
     // Override to support conditional editing of the table view.

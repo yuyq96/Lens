@@ -39,15 +39,14 @@ class MineViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
-            case 0: return 1
-            case 1: return 3
-            case 2: return 2
-            default: return 0
+        case 0: return 1
+        case 1: return 3
+        case 2: return 2
+        default: return 0
         }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         var cell: UITableViewCell
         switch indexPath.section {
         case 0:

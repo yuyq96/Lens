@@ -9,7 +9,7 @@
 import UIKit
 import XLPagerTabStrip
 
-class EquipmentPagerTabStripViewController: ButtonBarPagerTabStripViewController {
+class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
     
     override func viewDidLoad() {
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -17,6 +17,7 @@ class EquipmentPagerTabStripViewController: ButtonBarPagerTabStripViewController
         let tintColor = UIColor(red: 126.0/255, green: 211.0/255, blue: 33.0/255, alpha: 1)
         
         settings.style.buttonBarItemBackgroundColor = UIColor.white
+        settings.style.buttonBarItemFont = UIFont.systemFont(ofSize: 14)
         settings.style.buttonBarItemTitleColor = UIColor.black
         settings.style.selectedBarHeight = 4
         settings.style.selectedBarBackgroundColor = tintColor
@@ -37,9 +38,12 @@ class EquipmentPagerTabStripViewController: ButtonBarPagerTabStripViewController
     }
 
     override public func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        let lensViewController = EquipmentTableViewController()
-        let cameraViewController = EquipmentTableViewController()
-        let accessoriesViewController = EquipmentTableViewController()
+        let lensViewController = BrowseTableViewController(style: UITableViewStyle.grouped)
+        let cameraViewController = BrowseTableViewController(style: UITableViewStyle.grouped)
+        let accessoriesViewController = BrowseTableViewController(style: UITableViewStyle.grouped)
+        lensViewController.type = navigationItem.title
+        cameraViewController.type = navigationItem.title
+        accessoriesViewController.type = navigationItem.title
         lensViewController.info = "Lens"
         cameraViewController.info = "Camera"
         accessoriesViewController.info = "Accessories"
