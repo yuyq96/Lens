@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		215B0833203FFF3000802011 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215B0832203FFF3000802011 /* AppDelegate.swift */; };
-		215B0835203FFF3000802011 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215B0834203FFF3000802011 /* ViewController.swift */; };
 		215B0838203FFF3000802011 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 215B0836203FFF3000802011 /* Main.storyboard */; };
 		215B083A203FFF3000802011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 215B0839203FFF3000802011 /* Assets.xcassets */; };
 		215B083D203FFF3000802011 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 215B083B203FFF3000802011 /* LaunchScreen.storyboard */; };
+		2166ACA720426E35002D1C36 /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2166ACA620426E35002D1C36 /* HomeTabBarController.swift */; };
+		2166ACA9204274D1002D1C36 /* LensNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2166ACA8204274D1002D1C36 /* LensNavigationBar.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		215B082F203FFF3000802011 /* Lens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		215B0832203FFF3000802011 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		215B0834203FFF3000802011 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		215B0837203FFF3000802011 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		215B0839203FFF3000802011 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		215B083C203FFF3000802011 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		215B083E203FFF3000802011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2166ACA620426E35002D1C36 /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
+		2166ACA8204274D1002D1C36 /* LensNavigationBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LensNavigationBar.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +57,12 @@
 			isa = PBXGroup;
 			children = (
 				215B0832203FFF3000802011 /* AppDelegate.swift */,
-				215B0834203FFF3000802011 /* ViewController.swift */,
 				215B0836203FFF3000802011 /* Main.storyboard */,
 				215B0839203FFF3000802011 /* Assets.xcassets */,
 				215B083B203FFF3000802011 /* LaunchScreen.storyboard */,
 				215B083E203FFF3000802011 /* Info.plist */,
+				2166ACA620426E35002D1C36 /* HomeTabBarController.swift */,
+				2166ACA8204274D1002D1C36 /* LensNavigationBar.xib */,
 			);
 			path = Lens;
 			sourceTree = "<group>";
@@ -124,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				215B083D203FFF3000802011 /* LaunchScreen.storyboard in Resources */,
+				2166ACA9204274D1002D1C36 /* LensNavigationBar.xib in Resources */,
 				215B083A203FFF3000802011 /* Assets.xcassets in Resources */,
 				215B0838203FFF3000802011 /* Main.storyboard in Resources */,
 			);
@@ -136,8 +140,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				215B0835203FFF3000802011 /* ViewController.swift in Sources */,
 				215B0833203FFF3000802011 /* AppDelegate.swift in Sources */,
+				2166ACA720426E35002D1C36 /* HomeTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,7 +215,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -262,7 +266,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -277,7 +281,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XHJTKYLCPV;
 				INFOPLIST_FILE = Lens/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.nju.lamda.archieyu.Lens;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -293,7 +297,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XHJTKYLCPV;
 				INFOPLIST_FILE = Lens/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.nju.lamda.archieyu.Lens;
 				PRODUCT_NAME = "$(TARGET_NAME)";
