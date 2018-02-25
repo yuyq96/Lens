@@ -1,9 +1,9 @@
 # Lens
 
 ![](https://img.shields.io/badge/status-developping-green.svg)
-![](https://img.shields.io/badge/swift-4.0-orange.svg)
+![](https://img.shields.io/badge/swift-3.0+-orange.svg)
 ![](https://img.shields.io/badge/platform-iOS-lightgray.svg)
-![](https://img.shields.io/badge/iOS-8+-green.svg)
+![](https://img.shields.io/badge/iOS-9.0+-green.svg)
 [![](https://img.shields.io/badge/license-LGPL-000000.svg)](https://github.com/archie-yu/Lens/blob/master/LICENSE)
 
 Searching lenses, cameras and accessories easily using your iPhone.
