@@ -13,6 +13,7 @@
 		215B083D203FFF3000802011 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 215B083B203FFF3000802011 /* LaunchScreen.storyboard */; };
 		2166ACA720426E35002D1C36 /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2166ACA620426E35002D1C36 /* HomeTabBarController.swift */; };
 		2166ACAB20427FC9002D1C36 /* TabNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2166ACAA20427FC9002D1C36 /* TabNavigationBar.swift */; };
+		2166ACAD2042A1A3002D1C36 /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2166ACAC2042A1A3002D1C36 /* MineViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		215B083E203FFF3000802011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2166ACA620426E35002D1C36 /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		2166ACAA20427FC9002D1C36 /* TabNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigationBar.swift; sourceTree = "<group>"; };
+		2166ACAC2042A1A3002D1C36 /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				215B083E203FFF3000802011 /* Info.plist */,
 				2166ACA620426E35002D1C36 /* HomeTabBarController.swift */,
 				2166ACAA20427FC9002D1C36 /* TabNavigationBar.swift */,
+				2166ACAC2042A1A3002D1C36 /* MineViewController.swift */,
 			);
 			path = Lens;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 				215B0833203FFF3000802011 /* AppDelegate.swift in Sources */,
 				2166ACAB20427FC9002D1C36 /* TabNavigationBar.swift in Sources */,
 				2166ACA720426E35002D1C36 /* HomeTabBarController.swift in Sources */,
+				2166ACAD2042A1A3002D1C36 /* MineViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
