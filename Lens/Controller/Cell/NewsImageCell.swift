@@ -1,5 +1,5 @@
 //
-//  PictureNewsCell.swift
+//  NewsImageCell.swift
 //  Lens
 //
 //  Created by Archie Yu on 2018/2/25.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-class PictureNewsCell: UITableViewCell {
+class NewsImageCell: UITableViewCell {
 
-    @IBOutlet weak var newsTitle: UILabel!
-    @IBOutlet weak var newsInfo: UILabel!
-    @IBOutlet weak var newsContent: UILabel!
-    @IBOutlet weak var newsImage: UIImageView!
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var info: UILabel!
+    @IBOutlet weak var content: UILabel!
+    @IBOutlet weak var picture: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

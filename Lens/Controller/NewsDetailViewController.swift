@@ -20,7 +20,7 @@ class NewsDetailViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
         
         // 设置WKWebView
-        self.webView = WKWebView(frame: self.view.bounds)
+        self.webView = WKWebView()
         self.webView.navigationDelegate = self
         self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         self.view.addSubview(self.webView)
@@ -39,6 +39,10 @@ class NewsDetailViewController: UIViewController, WKNavigationDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillLayoutSubviews() {
+        self.webView.frame = self.view.bounds
     }
     
     override func viewWillAppear(_ animated: Bool) {

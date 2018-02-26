@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PictureNewsCell" rowHeight="120" id="kFs-Nh-GMk" customClass="PictureNewsCell" customModule="Lens" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsImageCell" rowHeight="120" id="kFs-Nh-GMk" customClass="NewsImageCell" customModule="Lens" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kFs-Nh-GMk" id="sui-lw-7dx">
@@ -27,19 +27,6 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDT-ow-0ZY">
-                        <rect key="frame" x="16" y="42" width="265" height="70"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userhead" translatesAutoresizingMaskIntoConstraints="NO" id="vAe-2p-gar">
-                        <rect key="frame" x="289" y="42" width="70" height="70"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="70" id="QdX-L1-2HL"/>
-                            <constraint firstAttribute="width" constant="70" id="XSw-qt-STw"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OD-MI-td6">
                         <rect key="frame" x="16" y="27" width="343" height="12"/>
                         <constraints>
@@ -49,6 +36,19 @@
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDT-ow-0ZY">
+                        <rect key="frame" x="16" y="42" width="265" height="70"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vAe-2p-gar">
+                        <rect key="frame" x="289" y="42" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="QdX-L1-2HL"/>
+                            <constraint firstAttribute="width" constant="70" id="XSw-qt-STw"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="8OD-MI-td6" secondAttribute="trailing" constant="16" id="9TY-9J-9uP"/>
@@ -67,14 +67,11 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="newsContent" destination="oDT-ow-0ZY" id="ehU-Kj-M62"/>
-                <outlet property="newsImage" destination="vAe-2p-gar" id="l4x-Vm-cog"/>
-                <outlet property="newsInfo" destination="8OD-MI-td6" id="Ce9-gi-XnD"/>
-                <outlet property="newsTitle" destination="u4d-sB-dwx" id="bVb-qA-efy"/>
+                <outlet property="content" destination="oDT-ow-0ZY" id="RlV-mK-td0"/>
+                <outlet property="info" destination="8OD-MI-td6" id="ajB-Pn-zAU"/>
+                <outlet property="picture" destination="vAe-2p-gar" id="HkE-rp-PWC"/>
+                <outlet property="title" destination="u4d-sB-dwx" id="f71-Ql-19b"/>
             </connections>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="userhead" width="56" height="56"/>
-    </resources>
 </document>

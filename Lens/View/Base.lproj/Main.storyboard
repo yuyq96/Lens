@@ -15,7 +15,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Mine-->
+        <!--Personal-->
         <scene sceneID="j1R-CJ-5AB">
             <objects>
                 <tableViewController id="J74-90-Xbk" customClass="PersonalTableViewController" customModule="Lens" customModuleProvider="target" sceneMemberID="viewController">
@@ -119,17 +119,17 @@
                             <outlet property="delegate" destination="J74-90-Xbk" id="gDP-X0-KKG"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Mine" id="mBB-ce-ZeM"/>
+                    <navigationItem key="navigationItem" title="Personal" id="mBB-ce-ZeM"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bXQ-HZ-JCq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1573.5999999999999" y="656.22188905547227"/>
         </scene>
-        <!--Mine-->
+        <!--Personal-->
         <scene sceneID="rBs-QP-qOd">
             <objects>
                 <navigationController id="dR2-Mk-T7n" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Mine" image="Mine" selectedImage="Mine_S" id="hTe-y1-5CH">
+                    <tabBarItem key="tabBarItem" title="Personal" image="Mine" selectedImage="Mine_S" id="hTe-y1-5CH">
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-12"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="100"/>
                     </tabBarItem>
