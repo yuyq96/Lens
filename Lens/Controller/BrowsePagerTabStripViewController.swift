@@ -14,11 +14,8 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
     let shadow = UIView()
     
     override func viewDidLoad() {
-        // 主色调
-        let tintColor = UIColor(red: 126.0/255, green: 211.0/255, blue: 33.0/255, alpha: 1)
-        
         // 设置导航栏按钮颜色
-        self.navigationController?.navigationBar.tintColor = tintColor
+        self.navigationController?.navigationBar.tintColor = Color.tint
         
         // 移动顶部导航栏阴影位置（1）
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -28,7 +25,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         self.settings.style.buttonBarItemFont = .systemFont(ofSize: 14)
         self.settings.style.buttonBarItemTitleColor = .black
         self.settings.style.selectedBarHeight = 4
-        self.settings.style.selectedBarBackgroundColor = tintColor
+        self.settings.style.selectedBarBackgroundColor = Color.tint
         self.settings.style.buttonBarMinimumLineSpacing = 0
         
         // 更改选中选项卡标题颜色
@@ -36,7 +33,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
             guard changeCurrentIndex == true else { return }
             
             oldCell?.label.textColor = .black
-            newCell?.label.textColor = tintColor
+            newCell?.label.textColor = Color.tint
         }
         
         super.viewDidLoad()

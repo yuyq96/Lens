@@ -81,7 +81,16 @@ class BrowseTableViewController: UITableViewController, IndicatorInfoProvider {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(ProductDetailTableViewController(), animated: true)
+        switch type {
+        case "Equipment":
+            navigationController?.pushViewController(ProductDetailTableViewController(), animated: true)
+        case "News":
+            let newsDetailViewController = NewsDetailViewController()
+            newsDetailViewController.urlString = "https://www.dpreview.com/"
+            navigationController?.pushViewController(newsDetailViewController, animated: true)
+        default:
+            return
+        }
     }
 
     /*

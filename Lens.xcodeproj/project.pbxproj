@@ -19,6 +19,8 @@
 		214D1A822043B85A00A523AD /* ProductSampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 214D1A812043B85A00A523AD /* ProductSampleCell.xib */; };
 		214D1A842043B8C200A523AD /* ProductSampleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214D1A832043B8C200A523AD /* ProductSampleCell.swift */; };
 		214D1A862043B95C00A523AD /* ProductDetailBasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214D1A852043B95C00A523AD /* ProductDetailBasicCell.swift */; };
+		214D1A8A2044397D00A523AD /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214D1A892044397D00A523AD /* NewsDetailViewController.swift */; };
+		214D1A8E2044504F00A523AD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214D1A8D2044504F00A523AD /* Color.swift */; };
 		215B0833203FFF3000802011 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215B0832203FFF3000802011 /* AppDelegate.swift */; };
 		215B0838203FFF3000802011 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 215B0836203FFF3000802011 /* Main.storyboard */; };
 		215B083A203FFF3000802011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 215B0839203FFF3000802011 /* Assets.xcassets */; };
@@ -45,6 +47,8 @@
 		214D1A812043B85A00A523AD /* ProductSampleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductSampleCell.xib; sourceTree = "<group>"; };
 		214D1A832043B8C200A523AD /* ProductSampleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSampleCell.swift; sourceTree = "<group>"; };
 		214D1A852043B95C00A523AD /* ProductDetailBasicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailBasicCell.swift; sourceTree = "<group>"; };
+		214D1A892044397D00A523AD /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
+		214D1A8D2044504F00A523AD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		215B082F203FFF3000802011 /* Lens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		215B0832203FFF3000802011 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		215B0837203FFF3000802011 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 				21F1AD802042F45700825242 /* BrowseTableViewController.swift */,
 				2166ACAC2042A1A3002D1C36 /* PersonalTableViewController.swift */,
 				214D1A752043AF1B00A523AD /* ProductDetailTableViewController.swift */,
+				214D1A892044397D00A523AD /* NewsDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 				214D1A702043A5AE00A523AD /* View */,
 				214D1A6F2043A57B00A523AD /* Controller */,
 				215B0832203FFF3000802011 /* AppDelegate.swift */,
+				214D1A8D2044504F00A523AD /* Color.swift */,
 				215B083E203FFF3000802011 /* Info.plist */,
 				215B0839203FFF3000802011 /* Assets.xcassets */,
 			);
@@ -306,8 +312,10 @@
 				21F1AD812042F45700825242 /* BrowseTableViewController.swift in Sources */,
 				21E5F55420430847009D7A71 /* ProductCell.swift in Sources */,
 				214D1A7A2043B0B900A523AD /* ProductDetailImageCell.swift in Sources */,
+				214D1A8E2044504F00A523AD /* Color.swift in Sources */,
 				214D1A802043B4DD00A523AD /* ProductDetailSampleCell.swift in Sources */,
 				21E5F55620430860009D7A71 /* PictureNewsCell.swift in Sources */,
+				214D1A8A2044397D00A523AD /* NewsDetailViewController.swift in Sources */,
 				214D1A842043B8C200A523AD /* ProductSampleCell.swift in Sources */,
 				2120A54E2042A8E600DDA6B8 /* PersonalUserCell.swift in Sources */,
 				2166ACAD2042A1A3002D1C36 /* PersonalTableViewController.swift in Sources */,
@@ -367,6 +375,8 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_ACTIVITY_MODE = "";
+				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = default;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -424,6 +434,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_ACTIVITY_MODE = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
