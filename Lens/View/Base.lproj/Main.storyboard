@@ -18,13 +18,13 @@
         <!--Mine-->
         <scene sceneID="j1R-CJ-5AB">
             <objects>
-                <tableViewController id="J74-90-Xbk" customClass="MineViewController" customModule="Lens" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="J74-90-Xbk" customClass="PersonalTableViewController" customModule="Lens" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="1ba-R5-oUX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MineUserCell" rowHeight="72" id="hH0-1f-xzY" customClass="MineUserCell" customModule="Lens" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PersonalUserCell" rowHeight="72" id="hH0-1f-xzY" customClass="PersonalUserCell" customModule="Lens" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hH0-1f-xzY" id="5QX-Sb-VBd">
@@ -32,10 +32,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userhead" translatesAutoresizingMaskIntoConstraints="NO" id="oNX-EU-dIT">
-                                            <rect key="frame" x="16" y="7.5" width="56" height="56.5"/>
+                                            <rect key="frame" x="20" y="7.5" width="56" height="56.5"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="56" id="v5T-QO-Ajh"/>
                                                 <constraint firstAttribute="width" constant="56" id="vhc-Lg-iHq"/>
+                                                <constraint firstAttribute="height" constant="56" id="wba-IP-mn5"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -44,7 +44,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90r-FT-VXN">
-                                            <rect key="frame" x="80" y="15" width="245" height="21"/>
+                                            <rect key="frame" x="84" y="15" width="237" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="mqL-4a-hU1"/>
                                             </constraints>
@@ -53,7 +53,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xc-d3-tYb">
-                                            <rect key="frame" x="80" y="40.5" width="245" height="16"/>
+                                            <rect key="frame" x="84" y="40.5" width="237" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -62,12 +62,12 @@
                                     <constraints>
                                         <constraint firstItem="1xc-d3-tYb" firstAttribute="trailing" secondItem="90r-FT-VXN" secondAttribute="trailing" id="2nY-xb-N3X"/>
                                         <constraint firstItem="90r-FT-VXN" firstAttribute="top" secondItem="5QX-Sb-VBd" secondAttribute="top" constant="15" id="42e-d8-7Bi"/>
-                                        <constraint firstAttribute="trailing" secondItem="90r-FT-VXN" secondAttribute="trailing" constant="16" id="4Pw-In-Ptw"/>
+                                        <constraint firstAttribute="trailing" secondItem="90r-FT-VXN" secondAttribute="trailing" constant="20" symbolic="YES" id="4Pw-In-Ptw"/>
                                         <constraint firstItem="1xc-d3-tYb" firstAttribute="leading" secondItem="90r-FT-VXN" secondAttribute="leading" id="6mq-2B-O6E"/>
-                                        <constraint firstItem="oNX-EU-dIT" firstAttribute="top" secondItem="5QX-Sb-VBd" secondAttribute="top" constant="7.5" id="ADO-Yv-rOj"/>
-                                        <constraint firstAttribute="bottom" secondItem="oNX-EU-dIT" secondAttribute="bottom" constant="7.5" id="EL6-Y4-Cxa"/>
-                                        <constraint firstItem="oNX-EU-dIT" firstAttribute="leading" secondItem="5QX-Sb-VBd" secondAttribute="leading" constant="16" id="Scj-Zd-iai"/>
+                                        <constraint firstItem="oNX-EU-dIT" firstAttribute="leading" secondItem="5QX-Sb-VBd" secondAttribute="leading" constant="20" symbolic="YES" id="Scj-Zd-iai"/>
+                                        <constraint firstAttribute="bottom" secondItem="oNX-EU-dIT" secondAttribute="bottom" constant="7.5" id="VUP-94-tM0"/>
                                         <constraint firstItem="90r-FT-VXN" firstAttribute="leading" secondItem="oNX-EU-dIT" secondAttribute="trailing" constant="8" id="YLT-Te-8mF"/>
+                                        <constraint firstItem="oNX-EU-dIT" firstAttribute="top" secondItem="5QX-Sb-VBd" secondAttribute="top" constant="7.5" id="Zxt-m7-Irz"/>
                                         <constraint firstItem="1xc-d3-tYb" firstAttribute="top" secondItem="90r-FT-VXN" secondAttribute="bottom" constant="4" id="yQk-DW-NMt"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -77,7 +77,7 @@
                                     <outlet property="username" destination="90r-FT-VXN" id="hbZ-bF-eJw"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MineCell" id="Ixb-JX-WZ9">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PersonalCell" id="Ixb-JX-WZ9">
                                 <rect key="frame" x="0.0" y="127.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ixb-JX-WZ9" id="iO6-xg-FuX">
@@ -85,7 +85,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MineBudgetCell" id="Fl6-9b-1n5" customClass="MineBudgetCell" customModule="Lens" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PersonalBudgetCell" id="Fl6-9b-1n5" customClass="PersonalBudgetCell" customModule="Lens" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="171.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fl6-9b-1n5" id="oDx-Jg-U1k">
@@ -103,9 +103,9 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="q9q-xi-RSw" secondAttribute="bottom" constant="10.5" id="6ap-XJ-6Xa"/>
+                                        <constraint firstAttribute="bottom" secondItem="q9q-xi-RSw" secondAttribute="bottom" constant="10.5" id="2Ob-nb-oLJ"/>
                                         <constraint firstItem="q9q-xi-RSw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oDx-Jg-U1k" secondAttribute="leading" id="Dw6-CJ-RBr"/>
-                                        <constraint firstItem="q9q-xi-RSw" firstAttribute="top" secondItem="oDx-Jg-U1k" secondAttribute="top" constant="12" id="cVo-58-lef"/>
+                                        <constraint firstItem="q9q-xi-RSw" firstAttribute="top" secondItem="oDx-Jg-U1k" secondAttribute="top" constant="12" id="bfK-yA-1t3"/>
                                         <constraint firstAttribute="trailing" secondItem="q9q-xi-RSw" secondAttribute="trailing" id="ruE-Mq-D8N"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -131,7 +131,7 @@
                 <navigationController id="dR2-Mk-T7n" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Mine" image="Mine" selectedImage="Mine_S" id="hTe-y1-5CH">
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-12"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="30"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="100"/>
                     </tabBarItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="h5G-Yu-m2J">
@@ -155,7 +155,7 @@
                 <navigationController id="XR8-B1-t8G" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="News" image="News" selectedImage="News_S" id="Q2P-PL-gzb">
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-12"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="30"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="100"/>
                     </tabBarItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="jc5-G4-Ulh">
@@ -195,7 +195,7 @@
                 <navigationController id="O1l-kX-Tvj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Equipment" image="Lens" selectedImage="Lens_S" id="WY0-o8-DDp">
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-12"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="30"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="100"/>
                     </tabBarItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="ZiK-4p-mr4">
@@ -229,10 +229,10 @@
             </objects>
             <point key="canvasLocation" x="1573.5999999999999" y="-770.46476761619192"/>
         </scene>
-        <!--Home Tab Bar Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="cb8-sm-n0T">
             <objects>
-                <tabBarController id="7Bw-5e-zUe" customClass="HomeTabBarController" customModule="Lens" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="7Bw-5e-zUe" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="ISk-2t-y3c"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="gNP-Rz-voW">

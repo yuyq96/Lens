@@ -1,5 +1,5 @@
 //
-//  MineBudgetCell.swift
+//  PersonalUserCell.swift
 //  Lens
 //
 //  Created by Archie Yu on 2018/2/25.
@@ -8,9 +8,11 @@
 
 import UIKit
 
-class MineBudgetCell: UITableViewCell {
+class PersonalUserCell: UITableViewCell {
 
-    @IBOutlet weak var budget: UILabel!
+    @IBOutlet weak var userhead: UIImageView!
+    @IBOutlet weak var username: UILabel!
+    @IBOutlet weak var userid: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

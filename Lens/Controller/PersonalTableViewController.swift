@@ -1,5 +1,5 @@
 //
-//  EquipmentTableViewController.swift
+//  PersonalTableViewController.swift
 //  Lens
 //
 //  Created by Archie Yu on 2018/2/25.
@@ -7,13 +7,9 @@
 //
 
 import UIKit
-import XLPagerTabStrip
 
-class BrowseTableViewController: UITableViewController, IndicatorInfoProvider {
+class PersonalTableViewController: UITableViewController {
     
-    var type: String!
-    var info: String!
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,56 +24,85 @@ class BrowseTableViewController: UITableViewController, IndicatorInfoProvider {
         } else {
             self.automaticallyAdjustsScrollViewInsets = false
         }
-        tableView.estimatedSectionHeaderHeight = 0
-        tableView.estimatedSectionFooterHeight = 0
-        
-        tableView.register(UINib(nibName: "EquipmentCell", bundle: nil), forCellReuseIdentifier: "EquipmentCell")
-        tableView.register(UINib(nibName: "PictureNewsCell", bundle: nil), forCellReuseIdentifier: "PictureNewsCell")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return IndicatorInfo(title: info)
-    }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        switch(section) {
+        case 0: return 1
+        case 1: return 3
+        case 2: return 2
+        default: return 0
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell
-        if type == "News" {
-            cell = tableView.dequeueReusableCell(withIdentifier: "PictureNewsCell")!
-            (cell as! PictureNewsCell).newsImage?.image = UIImage(named: "userhead")
-            (cell as! PictureNewsCell).newsTitle?.text = "Sigma 14-24mm F2.8 DG HSM Art"
-            (cell as! PictureNewsCell).newsInfo?.text = "dpreview    Feb. 23 2018"
-            (cell as! PictureNewsCell).newsContent?.text = "When Sigma announced the 14-24mm F2.8 DG HSM Art lens, the company held off on sharing pricing or availability. Fortunately, Sigma didn't make us wait long, revealing today that the ultra-wide angle zoom will ship in mid-March for the very reasonable price of $1,300."
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "EquipmentCell")!
-            (cell as! EquipmentCell).productImage?.image = UIImage(named: "userhead")
-            (cell as! EquipmentCell).productName?.text = "Sigma 85mm F1.4 DG HSM A Nikon"
+        switch indexPath.section {
+        case 0:
+            cell = tableView.dequeueReusableCell(withIdentifier: "PersonalUserCell", for: indexPath)
+            switch indexPath.row {
+            case 0:
+                (cell as! PersonalUserCell).username?.text = "Riach"
+                (cell as! PersonalUserCell).userid?.text = "@riach"
+            default:
+                break
+            }
+        case 1:
+            switch indexPath.row {
+            case 0:
+                cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
+                cell.textLabel?.text = "My Equipment"
+            case 1:
+                cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
+                cell.textLabel?.text = "Wishlist"
+            case 2:
+                cell = tableView.dequeueReusableCell(withIdentifier: "PersonalBudgetCell", for: indexPath)
+                cell.textLabel?.text = "Budget"
+                (cell as! PersonalBudgetCell).budget?.text = "****"
+            default:
+                cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
+                break
+            }
+        case 2:
+            cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
+            switch indexPath.row {
+            case 0:
+                cell.textLabel?.text = "Settings"
+            case 1:
+                cell.textLabel?.text = "About"
+            default:
+                break
+            }
+        default:
+            cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
+            break
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 8
+        if section == 0 {
+            return 8
+        } else {
+            return 4
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 8
+        return 4
     }
-
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

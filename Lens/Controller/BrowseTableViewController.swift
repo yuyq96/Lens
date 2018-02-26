@@ -1,5 +1,5 @@
 //
-//  MineViewController.swift
+//  BrowseTableViewController.swift
 //  Lens
 //
 //  Created by Archie Yu on 2018/2/25.
@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import XLPagerTabStrip
 
-class MineViewController: UITableViewController {
+class BrowseTableViewController: UITableViewController, IndicatorInfoProvider {
     
+    var type: String!
+    var info: String!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,85 +28,58 @@ class MineViewController: UITableViewController {
         } else {
             self.automaticallyAdjustsScrollViewInsets = false
         }
+        tableView.estimatedSectionHeaderHeight = 0
+        tableView.estimatedSectionFooterHeight = 0
+        
+        // 注册复用Cell
+        tableView.register(UINib(nibName: "EquipmentCell", bundle: nil), forCellReuseIdentifier: "EquipmentCell")
+        tableView.register(UINib(nibName: "PictureNewsCell", bundle: nil), forCellReuseIdentifier: "PictureNewsCell")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+        // 设置选项卡标题
+        return IndicatorInfo(title: info)
+    }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch(section) {
-        case 0: return 1
-        case 1: return 3
-        case 2: return 2
-        default: return 0
-        }
+        return 8
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell
-        switch indexPath.section {
-        case 0:
-            cell = tableView.dequeueReusableCell(withIdentifier: "MineUserCell", for: indexPath)
-            switch indexPath.row {
-            case 0:
-                (cell as! MineUserCell).username?.text = "Riach"
-                (cell as! MineUserCell).userid?.text = "@riach"
-            default:
-                break
-            }
-        case 1:
-            switch indexPath.row {
-            case 0:
-                cell = tableView.dequeueReusableCell(withIdentifier: "MineCell", for: indexPath)
-                cell.textLabel?.text = "My Equipment"
-            case 1:
-                cell = tableView.dequeueReusableCell(withIdentifier: "MineCell", for: indexPath)
-                cell.textLabel?.text = "Wishlist"
-            case 2:
-                cell = tableView.dequeueReusableCell(withIdentifier: "MineBudgetCell", for: indexPath)
-                cell.textLabel?.text = "Budget"
-                (cell as! MineBudgetCell).budget?.text = "****"
-            default:
-                cell = tableView.dequeueReusableCell(withIdentifier: "MineCell", for: indexPath)
-                break
-            }
-        case 2:
-            cell = tableView.dequeueReusableCell(withIdentifier: "MineCell", for: indexPath)
-            switch indexPath.row {
-            case 0:
-                cell.textLabel?.text = "Settings"
-            case 1:
-                cell.textLabel?.text = "About"
-            default:
-                break
-            }
-        default:
-            cell = tableView.dequeueReusableCell(withIdentifier: "MineCell", for: indexPath)
-            break
+        if type == "News" {
+            cell = tableView.dequeueReusableCell(withIdentifier: "PictureNewsCell")!
+            (cell as! PictureNewsCell).newsImage?.image = UIImage(named: "userhead")
+            (cell as! PictureNewsCell).newsTitle?.text = "Sigma 14-24mm F2.8 DG HSM Art"
+            (cell as! PictureNewsCell).newsInfo?.text = "dpreview    Feb.23 2018"
+            (cell as! PictureNewsCell).newsContent?.text = "When Sigma announced the 14-24mm F2.8 DG HSM Art lens, the company held off on sharing pricing or availability. Fortunately, Sigma didn't make us wait long, revealing today that the ultra-wide angle zoom will ship in mid-March for the very reasonable price of $1,300."
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "EquipmentCell")!
+            (cell as! EquipmentCell).productImage?.image = UIImage(named: "userhead")
+            (cell as! EquipmentCell).productName?.text = "Sigma 85mm F1.4 DG HSM A Nikon"
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 8
-        } else {
-            return 4
-        }
+        return 8
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 4
+        return 8
     }
-    
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
