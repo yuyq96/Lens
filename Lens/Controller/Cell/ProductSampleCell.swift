@@ -1,21 +1,21 @@
 //
-//  EquipmentCell.swift
+//  ProductSampleCell.swift
 //  Lens
 //
-//  Created by Archie Yu on 2018/2/25.
+//  Created by Archie Yu on 2018/2/26.
 //  Copyright © 2018年 Archie Yu. All rights reserved.
 //
 
 import UIKit
 
-class EquipmentCell: UITableViewCell {
-
-    @IBOutlet weak var productImage: UIImageView!
-    @IBOutlet weak var productName: UILabel!
+class ProductSampleCell: UITableViewCell {
+    
+    @IBOutlet weak var sampleImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        self.transform = CGAffineTransform(rotationAngle: .pi/2)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

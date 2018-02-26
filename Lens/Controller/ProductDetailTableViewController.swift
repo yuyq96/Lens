@@ -1,18 +1,17 @@
 //
-//  BrowseTableViewController.swift
+//  ProductDetailTableViewController.swift
 //  Lens
 //
-//  Created by Archie Yu on 2018/2/25.
+//  Created by Archie Yu on 2018/2/26.
 //  Copyright © 2018年 Archie Yu. All rights reserved.
 //
 
 import UIKit
-import XLPagerTabStrip
 
-class BrowseTableViewController: UITableViewController, IndicatorInfoProvider {
+class ProductDetailTableViewController: UITableViewController {
     
-    var type: String!
-    var info: String!
+    let shadow = UIView()
+    var shadowY: CGFloat!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,27 +22,30 @@ class BrowseTableViewController: UITableViewController, IndicatorInfoProvider {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
-        }
-        tableView.estimatedSectionHeaderHeight = 0
-        tableView.estimatedSectionFooterHeight = 0
+        // 设置TableView风格
+        tableView.tableFooterView = UIView()
+        tableView.separatorInset = .zero
+        tableView.allowsSelection = false
         
         // 注册复用Cell
-        tableView.register(UINib(nibName: "ProductCell", bundle: nil), forCellReuseIdentifier: "ProductCell")
-        tableView.register(UINib(nibName: "PictureNewsCell", bundle: nil), forCellReuseIdentifier: "PictureNewsCell")
+        tableView.register(UINib(nibName: "ProductDetailImageCell", bundle: nil), forCellReuseIdentifier: "ProductDetailImageCell")
+        tableView.register(UINib(nibName: "ProductDetailBasicCell", bundle: nil), forCellReuseIdentifier: "ProductDetailBasicCell")
+        tableView.register(UINib(nibName: "ProductDetailSampleCell", bundle: nil), forCellReuseIdentifier: "ProductDetailSampleCell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // 恢复导航栏阴影（1）
+        self.navigationController?.navigationBar.shadowImage = nil
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        // 恢复导航栏阴影（2）
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        // 设置选项卡标题
-        return IndicatorInfo(title: info)
     }
 
     // MARK: - Table view data source
@@ -53,35 +55,37 @@ class BrowseTableViewController: UITableViewController, IndicatorInfoProvider {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell
-        if type == "News" {
-            cell = tableView.dequeueReusableCell(withIdentifier: "PictureNewsCell")!
-            (cell as! PictureNewsCell).newsImage?.image = UIImage(named: "userhead")
-            (cell as! PictureNewsCell).newsTitle?.text = "Sigma 14-24mm F2.8 DG HSM Art"
-            (cell as! PictureNewsCell).newsInfo?.text = "dpreview    Feb.23 2018"
-            (cell as! PictureNewsCell).newsContent?.text = "When Sigma announced the 14-24mm F2.8 DG HSM Art lens, the company held off on sharing pricing or availability. Fortunately, Sigma didn't make us wait long, revealing today that the ultra-wide angle zoom will ship in mid-March for the very reasonable price of $1,300."
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell")!
-            (cell as! ProductCell).productImage?.image = UIImage(named: "userhead")
-            (cell as! ProductCell).productName?.text = "Sigma 85mm F1.4 DG HSM A Nikon"
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailImageCell", for: indexPath)
+            (cell as! ProductDetailImageCell).productImage.image = UIImage(named: "lens_image")
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailBasicCell", for: indexPath)
+            (cell as! ProductDetailBasicCell).productBasicInfo?.text = "Aperture: f/1.8\nFocal range (mm): 55\nFilter diameter (mm): 49\nMax diameter (mm): 64\nMount type: Sony FE\nStabilization: No\nAF Motor: Stepping motor\nLenses/Groups: 7/5\nDiaphragm blades: 9\nLength (mm): 71\nWeight (gr): 281"
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailSampleCell", for: indexPath)
+            for _ in 1...4 {
+                (cell as! ProductDetailSampleCell).samples.append(UIImage(named: "sample")!)
+            }
+            return cell
+        default:
+            return UITableViewCell()
         }
-        return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 8
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 8
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(ProductDetailTableViewController(), animated: true)
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0: return 180
+        case 1: return 42 + 11 * 16
+        case 2: return 138
+        default: return 44
+        }
     }
 
     /*
