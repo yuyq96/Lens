@@ -12,7 +12,8 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
 
     var productSample: UITableView!
     
-    var samples: [UIImage] = []
+    var samples: [String] = []
+    var sampleWidths: [Int : CGFloat] = [:]
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -59,15 +60,18 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductSampleCell")!
-        (cell as! ProductSampleCell).sampleImageView?.image = self.samples[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductSampleCell", for: indexPath) as! ProductSampleCell
+        cell.sampleImageView.kf.setImage(with: URL(string: samples[indexPath.section]), completionHandler: {
+            (image, error, cacheType, imageUrl) in
+            self.sampleWidths[indexPath.row] = (image?.size.width)! / (image?.size.height)! * 90
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        })
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // 自适应图片比例
-        let size = self.samples[indexPath.section].size
-        return size.width / size.height * 90
+        return self.sampleWidths[indexPath.row] ?? 40
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -11,6 +11,7 @@ import WebKit
 
 class NewsDetailViewController: UIViewController, WKNavigationDelegate {
     
+    let shadow = UIView()
     var webView: WKWebView!
     var progressView: UIProgressView!
     
@@ -34,25 +35,22 @@ class NewsDetailViewController: UIViewController, WKNavigationDelegate {
         
         // 开始加载
         self.webView.load(URLRequest(url: URL(string: urlString)!))
+        
+        // 设置NavigationBar阴影
+        self.shadow.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
+        self.view.addSubview(shadow)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        // 旋转屏幕时刷新NavigationBar阴影位置
+        self.shadow.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 0.5)
+        // 旋转屏幕时刷新WKWebView大小
+        self.webView.frame = self.view.bounds
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillLayoutSubviews() {
-        self.webView.frame = self.view.bounds
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        // 恢复导航栏阴影（1）
-        self.navigationController?.navigationBar.shadowImage = nil
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        // 恢复导航栏阴影（2）
-        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

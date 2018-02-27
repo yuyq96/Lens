@@ -15,7 +15,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        self.window?.backgroundColor = .white
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let productRootViewContoller = BrowsePagerTabStripViewController()
+        productRootViewContoller.navigationItem.title = Context.type.equipment
+        let productViewController = NavigationController(rootViewController: productRootViewContoller)
+        
+        let newsRootViewContoller = BrowsePagerTabStripViewController()
+        newsRootViewContoller.navigationItem.title = Context.type.news
+        let newsViewController = NavigationController(rootViewController: newsRootViewContoller)
+        
+        let personalRootViewController = PersonalViewController(style: .grouped)
+        personalRootViewController.navigationItem.title = Context.type.personal
+        let personalViewController = NavigationController(rootViewController: personalRootViewController)
+        
+        let tabBarController = UITabBarController()
+        tabBarController.tabBar.backgroundColor = .white
+        tabBarController.tabBar.tintColor = Color.tint
+        tabBarController.tabBar.isTranslucent = false
+        
+        productViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.type.equipment), selectedImage: UIImage(named: Context.type.equipment + "_S"))
+        newsViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.type.news), selectedImage: UIImage(named: Context.type.news + "_S"))
+        personalViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.type.personal), selectedImage: UIImage(named: Context.type.personal + "_S"))
+        let insets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        productViewController.tabBarItem.imageInsets = insets
+        newsViewController.tabBarItem.imageInsets = insets
+        personalViewController.tabBarItem.imageInsets = insets
+        tabBarController.viewControllers = [productViewController, newsViewController, personalViewController]
+        tabBarController.selectedIndex = 0
+        
+        self.window?.rootViewController = tabBarController
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 

@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProductDetailTableViewController: UITableViewController {
     
     let shadow = UIView()
     var shadowY: CGFloat!
+    
+    var data: ProductModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,16 +34,15 @@ class ProductDetailTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "ProductDetailImageCell", bundle: nil), forCellReuseIdentifier: "ProductDetailImageCell")
         tableView.register(UINib(nibName: "ProductDetailBasicCell", bundle: nil), forCellReuseIdentifier: "ProductDetailBasicCell")
         tableView.register(UINib(nibName: "ProductDetailSampleCell", bundle: nil), forCellReuseIdentifier: "ProductDetailSampleCell")
+        
+        // 设置NavigationBar阴影
+        self.shadow.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
+        self.view.addSubview(shadow)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        // 恢复导航栏阴影（1）
-        self.navigationController?.navigationBar.shadowImage = nil
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        // 恢复导航栏阴影（2）
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+    override func viewWillLayoutSubviews() {
+        // 旋转屏幕时刷新NavigationBar阴影位置
+        self.shadow.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 0.5)
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,18 +63,20 @@ class ProductDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailImageCell", for: indexPath)
-            (cell as! ProductDetailImageCell).productImage.image = UIImage(named: "lens_image")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailImageCell", for: indexPath) as! ProductDetailImageCell
+            cell.productImage.kf.setImage(with: URL(string: (data.detail!.image)!))
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailBasicCell", for: indexPath)
-            (cell as! ProductDetailBasicCell).productBasicInfo?.text = "Aperture: f/1.8\nFocal range (mm): 55\nFilter diameter (mm): 49\nMax diameter (mm): 64\nMount type: Sony FE\nStabilization: No\nAF Motor: Stepping motor\nLenses/Groups: 7/5\nDiaphragm blades: 9\nLength (mm): 71\nWeight (gr): 281"
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailBasicCell", for: indexPath) as! ProductDetailBasicCell
+            var info = ""
+            for spec in (data.detail!.specs)! {
+                info += spec + "\n"
+            }
+            cell.productBasicInfo?.text = info
             return cell
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailSampleCell", for: indexPath)
-            for _ in 1...4 {
-                (cell as! ProductDetailSampleCell).samples.append(UIImage(named: "sample")!)
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailSampleCell", for: indexPath) as! ProductDetailSampleCell
+            cell.samples = data.detail!.samples
             return cell
         default:
             return UITableViewCell()

@@ -1,5 +1,5 @@
 //
-//  PersonalTableViewController.swift
+//  PersonalViewController.swift
 //  Lens
 //
 //  Created by Archie Yu on 2018/2/25.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonalTableViewController: UITableViewController {
+class PersonalViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +24,21 @@ class PersonalTableViewController: UITableViewController {
         } else {
             self.automaticallyAdjustsScrollViewInsets = false
         }
+        tableView.estimatedSectionHeaderHeight = 0
+        tableView.estimatedSectionFooterHeight = 0
+        
+        // 注册复用Cell
+        tableView.register(UINib(nibName: "PersonalCell", bundle: nil), forCellReuseIdentifier: "PersonalCell")
+        tableView.register(UINib(nibName: "PersonalUserCell", bundle: nil), forCellReuseIdentifier: "PersonalUserCell")
+        tableView.register(UINib(nibName: "PersonalBudgetCell", bundle: nil), forCellReuseIdentifier: "PersonalBudgetCell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.shadowImage = nil
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,35 +62,32 @@ class PersonalTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell
         switch indexPath.section {
         case 0:
-            cell = tableView.dequeueReusableCell(withIdentifier: "PersonalUserCell", for: indexPath)
-            switch indexPath.row {
-            case 0:
-                (cell as! PersonalUserCell).username?.text = "Riach"
-                (cell as! PersonalUserCell).userid?.text = "@riach"
-            default:
-                break
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalUserCell", for: indexPath) as! PersonalUserCell
+            cell.username?.text = "Riach"
+            cell.userid?.text = "@riach"
+            return cell
         case 1:
             switch indexPath.row {
             case 0:
-                cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
-                cell.textLabel?.text = "My Equipment"
+                let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
+                cell.textLabel?.text = Context.type.libraries
+                return cell
             case 1:
-                cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
-                cell.textLabel?.text = "Wishlist"
+                let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
+                cell.textLabel?.text = Context.type.wishlist
+                return cell
             case 2:
-                cell = tableView.dequeueReusableCell(withIdentifier: "PersonalBudgetCell", for: indexPath)
-                cell.textLabel?.text = "Budget"
-                (cell as! PersonalBudgetCell).budget?.text = "****"
+                let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalBudgetCell", for: indexPath) as! PersonalBudgetCell
+                cell.textLabel?.text = Context.type.budget
+                cell.budget?.text = "****"
+                return cell
             default:
-                cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
-                break
+                return UITableViewCell()
             }
         case 2:
-            cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
             switch indexPath.row {
             case 0:
                 cell.textLabel?.text = "Settings"
@@ -84,11 +96,10 @@ class PersonalTableViewController: UITableViewController {
             default:
                 break
             }
+            return cell
         default:
-            cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
-            break
+            return UITableViewCell()
         }
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -101,6 +112,31 @@ class PersonalTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 4
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.isSelected = false
+        switch indexPath.section {
+        case 0:
+            break
+        case 1:
+            switch indexPath.row {
+            case 0:
+                let librariesViewController = BrowsePagerTabStripViewController()
+                librariesViewController.type = Context.type.libraries
+                librariesViewController.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(librariesViewController, animated: true)
+            case 1:
+                let wishlistViewController = BrowsePagerTabStripViewController()
+                wishlistViewController.type = Context.type.wishlist
+                wishlistViewController.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(wishlistViewController, animated: true)
+            default:
+                break
+            }
+        default:
+            break
+        }
     }
     
     /*

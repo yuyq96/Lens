@@ -7,143 +7,229 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		019E3F6A0EF25B651C4FFEA18E1BEAA6 /* ButtonBarPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D78BC42755EDEA41D0EFE7EAD90B61 /* ButtonBarPagerTabStripViewController.swift */; };
-		05ECD9AD2961599B90CA26E993174923 /* XLPagerTabStrip-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 04016E8BBEADE6BC563F0893A76F375C /* XLPagerTabStrip-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		16A36BD2B88368C50A062531F2DA2824 /* Pods-Lens-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 213F0F04A8FFB1BB2160B907B51C46E5 /* Pods-Lens-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1A15F3601E86A49C559F03EED042A44E /* ButtonBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A40B367F2560B8B7294DD87BF9B0AFF /* ButtonBarView.swift */; };
-		1A6D691A416FD4087E330CA057791F5E /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3167DA9D0F42DA1E13D2823DB4172FA5 /* BarView.swift */; };
-		235A8BE09F82B55870FCF9410650EF71 /* BaseButtonBarPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BEC7C99717FA6ECEE914F951BDE53F /* BaseButtonBarPagerTabStripViewController.swift */; };
-		239255A71D74A2D32EDC79EA17A4DEC0 /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3380FD4EE94423360391219E93D91D7E /* ButtonCell.xib */; };
-		256F0CC1C9D09FD041D07984151A9CE2 /* FXPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D09056B385C6845238E924C970E79039 /* FXPageControl.m */; };
-		27C811F4957BD22C624C2737D5A0E643 /* XLPagerTabStrip.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B03E452A0E7BB99ADEF67F4860587B2 /* XLPagerTabStrip.bundle */; };
-		35987344A4E5B68AEF0FE9E4AFC5C801 /* ButtonCell.xib in Sources */ = {isa = PBXBuildFile; fileRef = 3380FD4EE94423360391219E93D91D7E /* ButtonCell.xib */; };
-		37B45446F0F31882EA5B731DC82146CF /* PagerTabStripBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C21FB8930CECAB6B8676196CB548F80 /* PagerTabStripBehaviour.swift */; };
-		5A2F696B790F167C365461B2FA0FC5A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
-		65F884BE84941A0062115E746B52DB95 /* IndicatorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEB9986798D80D513012E735025E54 /* IndicatorInfo.swift */; };
-		7A93DFB1865C9395FDDD76B7645CA87E /* BarPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAFD08E429420867ECCE4F9AA049280 /* BarPagerTabStripViewController.swift */; };
-		7FC8E16F4A433268A573A0785164158E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */; };
-		818FE7559BF98BCF3F7B9F0E78E60A9C /* FXPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A6A65D65B931B96BD9520A7C113DCE0 /* FXPageControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9E19C7104DD0C35AAF42A32229DCBFBC /* ButtonBarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A921414DBE7B40C87D931CD436D5DB /* ButtonBarViewCell.swift */; };
-		9E66FB5F001D8CFD8B3E63ADF4875B43 /* PagerTabStripError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7161ABE8133F59A707855E9EE8310869 /* PagerTabStripError.swift */; };
-		9F533B9962C794581ABF69872918A1FE /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684D2E2FB5303F753253069714A5917E /* SwipeDirection.swift */; };
-		A2A1CFCC81C8952EE56673A849F3F1AB /* PagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0922A4C233956A14DF7FCDF2F584FACE /* PagerTabStripViewController.swift */; };
-		CED6AA0557ECFF0E2C7D479663DE8101 /* XLPagerTabStrip-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 692CB4E7CB310FBFA5EAE4235D044300 /* XLPagerTabStrip-dummy.m */; };
-		D4486EB6F8EC39A799514E05ABB8D935 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
-		D569E3BAE1D0C341AF5AE9E80F27E595 /* TwitterPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8274464CB4D29D6EECC27BAF1C67BAEF /* TwitterPagerTabStripViewController.swift */; };
-		D8D5C8C6C2B0E93D16513C0878E88B88 /* Pods-Lens-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF693E88FDC503773A429365557AAB /* Pods-Lens-dummy.m */; };
-		EF9CF2F127159D1BE6F499C11B4B6AB9 /* SegmentedPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2301D861BD905564D1012FE57C3E3EB5 /* SegmentedPagerTabStripViewController.swift */; };
+		047C4D945343F46AFF1273DE29F8A290 /* ImageView+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DD2D67254B5C0A39DF3170C73F864A /* ImageView+Kingfisher.swift */; };
+		09A0DDE1726C527699A0C0F53482505B /* AnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA442963856D99BE6139680BFD58955C /* AnimatedImageView.swift */; };
+		0AFDDE4F7564DF695E9004FB9DFFEDA5 /* FXPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 104CBCE9A285D9A2606CE667819AB3DD /* FXPageControl.m */; };
+		0CA6357476373C221D44C498AA1D65FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDDF8D75AA654F65ACE2125C52AFAAD2 /* Foundation.framework */; };
+		0DFD43ADF4A579ED62FE7FB6BE3100B9 /* TwitterPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64D5B9898E8EFDBF45523B8667AC26A /* TwitterPagerTabStripViewController.swift */; };
+		0F755ADCEAA8BF40FF7BECCBD8B5310B /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61C3B02564E87348AE7864B91C76920 /* ImageDownloader.swift */; };
+		11ECC5C9BE0D9AE6AE8079882CB5AF75 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05D772EC6A607A8405ACC3CD6B9511F /* Image.swift */; };
+		12CF563678704ED1369F793FA30AAEA9 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAC85567A387B3CB37788E9D1F68A38 /* Resource.swift */; };
+		1530B861959505F28E3E0986D4293160 /* FXPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ED5D0EB41B59BCADDADE2EFD5CB21E6 /* FXPageControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		171D92BAB767E217703001B86CAF5E9E /* FormatIndicatedCacheSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929D45CBF2592913E2665ABB4259A1A2 /* FormatIndicatedCacheSerializer.swift */; };
+		2324BDA13FED7662326E7CD2D9AC01BF /* XLPagerTabStrip.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7FA268C2635D3158E57A9AB667A7E938 /* XLPagerTabStrip.bundle */; };
+		270728363BC4B690C40E53B053710684 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FC666CA16B1FCE8646EB97C7ACA1EC /* ImageCache.swift */; };
+		2B80B9C9B8F99DBB5ECF63D6B770F6EF /* PagerTabStripBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13071E4F4DA8D1BDF5822707FC8F9762 /* PagerTabStripBehaviour.swift */; };
+		2F288ED3641B2B4775884C462AE377E6 /* Kingfisher-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EAC365B623E2F8A8AFE3C2D0BC1B68A /* Kingfisher-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30DD26F048A586EC8D8706C260080E07 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDDF8D75AA654F65ACE2125C52AFAAD2 /* Foundation.framework */; };
+		3845689DFB2BE4BFAD2D3C2733D7054A /* ImageTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38122F3E63D265BABACDBAADF03CE38 /* ImageTransition.swift */; };
+		3B8CB5C1E2DF5C7111874A761A35BF5C /* ButtonBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FC748F6A199519D85C6A040E93E69F /* ButtonBarView.swift */; };
+		3DA9227F3FD83241A4D4BA9DBAE405AD /* ImageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD3ECA9834C88F6706D0790E827B2BD /* ImageModifier.swift */; };
+		3DDAB624773E92F700DAEBF413B35C0F /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427E67C51FB655708B6805B0370E5D13 /* SwipeDirection.swift */; };
+		3E162750D98A60E01E06B809722B85B8 /* PagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628C47F40EB62D048DCF4FC55085A6FB /* PagerTabStripViewController.swift */; };
+		48D0EBB3334DA8FAF4FDA2D3426A7F23 /* XLPagerTabStrip-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD0ADFC1741CA8BF8A45B55068F7E84 /* XLPagerTabStrip-dummy.m */; };
+		52416A6AC7387ECACCC45596498D96AD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BB22CD2AAE4F062A7CDA2E213C68442 /* CFNetwork.framework */; };
+		57A03AABE9225D71943C22ABCFFBCF93 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321DA4FBF5721A7FB806D2982ED127C8 /* UIKit.framework */; };
+		5AC063843F5C822D8E0DAD049DB2172C /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBC683B70DDF1552CB192570528F749 /* Filter.swift */; };
+		5B5D8AE167BD8E304CE474A9B8DBA2B4 /* Kingfisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EC9321E8CE4219D1C1D47D23AFF2D67 /* Kingfisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		617A367201A25271D86663525B750C5F /* XLPagerTabStrip-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E1557D29182B2A69969DB4DCB2725D8 /* XLPagerTabStrip-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6AE8DA783077285DFA7F210F4E779A65 /* KingfisherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C465185C486998840B6362F4121502C7 /* KingfisherManager.swift */; };
+		7AE672DC4B32AF19F80EF28AD5096EDE /* UIButton+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D2370FE3C80E64F3D22C5494DEC952 /* UIButton+Kingfisher.swift */; };
+		7F0B3111D41B314575EC5A957DAFF2BA /* KingfisherOptionsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC17DF065CEE6082DC86893B5C935656 /* KingfisherOptionsInfo.swift */; };
+		8A88C6A80CFAAC18E253FDE6E9F7147D /* ButtonBarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B654A91792191E108FEC627F21437AC8 /* ButtonBarViewCell.swift */; };
+		923EB9487045D3297D9932193420D597 /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEEA97391AA8D4BB3C1BC97CEC92D8C /* ImageProcessor.swift */; };
+		937710143BAB92E18AE46ADAF96BC2FD /* BaseButtonBarPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2990BBE7F71C94535E853C0767B8419D /* BaseButtonBarPagerTabStripViewController.swift */; };
+		A8096F51DB82ADD9F002809E064F98F9 /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70A2944F04CBB6F023A6E1830700E07 /* Indicator.swift */; };
+		AA276321E3A96169B102E2B4EFF4F02D /* CacheSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE3C7C33F8BA7D4CD8BAABCF72BB2A2 /* CacheSerializer.swift */; };
+		AD07C0D87907173FC5F6F8635BDB376A /* SegmentedPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E101BF9208A146C712C78506A771237 /* SegmentedPagerTabStripViewController.swift */; };
+		BBABA2C41346B9D964B72CBE69C15F69 /* Pods-Lens-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF693E88FDC503773A429365557AAB /* Pods-Lens-dummy.m */; };
+		BCDA6101487ADAF8CE25A92727B57C24 /* Kingfisher-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B06BDA2D5A9177DC604BDEBDD3CDFC2 /* Kingfisher-dummy.m */; };
+		D205E953E843C195D4D27A6960483863 /* RequestModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA600E4BB761DE9A59C54D0D586448E7 /* RequestModifier.swift */; };
+		D42E1C9C953771026150086BF7BEBD2B /* ThreadHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68D60E8BE20414DAB656B0AF4A82DE /* ThreadHelper.swift */; };
+		D472B17C81637E5A348997920034CC8E /* ImagePrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5E3327801C33880015A77E8A7B4A8F /* ImagePrefetcher.swift */; };
+		DBE3A88E8E6DB0F95EED69F9B8772FA2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDDF8D75AA654F65ACE2125C52AFAAD2 /* Foundation.framework */; };
+		DC4DAD6EA39EA705374B4D64ABDE8BB9 /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5B55CF208E3F7670A628C29EC0479A1 /* ButtonCell.xib */; };
+		E0DC63E3FEA808360D265AC495098144 /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BF95BC31F85B821D0F461C13DBA73D /* String+MD5.swift */; };
+		E408796F6251306FDF4CA83BB7CE2980 /* IndicatorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB35AA453CBC67BB6081CB861B01514A /* IndicatorInfo.swift */; };
+		E84966064FC1C0803BE923842202ACEF /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8943585673B7E7AEDA4BBD05F8BF33 /* Placeholder.swift */; };
+		EB507D31EC99986790A1ABF3A97652F2 /* ButtonCell.xib in Sources */ = {isa = PBXBuildFile; fileRef = F5B55CF208E3F7670A628C29EC0479A1 /* ButtonCell.xib */; };
+		F051E26ACB3C01CC6B7AC0F220CEF0A2 /* ButtonBarPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF639471C769D9D4AB1CD438358D7B54 /* ButtonBarPagerTabStripViewController.swift */; };
+		F0FDBC71BFC5CB46A1ED0CBF4B1D1B86 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9257EB985D7E86DB2FB18F729FAD6706 /* BarView.swift */; };
+		F6D2A6E1698DAE1DE286F448A9272FDA /* BarPagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D375E02A8E62248E3E47178E022360 /* BarPagerTabStripViewController.swift */; };
+		F949B79CF0DE1A67721B764EC95D20AD /* Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8848C560C47FBE6554F3EEF4E78C4272 /* Kingfisher.swift */; };
+		F9EB92B3E1711794D155B6C9F5A04C6B /* Pods-Lens-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 213F0F04A8FFB1BB2160B907B51C46E5 /* Pods-Lens-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FF02AABDD6D400F34F16E7AF640B0429 /* PagerTabStripError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1D58FDC1D45E08DDABDC098DDB519 /* PagerTabStripError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1B4663BA2873CA9B1CCCD27E60757EFE /* PBXContainerItemProxy */ = {
+		0E13146ADEF7AF2F9409DB323AADD70E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 85054C3DEAE830988A2CDAE86B77D516;
+			remoteGlobalIDString = 6F712943B3C5592E82604940D11CE08A;
+			remoteInfo = Kingfisher;
+		};
+		29C67B98F56CAB32DCAE6C563C0A41C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0D6EB7694E6CFC76C14236CD3E8EE28;
 			remoteInfo = "XLPagerTabStrip-XLPagerTabStrip";
 		};
-		5CFE09FE7D510501A430817D09C792A7 /* PBXContainerItemProxy */ = {
+		A2B800E67BD73E477FE2BA448608FF5A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8CF0A6507369E268F2E3058DF204BE17;
+			remoteGlobalIDString = F6530E07F0D66854473844EF1C282F14;
 			remoteInfo = XLPagerTabStrip;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04016E8BBEADE6BC563F0893A76F375C /* XLPagerTabStrip-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XLPagerTabStrip-umbrella.h"; sourceTree = "<group>"; };
-		0826D49C66473AB373DBE189F0DDFDB7 /* XLPagerTabStrip.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = XLPagerTabStrip.modulemap; sourceTree = "<group>"; };
-		0922A4C233956A14DF7FCDF2F584FACE /* PagerTabStripViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagerTabStripViewController.swift; path = Sources/PagerTabStripViewController.swift; sourceTree = "<group>"; };
-		0BAFD08E429420867ECCE4F9AA049280 /* BarPagerTabStripViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarPagerTabStripViewController.swift; path = Sources/BarPagerTabStripViewController.swift; sourceTree = "<group>"; };
+		00B1D58FDC1D45E08DDABDC098DDB519 /* PagerTabStripError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagerTabStripError.swift; path = Sources/PagerTabStripError.swift; sourceTree = "<group>"; };
+		0E101BF9208A146C712C78506A771237 /* SegmentedPagerTabStripViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SegmentedPagerTabStripViewController.swift; path = Sources/SegmentedPagerTabStripViewController.swift; sourceTree = "<group>"; };
+		0EAC85567A387B3CB37788E9D1F68A38 /* Resource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Resource.swift; path = Sources/Resource.swift; sourceTree = "<group>"; };
+		0FD0ADFC1741CA8BF8A45B55068F7E84 /* XLPagerTabStrip-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "XLPagerTabStrip-dummy.m"; sourceTree = "<group>"; };
+		104CBCE9A285D9A2606CE667819AB3DD /* FXPageControl.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FXPageControl.m; path = Sources/FXPageControl.m; sourceTree = "<group>"; };
+		10FC666CA16B1FCE8646EB97C7ACA1EC /* ImageCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = Sources/ImageCache.swift; sourceTree = "<group>"; };
+		13071E4F4DA8D1BDF5822707FC8F9762 /* PagerTabStripBehaviour.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagerTabStripBehaviour.swift; path = Sources/PagerTabStripBehaviour.swift; sourceTree = "<group>"; };
+		1C5E3327801C33880015A77E8A7B4A8F /* ImagePrefetcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePrefetcher.swift; path = Sources/ImagePrefetcher.swift; sourceTree = "<group>"; };
 		213F0F04A8FFB1BB2160B907B51C46E5 /* Pods-Lens-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Lens-umbrella.h"; sourceTree = "<group>"; };
-		2301D861BD905564D1012FE57C3E3EB5 /* SegmentedPagerTabStripViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SegmentedPagerTabStripViewController.swift; path = Sources/SegmentedPagerTabStripViewController.swift; sourceTree = "<group>"; };
+		2456A74F31CC3D938D62A1E3F0E7C797 /* XLPagerTabStrip.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = XLPagerTabStrip.modulemap; sourceTree = "<group>"; };
+		2990BBE7F71C94535E853C0767B8419D /* BaseButtonBarPagerTabStripViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BaseButtonBarPagerTabStripViewController.swift; path = Sources/BaseButtonBarPagerTabStripViewController.swift; sourceTree = "<group>"; };
 		29F478F96688FDB608CDF229FEC07367 /* Pods-Lens.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Lens.modulemap"; sourceTree = "<group>"; };
-		3167DA9D0F42DA1E13D2823DB4172FA5 /* BarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarView.swift; path = Sources/BarView.swift; sourceTree = "<group>"; };
-		3380FD4EE94423360391219E93D91D7E /* ButtonCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = ButtonCell.xib; path = Sources/ButtonCell.xib; sourceTree = "<group>"; };
-		3BB3B000C213EE33EF7A18AF386B0120 /* XLPagerTabStrip.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = XLPagerTabStrip.xcconfig; sourceTree = "<group>"; };
-		45905DB2F1553ADAA82F433157B02334 /* ResourceBundle-XLPagerTabStrip-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-XLPagerTabStrip-Info.plist"; sourceTree = "<group>"; };
-		4A6A65D65B931B96BD9520A7C113DCE0 /* FXPageControl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FXPageControl.h; path = Sources/FXPageControl.h; sourceTree = "<group>"; };
+		321DA4FBF5721A7FB806D2982ED127C8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		34DD2D67254B5C0A39DF3170C73F864A /* ImageView+Kingfisher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ImageView+Kingfisher.swift"; path = "Sources/ImageView+Kingfisher.swift"; sourceTree = "<group>"; };
+		3650D0492CB227F3B2A682370D64101C /* Kingfisher-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kingfisher-prefix.pch"; sourceTree = "<group>"; };
+		36B89495C587B198174EADD2E9FE50E8 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EAC365B623E2F8A8AFE3C2D0BC1B68A /* Kingfisher-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kingfisher-umbrella.h"; sourceTree = "<group>"; };
+		427E67C51FB655708B6805B0370E5D13 /* SwipeDirection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwipeDirection.swift; path = Sources/SwipeDirection.swift; sourceTree = "<group>"; };
 		4FE10F4BFFE852A19247EA5FCF9CE860 /* Pods-Lens-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Lens-resources.sh"; sourceTree = "<group>"; };
-		55BEC7C99717FA6ECEE914F951BDE53F /* BaseButtonBarPagerTabStripViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BaseButtonBarPagerTabStripViewController.swift; path = Sources/BaseButtonBarPagerTabStripViewController.swift; sourceTree = "<group>"; };
+		50BF95BC31F85B821D0F461C13DBA73D /* String+MD5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+MD5.swift"; path = "Sources/String+MD5.swift"; sourceTree = "<group>"; };
 		569EF7D104A7DC7481F61912126B0717 /* Pods-Lens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lens.debug.xcconfig"; sourceTree = "<group>"; };
-		684D2E2FB5303F753253069714A5917E /* SwipeDirection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwipeDirection.swift; path = Sources/SwipeDirection.swift; sourceTree = "<group>"; };
-		692CB4E7CB310FBFA5EAE4235D044300 /* XLPagerTabStrip-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "XLPagerTabStrip-dummy.m"; sourceTree = "<group>"; };
-		6A40B367F2560B8B7294DD87BF9B0AFF /* ButtonBarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ButtonBarView.swift; path = Sources/ButtonBarView.swift; sourceTree = "<group>"; };
-		6B03E452A0E7BB99ADEF67F4860587B2 /* XLPagerTabStrip.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XLPagerTabStrip.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C21FB8930CECAB6B8676196CB548F80 /* PagerTabStripBehaviour.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagerTabStripBehaviour.swift; path = Sources/PagerTabStripBehaviour.swift; sourceTree = "<group>"; };
-		6CF160BD4D3B5312AB41DA99CC078A94 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5AD3ECA9834C88F6706D0790E827B2BD /* ImageModifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageModifier.swift; path = Sources/ImageModifier.swift; sourceTree = "<group>"; };
+		5E1557D29182B2A69969DB4DCB2725D8 /* XLPagerTabStrip-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XLPagerTabStrip-umbrella.h"; sourceTree = "<group>"; };
+		5EE3C7C33F8BA7D4CD8BAABCF72BB2A2 /* CacheSerializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CacheSerializer.swift; path = Sources/CacheSerializer.swift; sourceTree = "<group>"; };
+		628C47F40EB62D048DCF4FC55085A6FB /* PagerTabStripViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagerTabStripViewController.swift; path = Sources/PagerTabStripViewController.swift; sourceTree = "<group>"; };
+		6840B9D7FBA5E0E06790E01C74FEE602 /* Kingfisher.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Kingfisher.xcconfig; sourceTree = "<group>"; };
+		6BB22CD2AAE4F062A7CDA2E213C68442 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		6DEF693E88FDC503773A429365557AAB /* Pods-Lens-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Lens-dummy.m"; sourceTree = "<group>"; };
-		7161ABE8133F59A707855E9EE8310869 /* PagerTabStripError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PagerTabStripError.swift; path = Sources/PagerTabStripError.swift; sourceTree = "<group>"; };
-		8274464CB4D29D6EECC27BAF1C67BAEF /* TwitterPagerTabStripViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TwitterPagerTabStripViewController.swift; path = Sources/TwitterPagerTabStripViewController.swift; sourceTree = "<group>"; };
-		85A921414DBE7B40C87D931CD436D5DB /* ButtonBarViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ButtonBarViewCell.swift; path = Sources/ButtonBarViewCell.swift; sourceTree = "<group>"; };
-		88D448561630590F2CCF9868779C57EB /* Pods_Lens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		90B8926C7D352BDD444BC0E20309BAC2 /* XLPagerTabStrip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XLPagerTabStrip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		79FEC91B5435D051515A2D6C7049AF7D /* Pods_Lens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B06BDA2D5A9177DC604BDEBDD3CDFC2 /* Kingfisher-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Kingfisher-dummy.m"; sourceTree = "<group>"; };
+		7BF0E7CF45EFB13350142957F38657CD /* XLPagerTabStrip-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XLPagerTabStrip-prefix.pch"; sourceTree = "<group>"; };
+		7E39E67610A42BC82FDF622A473F42F8 /* Kingfisher.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Kingfisher.modulemap; sourceTree = "<group>"; };
+		7ED5D0EB41B59BCADDADE2EFD5CB21E6 /* FXPageControl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FXPageControl.h; path = Sources/FXPageControl.h; sourceTree = "<group>"; };
+		7FA268C2635D3158E57A9AB667A7E938 /* XLPagerTabStrip.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XLPagerTabStrip.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8848C560C47FBE6554F3EEF4E78C4272 /* Kingfisher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Kingfisher.swift; path = Sources/Kingfisher.swift; sourceTree = "<group>"; };
+		8B4E951D1D710E09DBAD7F44D2AD98D8 /* ResourceBundle-XLPagerTabStrip-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-XLPagerTabStrip-Info.plist"; sourceTree = "<group>"; };
+		8FBC683B70DDF1552CB192570528F749 /* Filter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Filter.swift; path = Sources/Filter.swift; sourceTree = "<group>"; };
+		9257EB985D7E86DB2FB18F729FAD6706 /* BarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarView.swift; path = Sources/BarView.swift; sourceTree = "<group>"; };
+		929D45CBF2592913E2665ABB4259A1A2 /* FormatIndicatedCacheSerializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FormatIndicatedCacheSerializer.swift; path = Sources/FormatIndicatedCacheSerializer.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9AFEB9986798D80D513012E735025E54 /* IndicatorInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IndicatorInfo.swift; path = Sources/IndicatorInfo.swift; sourceTree = "<group>"; };
 		9B73A9BF40189C2F2FEA580A7BDAC402 /* Pods-Lens-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Lens-acknowledgements.markdown"; sourceTree = "<group>"; };
+		9EC9321E8CE4219D1C1D47D23AFF2D67 /* Kingfisher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Kingfisher.h; path = Sources/Kingfisher.h; sourceTree = "<group>"; };
 		B248A1A85EB6D40F553D6039E551DB82 /* Pods-Lens-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Lens-frameworks.sh"; sourceTree = "<group>"; };
-		B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		B517F122AE956B3DB1FFAC72A5273A98 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B654A91792191E108FEC627F21437AC8 /* ButtonBarViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ButtonBarViewCell.swift; path = Sources/ButtonBarViewCell.swift; sourceTree = "<group>"; };
 		B9A4691D53BE998135253359B14D8BB1 /* Pods-Lens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Lens.release.xcconfig"; sourceTree = "<group>"; };
+		BA442963856D99BE6139680BFD58955C /* AnimatedImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedImageView.swift; path = Sources/AnimatedImageView.swift; sourceTree = "<group>"; };
+		BA8943585673B7E7AEDA4BBD05F8BF33 /* Placeholder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Placeholder.swift; path = Sources/Placeholder.swift; sourceTree = "<group>"; };
+		BCEEA97391AA8D4BB3C1BC97CEC92D8C /* ImageProcessor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageProcessor.swift; path = Sources/ImageProcessor.swift; sourceTree = "<group>"; };
+		C465185C486998840B6362F4121502C7 /* KingfisherManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KingfisherManager.swift; path = Sources/KingfisherManager.swift; sourceTree = "<group>"; };
+		C61C3B02564E87348AE7864B91C76920 /* ImageDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageDownloader.swift; path = Sources/ImageDownloader.swift; sourceTree = "<group>"; };
+		C70A2944F04CBB6F023A6E1830700E07 /* Indicator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Indicator.swift; path = Sources/Indicator.swift; sourceTree = "<group>"; };
+		C9D2370FE3C80E64F3D22C5494DEC952 /* UIButton+Kingfisher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIButton+Kingfisher.swift"; path = "Sources/UIButton+Kingfisher.swift"; sourceTree = "<group>"; };
+		C9D375E02A8E62248E3E47178E022360 /* BarPagerTabStripViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarPagerTabStripViewController.swift; path = Sources/BarPagerTabStripViewController.swift; sourceTree = "<group>"; };
+		CB35AA453CBC67BB6081CB861B01514A /* IndicatorInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IndicatorInfo.swift; path = Sources/IndicatorInfo.swift; sourceTree = "<group>"; };
+		CB68D60E8BE20414DAB656B0AF4A82DE /* ThreadHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThreadHelper.swift; path = Sources/ThreadHelper.swift; sourceTree = "<group>"; };
 		CC6E9D069F46838CAE12817CDC1B50CC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D09056B385C6845238E924C970E79039 /* FXPageControl.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FXPageControl.m; path = Sources/FXPageControl.m; sourceTree = "<group>"; };
-		D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		E3D78BC42755EDEA41D0EFE7EAD90B61 /* ButtonBarPagerTabStripViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ButtonBarPagerTabStripViewController.swift; path = Sources/ButtonBarPagerTabStripViewController.swift; sourceTree = "<group>"; };
+		D9FC748F6A199519D85C6A040E93E69F /* ButtonBarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ButtonBarView.swift; path = Sources/ButtonBarView.swift; sourceTree = "<group>"; };
+		DEC92BBDCCDEBC7978E6FC8D9853B90A /* XLPagerTabStrip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XLPagerTabStrip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF639471C769D9D4AB1CD438358D7B54 /* ButtonBarPagerTabStripViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ButtonBarPagerTabStripViewController.swift; path = Sources/ButtonBarPagerTabStripViewController.swift; sourceTree = "<group>"; };
+		E201F96521FA3601818FBC39B53740D5 /* XLPagerTabStrip.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = XLPagerTabStrip.xcconfig; sourceTree = "<group>"; };
+		E38122F3E63D265BABACDBAADF03CE38 /* ImageTransition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageTransition.swift; path = Sources/ImageTransition.swift; sourceTree = "<group>"; };
+		E64D5B9898E8EFDBF45523B8667AC26A /* TwitterPagerTabStripViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TwitterPagerTabStripViewController.swift; path = Sources/TwitterPagerTabStripViewController.swift; sourceTree = "<group>"; };
+		EDDF8D75AA654F65ACE2125C52AFAAD2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		EFD50C30C978A533772677535D170125 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F05D772EC6A607A8405ACC3CD6B9511F /* Image.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Image.swift; path = Sources/Image.swift; sourceTree = "<group>"; };
 		F205E85ABDD38F9F0CF6F142DA25763D /* Pods-Lens-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Lens-acknowledgements.plist"; sourceTree = "<group>"; };
-		FCCEEFEBEB960CD33611E034571E6283 /* XLPagerTabStrip-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XLPagerTabStrip-prefix.pch"; sourceTree = "<group>"; };
+		F5B55CF208E3F7670A628C29EC0479A1 /* ButtonCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = ButtonCell.xib; path = Sources/ButtonCell.xib; sourceTree = "<group>"; };
+		FA600E4BB761DE9A59C54D0D586448E7 /* RequestModifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RequestModifier.swift; path = Sources/RequestModifier.swift; sourceTree = "<group>"; };
+		FC17DF065CEE6082DC86893B5C935656 /* KingfisherOptionsInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KingfisherOptionsInfo.swift; path = Sources/KingfisherOptionsInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		02F89C49C2E7698F004C30045AF77F0D /* Frameworks */ = {
+		58147669EE086D8BD57E488F407F0459 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30DD26F048A586EC8D8706C260080E07 /* Foundation.framework in Frameworks */,
+				57A03AABE9225D71943C22ABCFFBCF93 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		09A1D4133070ADF6357CFED2C31D7268 /* Frameworks */ = {
+		8355A8BEFE1484082456FBCB57685FA5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A2F696B790F167C365461B2FA0FC5A6 /* Foundation.framework in Frameworks */,
-				7FC8E16F4A433268A573A0785164158E /* UIKit.framework in Frameworks */,
+				DBE3A88E8E6DB0F95EED69F9B8772FA2 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2CE3C47B70C973F0C68116C53294B962 /* Frameworks */ = {
+		C0B9722E352CF90C920286E6F029D3C0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4486EB6F8EC39A799514E05ABB8D935 /* Foundation.framework in Frameworks */,
+				52416A6AC7387ECACCC45596498D96AD /* CFNetwork.framework in Frameworks */,
+				0CA6357476373C221D44C498AA1D65FE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CF49B5531240004FA6FB914543409CCC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1AFC43F0735E7BB026047EDB14228F39 /* Support Files */ = {
+		0FEA03E5E2AD84A6811E10D3AC02DB23 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				6CF160BD4D3B5312AB41DA99CC078A94 /* Info.plist */,
-				45905DB2F1553ADAA82F433157B02334 /* ResourceBundle-XLPagerTabStrip-Info.plist */,
-				0826D49C66473AB373DBE189F0DDFDB7 /* XLPagerTabStrip.modulemap */,
-				3BB3B000C213EE33EF7A18AF386B0120 /* XLPagerTabStrip.xcconfig */,
-				692CB4E7CB310FBFA5EAE4235D044300 /* XLPagerTabStrip-dummy.m */,
-				FCCEEFEBEB960CD33611E034571E6283 /* XLPagerTabStrip-prefix.pch */,
-				04016E8BBEADE6BC563F0893A76F375C /* XLPagerTabStrip-umbrella.h */,
+				B517F122AE956B3DB1FFAC72A5273A98 /* Info.plist */,
+				7E39E67610A42BC82FDF622A473F42F8 /* Kingfisher.modulemap */,
+				6840B9D7FBA5E0E06790E01C74FEE602 /* Kingfisher.xcconfig */,
+				7B06BDA2D5A9177DC604BDEBDD3CDFC2 /* Kingfisher-dummy.m */,
+				3650D0492CB227F3B2A682370D64101C /* Kingfisher-prefix.pch */,
+				3EAC365B623E2F8A8AFE3C2D0BC1B68A /* Kingfisher-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Kingfisher";
+			sourceTree = "<group>";
+		};
+		122DA2E5084A4393C29BE363C764795C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3DC5782D19BF047DFAEB491A596E0F0 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2039271A78DD9D08033602859775E458 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				EFD50C30C978A533772677535D170125 /* Info.plist */,
+				8B4E951D1D710E09DBAD7F44D2AD98D8 /* ResourceBundle-XLPagerTabStrip-Info.plist */,
+				2456A74F31CC3D938D62A1E3F0E7C797 /* XLPagerTabStrip.modulemap */,
+				E201F96521FA3601818FBC39B53740D5 /* XLPagerTabStrip.xcconfig */,
+				0FD0ADFC1741CA8BF8A45B55068F7E84 /* XLPagerTabStrip-dummy.m */,
+				7BF0E7CF45EFB13350142957F38657CD /* XLPagerTabStrip-prefix.pch */,
+				5E1557D29182B2A69969DB4DCB2725D8 /* XLPagerTabStrip-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/XLPagerTabStrip";
-			sourceTree = "<group>";
-		};
-		27C3A64D5C2ECE03BBB5607E4DA4074C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				88D448561630590F2CCF9868779C57EB /* Pods_Lens.framework */,
-				6B03E452A0E7BB99ADEF67F4860587B2 /* XLPagerTabStrip.bundle */,
-				90B8926C7D352BDD444BC0E20309BAC2 /* XLPagerTabStrip.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		328DDFF6C56DF944B9DF875AF37D1147 /* Targets Support Files */ = {
@@ -154,30 +240,38 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+		7C43E93A42920CBBB94B79AAEA912948 /* XLPagerTabStrip */ = {
 			isa = PBXGroup;
 			children = (
-				438B396F6B4147076630CAEFE34282C1 /* iOS */,
+				C9D375E02A8E62248E3E47178E022360 /* BarPagerTabStripViewController.swift */,
+				9257EB985D7E86DB2FB18F729FAD6706 /* BarView.swift */,
+				2990BBE7F71C94535E853C0767B8419D /* BaseButtonBarPagerTabStripViewController.swift */,
+				DF639471C769D9D4AB1CD438358D7B54 /* ButtonBarPagerTabStripViewController.swift */,
+				D9FC748F6A199519D85C6A040E93E69F /* ButtonBarView.swift */,
+				B654A91792191E108FEC627F21437AC8 /* ButtonBarViewCell.swift */,
+				F5B55CF208E3F7670A628C29EC0479A1 /* ButtonCell.xib */,
+				7ED5D0EB41B59BCADDADE2EFD5CB21E6 /* FXPageControl.h */,
+				104CBCE9A285D9A2606CE667819AB3DD /* FXPageControl.m */,
+				CB35AA453CBC67BB6081CB861B01514A /* IndicatorInfo.swift */,
+				13071E4F4DA8D1BDF5822707FC8F9762 /* PagerTabStripBehaviour.swift */,
+				00B1D58FDC1D45E08DDABDC098DDB519 /* PagerTabStripError.swift */,
+				628C47F40EB62D048DCF4FC55085A6FB /* PagerTabStripViewController.swift */,
+				0E101BF9208A146C712C78506A771237 /* SegmentedPagerTabStripViewController.swift */,
+				427E67C51FB655708B6805B0370E5D13 /* SwipeDirection.swift */,
+				E64D5B9898E8EFDBF45523B8667AC26A /* TwitterPagerTabStripViewController.swift */,
+				B8CDE939AAC41522A44F53AF22132445 /* Resources */,
+				2039271A78DD9D08033602859775E458 /* Support Files */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		438B396F6B4147076630CAEFE34282C1 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */,
-				B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */,
-			);
-			name = iOS;
+			path = XLPagerTabStrip;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
-				9AE3A07843C8C778ED30586199E24910 /* Pods */,
-				27C3A64D5C2ECE03BBB5607E4DA4074C /* Products */,
+				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
+				DAEF6100330312E232C00464EBA101BA /* Pods */,
+				F2AAE429F729A83D62EAAD99159D0CFB /* Products */,
 				328DDFF6C56DF944B9DF875AF37D1147 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
@@ -200,76 +294,149 @@
 			path = "Target Support Files/Pods-Lens";
 			sourceTree = "<group>";
 		};
-		9AE3A07843C8C778ED30586199E24910 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9CFC1CBA04529E35BB275B9E08F32A8D /* XLPagerTabStrip */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		9CFC1CBA04529E35BB275B9E08F32A8D /* XLPagerTabStrip */ = {
-			isa = PBXGroup;
-			children = (
-				0BAFD08E429420867ECCE4F9AA049280 /* BarPagerTabStripViewController.swift */,
-				3167DA9D0F42DA1E13D2823DB4172FA5 /* BarView.swift */,
-				55BEC7C99717FA6ECEE914F951BDE53F /* BaseButtonBarPagerTabStripViewController.swift */,
-				E3D78BC42755EDEA41D0EFE7EAD90B61 /* ButtonBarPagerTabStripViewController.swift */,
-				6A40B367F2560B8B7294DD87BF9B0AFF /* ButtonBarView.swift */,
-				85A921414DBE7B40C87D931CD436D5DB /* ButtonBarViewCell.swift */,
-				3380FD4EE94423360391219E93D91D7E /* ButtonCell.xib */,
-				4A6A65D65B931B96BD9520A7C113DCE0 /* FXPageControl.h */,
-				D09056B385C6845238E924C970E79039 /* FXPageControl.m */,
-				9AFEB9986798D80D513012E735025E54 /* IndicatorInfo.swift */,
-				6C21FB8930CECAB6B8676196CB548F80 /* PagerTabStripBehaviour.swift */,
-				7161ABE8133F59A707855E9EE8310869 /* PagerTabStripError.swift */,
-				0922A4C233956A14DF7FCDF2F584FACE /* PagerTabStripViewController.swift */,
-				2301D861BD905564D1012FE57C3E3EB5 /* SegmentedPagerTabStripViewController.swift */,
-				684D2E2FB5303F753253069714A5917E /* SwipeDirection.swift */,
-				8274464CB4D29D6EECC27BAF1C67BAEF /* TwitterPagerTabStripViewController.swift */,
-				B08F44A04415396C5E21D2DDAEDE5987 /* Resources */,
-				1AFC43F0735E7BB026047EDB14228F39 /* Support Files */,
-			);
-			path = XLPagerTabStrip;
-			sourceTree = "<group>";
-		};
-		B08F44A04415396C5E21D2DDAEDE5987 /* Resources */ = {
+		B8CDE939AAC41522A44F53AF22132445 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		BEB94266DD330718E7C3C7B0DA93657D /* Kingfisher */ = {
+			isa = PBXGroup;
+			children = (
+				BA442963856D99BE6139680BFD58955C /* AnimatedImageView.swift */,
+				5EE3C7C33F8BA7D4CD8BAABCF72BB2A2 /* CacheSerializer.swift */,
+				8FBC683B70DDF1552CB192570528F749 /* Filter.swift */,
+				929D45CBF2592913E2665ABB4259A1A2 /* FormatIndicatedCacheSerializer.swift */,
+				F05D772EC6A607A8405ACC3CD6B9511F /* Image.swift */,
+				10FC666CA16B1FCE8646EB97C7ACA1EC /* ImageCache.swift */,
+				C61C3B02564E87348AE7864B91C76920 /* ImageDownloader.swift */,
+				5AD3ECA9834C88F6706D0790E827B2BD /* ImageModifier.swift */,
+				1C5E3327801C33880015A77E8A7B4A8F /* ImagePrefetcher.swift */,
+				BCEEA97391AA8D4BB3C1BC97CEC92D8C /* ImageProcessor.swift */,
+				E38122F3E63D265BABACDBAADF03CE38 /* ImageTransition.swift */,
+				34DD2D67254B5C0A39DF3170C73F864A /* ImageView+Kingfisher.swift */,
+				C70A2944F04CBB6F023A6E1830700E07 /* Indicator.swift */,
+				9EC9321E8CE4219D1C1D47D23AFF2D67 /* Kingfisher.h */,
+				8848C560C47FBE6554F3EEF4E78C4272 /* Kingfisher.swift */,
+				C465185C486998840B6362F4121502C7 /* KingfisherManager.swift */,
+				FC17DF065CEE6082DC86893B5C935656 /* KingfisherOptionsInfo.swift */,
+				BA8943585673B7E7AEDA4BBD05F8BF33 /* Placeholder.swift */,
+				FA600E4BB761DE9A59C54D0D586448E7 /* RequestModifier.swift */,
+				0EAC85567A387B3CB37788E9D1F68A38 /* Resource.swift */,
+				50BF95BC31F85B821D0F461C13DBA73D /* String+MD5.swift */,
+				CB68D60E8BE20414DAB656B0AF4A82DE /* ThreadHelper.swift */,
+				C9D2370FE3C80E64F3D22C5494DEC952 /* UIButton+Kingfisher.swift */,
+				0FEA03E5E2AD84A6811E10D3AC02DB23 /* Support Files */,
+			);
+			path = Kingfisher;
+			sourceTree = "<group>";
+		};
+		D3DC5782D19BF047DFAEB491A596E0F0 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6BB22CD2AAE4F062A7CDA2E213C68442 /* CFNetwork.framework */,
+				EDDF8D75AA654F65ACE2125C52AFAAD2 /* Foundation.framework */,
+				321DA4FBF5721A7FB806D2982ED127C8 /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		DAEF6100330312E232C00464EBA101BA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BEB94266DD330718E7C3C7B0DA93657D /* Kingfisher */,
+				7C43E93A42920CBBB94B79AAEA912948 /* XLPagerTabStrip */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F2AAE429F729A83D62EAAD99159D0CFB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				36B89495C587B198174EADD2E9FE50E8 /* Kingfisher.framework */,
+				79FEC91B5435D051515A2D6C7049AF7D /* Pods_Lens.framework */,
+				7FA268C2635D3158E57A9AB667A7E938 /* XLPagerTabStrip.bundle */,
+				DEC92BBDCCDEBC7978E6FC8D9853B90A /* XLPagerTabStrip.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		5CEF5EBDF4D837AC5B35E1D158DD5032 /* Headers */ = {
+		1F7C1944FC96174431104D8A612FCA65 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16A36BD2B88368C50A062531F2DA2824 /* Pods-Lens-umbrella.h in Headers */,
+				F9EB92B3E1711794D155B6C9F5A04C6B /* Pods-Lens-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A5E967BF81375E81855B61286F7319E7 /* Headers */ = {
+		84676F7D46FF521291CDEB2AB04A454C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				818FE7559BF98BCF3F7B9F0E78E60A9C /* FXPageControl.h in Headers */,
-				05ECD9AD2961599B90CA26E993174923 /* XLPagerTabStrip-umbrella.h in Headers */,
+				2F288ED3641B2B4775884C462AE377E6 /* Kingfisher-umbrella.h in Headers */,
+				5B5D8AE167BD8E304CE474A9B8DBA2B4 /* Kingfisher.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4B7D9E4C95B69E7F5C66089B46786F6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1530B861959505F28E3E0986D4293160 /* FXPageControl.h in Headers */,
+				617A367201A25271D86663525B750C5F /* XLPagerTabStrip-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		85054C3DEAE830988A2CDAE86B77D516 /* XLPagerTabStrip-XLPagerTabStrip */ = {
+		58FC0BDACBD662B14C482D94103DA731 /* Pods-Lens */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CA1DA158C880452888BECAF926EFFFF3 /* Build configuration list for PBXNativeTarget "XLPagerTabStrip-XLPagerTabStrip" */;
+			buildConfigurationList = A3AB8FAB773659574E313AE24688569F /* Build configuration list for PBXNativeTarget "Pods-Lens" */;
 			buildPhases = (
-				9E2DEDE4587A36CBF47F2CE184F93AEF /* Sources */,
-				02F89C49C2E7698F004C30045AF77F0D /* Frameworks */,
-				3954B9BADD0E6B7B5BE1C2CB16E84515 /* Resources */,
+				970D056BA305DC7F21FFA92AC1FB66AD /* Sources */,
+				8355A8BEFE1484082456FBCB57685FA5 /* Frameworks */,
+				1F7C1944FC96174431104D8A612FCA65 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C7F4F8FEFA228C83D07332E7AE650A9 /* PBXTargetDependency */,
+				874DCB486B973D1E2BE8D9ACFF00F4F1 /* PBXTargetDependency */,
+			);
+			name = "Pods-Lens";
+			productName = "Pods-Lens";
+			productReference = 79FEC91B5435D051515A2D6C7049AF7D /* Pods_Lens.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		6F712943B3C5592E82604940D11CE08A /* Kingfisher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C1E4CEFB2390CBE75E70BAC20F44BBF /* Build configuration list for PBXNativeTarget "Kingfisher" */;
+			buildPhases = (
+				028CF0EB906C10D636EC909AF25FA2CF /* Sources */,
+				C0B9722E352CF90C920286E6F029D3C0 /* Frameworks */,
+				84676F7D46FF521291CDEB2AB04A454C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Kingfisher;
+			productName = Kingfisher;
+			productReference = 36B89495C587B198174EADD2E9FE50E8 /* Kingfisher.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E0D6EB7694E6CFC76C14236CD3E8EE28 /* XLPagerTabStrip-XLPagerTabStrip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5DCA7757AB98F2A992001FFF1EB27E3C /* Build configuration list for PBXNativeTarget "XLPagerTabStrip-XLPagerTabStrip" */;
+			buildPhases = (
+				339E77F20D933498F0FFB72CE5C81F05 /* Sources */,
+				CF49B5531240004FA6FB914543409CCC /* Frameworks */,
+				C5B6616E5E09B55CAB4EECC3DA24C335 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -277,44 +444,26 @@
 			);
 			name = "XLPagerTabStrip-XLPagerTabStrip";
 			productName = "XLPagerTabStrip-XLPagerTabStrip";
-			productReference = 6B03E452A0E7BB99ADEF67F4860587B2 /* XLPagerTabStrip.bundle */;
+			productReference = 7FA268C2635D3158E57A9AB667A7E938 /* XLPagerTabStrip.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
-		8CF0A6507369E268F2E3058DF204BE17 /* XLPagerTabStrip */ = {
+		F6530E07F0D66854473844EF1C282F14 /* XLPagerTabStrip */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A55F773BCF2276BF7DD6DFC323138A30 /* Build configuration list for PBXNativeTarget "XLPagerTabStrip" */;
+			buildConfigurationList = 4BD49FAE053D9CCCF024D16BEE1EA7A6 /* Build configuration list for PBXNativeTarget "XLPagerTabStrip" */;
 			buildPhases = (
-				4359EA265CC6B0B0EC8900147947ED1F /* Sources */,
-				09A1D4133070ADF6357CFED2C31D7268 /* Frameworks */,
-				428BD0795E3111683285E6039D0CF201 /* Resources */,
-				A5E967BF81375E81855B61286F7319E7 /* Headers */,
+				58F44DD034AE78602AEB661176A4BFE3 /* Sources */,
+				58147669EE086D8BD57E488F407F0459 /* Frameworks */,
+				D036917D7980E89A58A13C00D5A813BD /* Resources */,
+				C4B7D9E4C95B69E7F5C66089B46786F6 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				EBB2D71397500FF041B4E65C52148CC1 /* PBXTargetDependency */,
+				6A6D2675DC440965439BEAB55DF65C16 /* PBXTargetDependency */,
 			);
 			name = XLPagerTabStrip;
 			productName = XLPagerTabStrip;
-			productReference = 90B8926C7D352BDD444BC0E20309BAC2 /* XLPagerTabStrip.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		8DD6E3C7A7DC5AC4D8383C33BADF58D5 /* Pods-Lens */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6386BF93CCB8A446E4D1B88AFCF69845 /* Build configuration list for PBXNativeTarget "Pods-Lens" */;
-			buildPhases = (
-				21E33DE484026EA0941D67AA0B52CAA6 /* Sources */,
-				2CE3C47B70C973F0C68116C53294B962 /* Frameworks */,
-				5CEF5EBDF4D837AC5B35E1D158DD5032 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D1581A85114C6ABDEE1A4097AE7D9B16 /* PBXTargetDependency */,
-			);
-			name = "Pods-Lens";
-			productName = "Pods-Lens";
-			productReference = 88D448561630590F2CCF9868779C57EB /* Pods_Lens.framework */;
+			productReference = DEC92BBDCCDEBC7978E6FC8D9853B90A /* XLPagerTabStrip.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -334,128 +483,149 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 27C3A64D5C2ECE03BBB5607E4DA4074C /* Products */;
+			productRefGroup = F2AAE429F729A83D62EAAD99159D0CFB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DD6E3C7A7DC5AC4D8383C33BADF58D5 /* Pods-Lens */,
-				8CF0A6507369E268F2E3058DF204BE17 /* XLPagerTabStrip */,
-				85054C3DEAE830988A2CDAE86B77D516 /* XLPagerTabStrip-XLPagerTabStrip */,
+				6F712943B3C5592E82604940D11CE08A /* Kingfisher */,
+				58FC0BDACBD662B14C482D94103DA731 /* Pods-Lens */,
+				F6530E07F0D66854473844EF1C282F14 /* XLPagerTabStrip */,
+				E0D6EB7694E6CFC76C14236CD3E8EE28 /* XLPagerTabStrip-XLPagerTabStrip */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3954B9BADD0E6B7B5BE1C2CB16E84515 /* Resources */ = {
+		C5B6616E5E09B55CAB4EECC3DA24C335 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				239255A71D74A2D32EDC79EA17A4DEC0 /* ButtonCell.xib in Resources */,
+				DC4DAD6EA39EA705374B4D64ABDE8BB9 /* ButtonCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		428BD0795E3111683285E6039D0CF201 /* Resources */ = {
+		D036917D7980E89A58A13C00D5A813BD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27C811F4957BD22C624C2737D5A0E643 /* XLPagerTabStrip.bundle in Resources */,
+				2324BDA13FED7662326E7CD2D9AC01BF /* XLPagerTabStrip.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		21E33DE484026EA0941D67AA0B52CAA6 /* Sources */ = {
+		028CF0EB906C10D636EC909AF25FA2CF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8D5C8C6C2B0E93D16513C0878E88B88 /* Pods-Lens-dummy.m in Sources */,
+				09A0DDE1726C527699A0C0F53482505B /* AnimatedImageView.swift in Sources */,
+				AA276321E3A96169B102E2B4EFF4F02D /* CacheSerializer.swift in Sources */,
+				5AC063843F5C822D8E0DAD049DB2172C /* Filter.swift in Sources */,
+				171D92BAB767E217703001B86CAF5E9E /* FormatIndicatedCacheSerializer.swift in Sources */,
+				11ECC5C9BE0D9AE6AE8079882CB5AF75 /* Image.swift in Sources */,
+				270728363BC4B690C40E53B053710684 /* ImageCache.swift in Sources */,
+				0F755ADCEAA8BF40FF7BECCBD8B5310B /* ImageDownloader.swift in Sources */,
+				3DA9227F3FD83241A4D4BA9DBAE405AD /* ImageModifier.swift in Sources */,
+				D472B17C81637E5A348997920034CC8E /* ImagePrefetcher.swift in Sources */,
+				923EB9487045D3297D9932193420D597 /* ImageProcessor.swift in Sources */,
+				3845689DFB2BE4BFAD2D3C2733D7054A /* ImageTransition.swift in Sources */,
+				047C4D945343F46AFF1273DE29F8A290 /* ImageView+Kingfisher.swift in Sources */,
+				A8096F51DB82ADD9F002809E064F98F9 /* Indicator.swift in Sources */,
+				BCDA6101487ADAF8CE25A92727B57C24 /* Kingfisher-dummy.m in Sources */,
+				F949B79CF0DE1A67721B764EC95D20AD /* Kingfisher.swift in Sources */,
+				6AE8DA783077285DFA7F210F4E779A65 /* KingfisherManager.swift in Sources */,
+				7F0B3111D41B314575EC5A957DAFF2BA /* KingfisherOptionsInfo.swift in Sources */,
+				E84966064FC1C0803BE923842202ACEF /* Placeholder.swift in Sources */,
+				D205E953E843C195D4D27A6960483863 /* RequestModifier.swift in Sources */,
+				12CF563678704ED1369F793FA30AAEA9 /* Resource.swift in Sources */,
+				E0DC63E3FEA808360D265AC495098144 /* String+MD5.swift in Sources */,
+				D42E1C9C953771026150086BF7BEBD2B /* ThreadHelper.swift in Sources */,
+				7AE672DC4B32AF19F80EF28AD5096EDE /* UIButton+Kingfisher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4359EA265CC6B0B0EC8900147947ED1F /* Sources */ = {
+		339E77F20D933498F0FFB72CE5C81F05 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A93DFB1865C9395FDDD76B7645CA87E /* BarPagerTabStripViewController.swift in Sources */,
-				1A6D691A416FD4087E330CA057791F5E /* BarView.swift in Sources */,
-				235A8BE09F82B55870FCF9410650EF71 /* BaseButtonBarPagerTabStripViewController.swift in Sources */,
-				019E3F6A0EF25B651C4FFEA18E1BEAA6 /* ButtonBarPagerTabStripViewController.swift in Sources */,
-				1A15F3601E86A49C559F03EED042A44E /* ButtonBarView.swift in Sources */,
-				9E19C7104DD0C35AAF42A32229DCBFBC /* ButtonBarViewCell.swift in Sources */,
-				35987344A4E5B68AEF0FE9E4AFC5C801 /* ButtonCell.xib in Sources */,
-				256F0CC1C9D09FD041D07984151A9CE2 /* FXPageControl.m in Sources */,
-				65F884BE84941A0062115E746B52DB95 /* IndicatorInfo.swift in Sources */,
-				37B45446F0F31882EA5B731DC82146CF /* PagerTabStripBehaviour.swift in Sources */,
-				9E66FB5F001D8CFD8B3E63ADF4875B43 /* PagerTabStripError.swift in Sources */,
-				A2A1CFCC81C8952EE56673A849F3F1AB /* PagerTabStripViewController.swift in Sources */,
-				EF9CF2F127159D1BE6F499C11B4B6AB9 /* SegmentedPagerTabStripViewController.swift in Sources */,
-				9F533B9962C794581ABF69872918A1FE /* SwipeDirection.swift in Sources */,
-				D569E3BAE1D0C341AF5AE9E80F27E595 /* TwitterPagerTabStripViewController.swift in Sources */,
-				CED6AA0557ECFF0E2C7D479663DE8101 /* XLPagerTabStrip-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9E2DEDE4587A36CBF47F2CE184F93AEF /* Sources */ = {
+		58F44DD034AE78602AEB661176A4BFE3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6D2A6E1698DAE1DE286F448A9272FDA /* BarPagerTabStripViewController.swift in Sources */,
+				F0FDBC71BFC5CB46A1ED0CBF4B1D1B86 /* BarView.swift in Sources */,
+				937710143BAB92E18AE46ADAF96BC2FD /* BaseButtonBarPagerTabStripViewController.swift in Sources */,
+				F051E26ACB3C01CC6B7AC0F220CEF0A2 /* ButtonBarPagerTabStripViewController.swift in Sources */,
+				3B8CB5C1E2DF5C7111874A761A35BF5C /* ButtonBarView.swift in Sources */,
+				8A88C6A80CFAAC18E253FDE6E9F7147D /* ButtonBarViewCell.swift in Sources */,
+				EB507D31EC99986790A1ABF3A97652F2 /* ButtonCell.xib in Sources */,
+				0AFDDE4F7564DF695E9004FB9DFFEDA5 /* FXPageControl.m in Sources */,
+				E408796F6251306FDF4CA83BB7CE2980 /* IndicatorInfo.swift in Sources */,
+				2B80B9C9B8F99DBB5ECF63D6B770F6EF /* PagerTabStripBehaviour.swift in Sources */,
+				FF02AABDD6D400F34F16E7AF640B0429 /* PagerTabStripError.swift in Sources */,
+				3E162750D98A60E01E06B809722B85B8 /* PagerTabStripViewController.swift in Sources */,
+				AD07C0D87907173FC5F6F8635BDB376A /* SegmentedPagerTabStripViewController.swift in Sources */,
+				3DDAB624773E92F700DAEBF413B35C0F /* SwipeDirection.swift in Sources */,
+				0DFD43ADF4A579ED62FE7FB6BE3100B9 /* TwitterPagerTabStripViewController.swift in Sources */,
+				48D0EBB3334DA8FAF4FDA2D3426A7F23 /* XLPagerTabStrip-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		970D056BA305DC7F21FFA92AC1FB66AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBABA2C41346B9D964B72CBE69C15F69 /* Pods-Lens-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D1581A85114C6ABDEE1A4097AE7D9B16 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = XLPagerTabStrip;
-			target = 8CF0A6507369E268F2E3058DF204BE17 /* XLPagerTabStrip */;
-			targetProxy = 5CFE09FE7D510501A430817D09C792A7 /* PBXContainerItemProxy */;
-		};
-		EBB2D71397500FF041B4E65C52148CC1 /* PBXTargetDependency */ = {
+		6A6D2675DC440965439BEAB55DF65C16 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "XLPagerTabStrip-XLPagerTabStrip";
-			target = 85054C3DEAE830988A2CDAE86B77D516 /* XLPagerTabStrip-XLPagerTabStrip */;
-			targetProxy = 1B4663BA2873CA9B1CCCD27E60757EFE /* PBXContainerItemProxy */;
+			target = E0D6EB7694E6CFC76C14236CD3E8EE28 /* XLPagerTabStrip-XLPagerTabStrip */;
+			targetProxy = 29C67B98F56CAB32DCAE6C563C0A41C3 /* PBXContainerItemProxy */;
+		};
+		874DCB486B973D1E2BE8D9ACFF00F4F1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XLPagerTabStrip;
+			target = F6530E07F0D66854473844EF1C282F14 /* XLPagerTabStrip */;
+			targetProxy = A2B800E67BD73E477FE2BA448608FF5A /* PBXContainerItemProxy */;
+		};
+		8C7F4F8FEFA228C83D07332E7AE650A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Kingfisher;
+			target = 6F712943B3C5592E82604940D11CE08A /* Kingfisher */;
+			targetProxy = 0E13146ADEF7AF2F9409DB323AADD70E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		084D31777952D719E250881328A85305 /* Release */ = {
+		0D26322FB2D33C384FF7B143A922EF5B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BB3B000C213EE33EF7A18AF386B0120 /* XLPagerTabStrip.xcconfig */;
+			baseConfigurationReference = E201F96521FA3601818FBC39B53740D5 /* XLPagerTabStrip.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/XLPagerTabStrip/XLPagerTabStrip-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/XLPagerTabStrip/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/XLPagerTabStrip";
+				INFOPLIST_FILE = "Target Support Files/XLPagerTabStrip/ResourceBundle-XLPagerTabStrip-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/XLPagerTabStrip/XLPagerTabStrip.modulemap";
 				PRODUCT_NAME = XLPagerTabStrip;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+				WRAPPER_EXTENSION = bundle;
 			};
-			name = Release;
+			name = Debug;
 		};
-		117C65EDB2D7D6D80BF24C72D56BE58B /* Debug */ = {
+		576C583E88A92DC2279EB3BFC2CA8A6C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BB3B000C213EE33EF7A18AF386B0120 /* XLPagerTabStrip.xcconfig */;
+			baseConfigurationReference = 6840B9D7FBA5E0E06790E01C74FEE602 /* Kingfisher.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -466,13 +636,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/XLPagerTabStrip/XLPagerTabStrip-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/XLPagerTabStrip/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/Kingfisher/Kingfisher-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Kingfisher/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/XLPagerTabStrip/XLPagerTabStrip.modulemap";
-				PRODUCT_NAME = XLPagerTabStrip;
+				MODULEMAP_FILE = "Target Support Files/Kingfisher/Kingfisher.modulemap";
+				PRODUCT_NAME = Kingfisher;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -484,7 +654,7 @@
 			};
 			name = Debug;
 		};
-		18CE8927FD24919128ABFFC13BF40C92 /* Debug */ = {
+		6343347212EDD454E6C0E41A69548635 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 569EF7D104A7DC7481F61912126B0717 /* Pods-Lens.debug.xcconfig */;
 			buildSettings = {
@@ -515,56 +685,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		44F012D6E91FB74B8C97A4FF42B26978 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9A4691D53BE998135253359B14D8BB1 /* Pods-Lens.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Lens/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Lens/Pods-Lens.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Lens;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		647163E4E267DB928F636918487532C7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BB3B000C213EE33EF7A18AF386B0120 /* XLPagerTabStrip.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/XLPagerTabStrip";
-				INFOPLIST_FILE = "Target Support Files/XLPagerTabStrip/ResourceBundle-XLPagerTabStrip-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = XLPagerTabStrip;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
 		};
@@ -624,9 +744,41 @@
 			};
 			name = Release;
 		};
-		725693D6B48637FA4D3810032CA6B369 /* Release */ = {
+		786670A9961AAC956BBC6DFFAD7825E5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BB3B000C213EE33EF7A18AF386B0120 /* XLPagerTabStrip.xcconfig */;
+			baseConfigurationReference = E201F96521FA3601818FBC39B53740D5 /* XLPagerTabStrip.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/XLPagerTabStrip/XLPagerTabStrip-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/XLPagerTabStrip/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/XLPagerTabStrip/XLPagerTabStrip.modulemap";
+				PRODUCT_NAME = XLPagerTabStrip;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		7E8F2594A5FBAD727F3BC227E08C1DB4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E201F96521FA3601818FBC39B53740D5 /* XLPagerTabStrip.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/XLPagerTabStrip";
@@ -639,6 +791,37 @@
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
+		};
+		9632FDADC51328E7EEA6364231823552 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E201F96521FA3601818FBC39B53740D5 /* XLPagerTabStrip.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/XLPagerTabStrip/XLPagerTabStrip-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/XLPagerTabStrip/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/XLPagerTabStrip/XLPagerTabStrip.modulemap";
+				PRODUCT_NAME = XLPagerTabStrip;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		B57951D085A1B98A97F8A1062A5E5C5B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -700,6 +883,72 @@
 			};
 			name = Debug;
 		};
+		D2C791FB2289CE0F84E36937944306FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9A4691D53BE998135253359B14D8BB1 /* Pods-Lens.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Lens/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Lens/Pods-Lens.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Lens;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E8652F35BF322A3957D0F62338910B79 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6840B9D7FBA5E0E06790E01C74FEE602 /* Kingfisher.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Kingfisher/Kingfisher-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Kingfisher/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Kingfisher/Kingfisher.modulemap";
+				PRODUCT_NAME = Kingfisher;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -712,29 +961,38 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6386BF93CCB8A446E4D1B88AFCF69845 /* Build configuration list for PBXNativeTarget "Pods-Lens" */ = {
+		4BD49FAE053D9CCCF024D16BEE1EA7A6 /* Build configuration list for PBXNativeTarget "XLPagerTabStrip" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				18CE8927FD24919128ABFFC13BF40C92 /* Debug */,
-				44F012D6E91FB74B8C97A4FF42B26978 /* Release */,
+				9632FDADC51328E7EEA6364231823552 /* Debug */,
+				786670A9961AAC956BBC6DFFAD7825E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A55F773BCF2276BF7DD6DFC323138A30 /* Build configuration list for PBXNativeTarget "XLPagerTabStrip" */ = {
+		5DCA7757AB98F2A992001FFF1EB27E3C /* Build configuration list for PBXNativeTarget "XLPagerTabStrip-XLPagerTabStrip" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				117C65EDB2D7D6D80BF24C72D56BE58B /* Debug */,
-				084D31777952D719E250881328A85305 /* Release */,
+				0D26322FB2D33C384FF7B143A922EF5B /* Debug */,
+				7E8F2594A5FBAD727F3BC227E08C1DB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CA1DA158C880452888BECAF926EFFFF3 /* Build configuration list for PBXNativeTarget "XLPagerTabStrip-XLPagerTabStrip" */ = {
+		8C1E4CEFB2390CBE75E70BAC20F44BBF /* Build configuration list for PBXNativeTarget "Kingfisher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				647163E4E267DB928F636918487532C7 /* Debug */,
-				725693D6B48637FA4D3810032CA6B369 /* Release */,
+				576C583E88A92DC2279EB3BFC2CA8A6C /* Debug */,
+				E8652F35BF322A3957D0F62338910B79 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A3AB8FAB773659574E313AE24688569F /* Build configuration list for PBXNativeTarget "Pods-Lens" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6343347212EDD454E6C0E41A69548635 /* Debug */,
+				D2C791FB2289CE0F84E36937944306FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

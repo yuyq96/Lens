@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalUserCell" customModule="Lens" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PersonalUserCell" rowHeight="72" id="ex4-kC-Q7o" customClass="PersonalUserCell" customModule="Lens" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ex4-kC-Q7o" id="CVa-Sy-mYh">
+                <rect key="frame" x="0.0" y="0.0" width="341" height="71.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userhead" translatesAutoresizingMaskIntoConstraints="NO" id="EO7-kh-fsA">
+                        <rect key="frame" x="20" y="7.5" width="56" height="56.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="56" id="5nN-XY-nV6"/>
+                            <constraint firstAttribute="height" constant="56" id="ETl-XC-5aJ"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="28"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhe-D2-Nf7">
+                        <rect key="frame" x="84" y="15" width="237" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="JhA-Vb-bcB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LL3-yC-IdN">
+                        <rect key="frame" x="84" y="40.5" width="237" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="nhe-D2-Nf7" firstAttribute="leading" secondItem="EO7-kh-fsA" secondAttribute="trailing" constant="8" id="0jt-wM-wnk"/>
+                    <constraint firstItem="LL3-yC-IdN" firstAttribute="trailing" secondItem="nhe-D2-Nf7" secondAttribute="trailing" id="7US-K4-WKd"/>
+                    <constraint firstItem="LL3-yC-IdN" firstAttribute="leading" secondItem="nhe-D2-Nf7" secondAttribute="leading" id="Q1T-UT-ZO9"/>
+                    <constraint firstItem="LL3-yC-IdN" firstAttribute="top" secondItem="nhe-D2-Nf7" secondAttribute="bottom" constant="4" id="Z5y-9f-5oD"/>
+                    <constraint firstItem="nhe-D2-Nf7" firstAttribute="top" secondItem="CVa-Sy-mYh" secondAttribute="top" constant="15" id="ZvM-gz-xSd"/>
+                    <constraint firstAttribute="trailing" secondItem="nhe-D2-Nf7" secondAttribute="trailing" constant="20" symbolic="YES" id="hwo-WI-amR"/>
+                    <constraint firstItem="EO7-kh-fsA" firstAttribute="leading" secondItem="CVa-Sy-mYh" secondAttribute="leading" constant="20" symbolic="YES" id="m1e-7I-e9l"/>
+                    <constraint firstItem="EO7-kh-fsA" firstAttribute="top" secondItem="CVa-Sy-mYh" secondAttribute="top" constant="7.5" id="pKe-oW-eqg"/>
+                    <constraint firstAttribute="bottom" secondItem="EO7-kh-fsA" secondAttribute="bottom" constant="7.5" id="xsT-6o-0fp"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="userhead" destination="EO7-kh-fsA" id="hF6-yc-991"/>
+                <outlet property="userid" destination="LL3-yC-IdN" id="xE4-Pw-1OA"/>
+                <outlet property="username" destination="nhe-D2-Nf7" id="p4v-t6-BfG"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="userhead" width="56" height="56"/>
+    </resources>
+</document>

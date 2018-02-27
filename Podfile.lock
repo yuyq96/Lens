@@ -1,12 +1,15 @@
 PODS:
+  - Kingfisher (4.6.2)
   - XLPagerTabStrip (8.0.0)
 
 DEPENDENCIES:
+  - Kingfisher (~> 4.0)
   - XLPagerTabStrip (~> 8.0)
 
 SPEC CHECKSUMS:
+  Kingfisher: 55b9c395bf8d3949676ad3861111923990ab68cf
   XLPagerTabStrip: d1ab378af0923320ec0b5eab11d7b2f803d31261
 
-PODFILE CHECKSUM: 999220d5f20cd91bd50dc8b994a6760c187c6908
+PODFILE CHECKSUM: a57c7ce6c3b0512b657e21b44226824537eb8eeb
 
 COCOAPODS: 1.4.0
