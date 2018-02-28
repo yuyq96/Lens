@@ -109,10 +109,10 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             cell.nameLabel.text = product.name
             cell.mountButton.setTitle(product.tags[0], for: .normal)
             cell.frameButton.setTitle(product.tags[1], for: .normal)
-            if self.tab == Context.Tab.equipment {
-                cell.mountButton.isEnabled = true
-                cell.frameButton.isEnabled = true
-            }
+//            if self.tab == Context.Tab.equipment {
+//                cell.mountButton.isEnabled = true
+//                cell.frameButton.isEnabled = true
+//            }
             return cell
         case Context.Tab.news:
             if let imageUrl = (data[indexPath.row] as! NewsModel).image {

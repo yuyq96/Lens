@@ -75,4 +75,23 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         return [lensViewController, cameraViewController, accessoriesViewController]
     }
     
+    @objc func setProdutFilter(sender: UIBarButtonItem) {
+        let filterRootViewController = UIViewController()
+        filterRootViewController.view.backgroundColor = .white
+        filterRootViewController.navigationItem.title = "Filter"
+        filterRootViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelProdutFilter))
+        filterRootViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Confirm", style: .done, target: self, action: #selector(confirmProdutFilter))
+        let filterViewController = NavigationController(rootViewController: filterRootViewController)
+        filterViewController.navigationBar.shadowImage = nil
+        self.present(filterViewController, animated: true, completion: nil)
+    }
+    
+    @objc func cancelProdutFilter(sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func confirmProdutFilter(sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

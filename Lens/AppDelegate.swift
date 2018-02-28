@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let productRootViewContoller = BrowsePagerTabStripViewController()
         productRootViewContoller.navigationItem.title = Context.Tab.equipment
+        productRootViewContoller.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search")?.withRenderingMode(.alwaysOriginal), style: .plain, target: productRootViewContoller, action: #selector(productRootViewContoller.setProdutFilter))
         let productViewController = NavigationController(rootViewController: productRootViewContoller)
         
         let newsRootViewContoller = BrowsePagerTabStripViewController()
