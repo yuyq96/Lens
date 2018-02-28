@@ -13,7 +13,7 @@ import Kingfisher
 class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
     var tab: String!
-    var Category: String!
+    var category: String!
     var data: [Any] = []
 
     override func viewDidLoad() {
@@ -41,19 +41,19 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         
         switch tab {
         case Context.Tab.equipment:
-            switch Category {
+            switch category {
             case Context.Category.lens:
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Sigma_85mm_F14_DG_HSM_A_Nikon/Marketing_PV/Sigma_85mm_F14_DG_HSM_A_Nikon.png", name: "Sigma 85mm F1.4 DG HSM A Nikon", tags: []))
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Distagon_T_STAR_Otus_55mm_F14_ZF2_Nikon/Marketing_PV/Zeiss_Carl_Zeiss_Distagon_T_STAR_Otus_55mm_F14_ZF2_Nikon.png", name: "Carl Zeiss Distagon T* Otus 1.4/55 ZF.2 Nikon", tags: []))
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Apo_Planar_T_Star_Otus_85mm_F14_ZF2_Nikon/Marketing_PV/Zeiss_Carl_Zeiss_Apo_Planar_T_Star_Otus_85mm_F14_ZF2_Nikon.png", name: "Carl Zeiss Distagon T* Otus 1.4/85 ZF.2 Nikon", tags: []))
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Sony_FE_85mm_F14_GM/Marketing_PV/Sony_FE_85mm_F14_GM.png", name: "Sony FE 85mm F1.4 GM", tags: []))
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Sony_FE_Carl_Zeiss_Sonnar_T_STAR_55mm_F18/Marketing_PV/Sony_FE_Carl_Zeiss_Sonnar_T_STAR_55mm_F18.png", name: "Sony FE Carl Zeiss Sonnar T* 55mm F1.8 ZA", tags: []))
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Apo_Sonnar_T_Star_F2_135_ZE_Canon/Marketing_PV/Zeiss_Carl_Zeiss_Apo_Sonnar_T_Star_F2_135_ZE_Canon.png", name: "Carl Zeiss Apo Sonnar T* 2/135 ZE Canon", tags: []))
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Milvus_F14_85mm_ZF2_Nikon/Marketing_PV/Zeiss_Carl_Zeiss_Milvus_F14_85mm_ZF2_Nikon.png", name: "Carl Zeiss Milvus 1.4/85 ZF.2 Nikon", tags: []))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Sigma_85mm_F14_DG_HSM_A_Nikon/Marketing_PV/Sigma_85mm_F14_DG_HSM_A_Nikon.png", name: "Sigma 85mm F1.4 DG HSM A Nikon", tags: ["Nikon F", "Full"]))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Distagon_T_STAR_Otus_55mm_F14_ZF2_Nikon/Marketing_PV/Zeiss_Carl_Zeiss_Distagon_T_STAR_Otus_55mm_F14_ZF2_Nikon.png", name: "Carl Zeiss Distagon T* Otus 1.4/55 ZF.2 Nikon", tags: ["Nikon F", "Full"]))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Apo_Planar_T_Star_Otus_85mm_F14_ZF2_Nikon/Marketing_PV/Zeiss_Carl_Zeiss_Apo_Planar_T_Star_Otus_85mm_F14_ZF2_Nikon.png", name: "Carl Zeiss Distagon T* Otus 1.4/85 ZF.2 Nikon", tags: ["Nikon F", "Full"]))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Sony_FE_85mm_F14_GM/Marketing_PV/Sony_FE_85mm_F14_GM.png", name: "Sony FE 85mm F1.4 GM", tags: ["Sony E", "Full"]))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Sony_FE_Carl_Zeiss_Sonnar_T_STAR_55mm_F18/Marketing_PV/Sony_FE_Carl_Zeiss_Sonnar_T_STAR_55mm_F18.png", name: "Sony FE Carl Zeiss Sonnar T* 55mm F1.8 ZA", tags: ["Sony E", "Full"]))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Apo_Sonnar_T_Star_F2_135_ZE_Canon/Marketing_PV/Zeiss_Carl_Zeiss_Apo_Sonnar_T_Star_F2_135_ZE_Canon.png", name: "Carl Zeiss Apo Sonnar T* 2/135 ZE Canon", tags: ["Canon EF", "Full"]))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Milvus_F14_85mm_ZF2_Nikon/Marketing_PV/Zeiss_Carl_Zeiss_Milvus_F14_85mm_ZF2_Nikon.png", name: "Carl Zeiss Milvus 1.4/85 ZF.2 Nikon", tags: ["Nikon F", "Full"]))
             default: break
             }
         case Context.Tab.news:
-            switch Category {
+            switch category {
             case Context.Category.lens:
                 data.append(NewsModel(title: "Sigma 14-24mm F2.8 DG HSM Art", info: "dpreview    Feb.23 2018", content: "Sigma announced pricing and availability for its much-anticipated 14-24mm F2.8 Art lens today, revealing that the ultra-wide zoom will begin shipping mid-March for $1,300 USD.", url: "https://www.dpreview.com/news/0958339925/tokina-unveils-firin-20mm-f2-0-fe-af-autofocus-lens-for-sony-e-mount", image: "https://3.img-dpreview.com/files/p/E~C0x0S2756x2067T200x150~articles/1496020316/pphoto_14_24_28_a018_l_02__1_.jpeg"))
                 data.append(NewsModel(title: "Tokina unveils the FíRIN 20mm F2.0 FE AF", info: "dpreview    Feb.22 2018", content: "The Tokina FíRIN 20mm F2 FE AF is a followup to the MF version released in 2016, which adds (you guessed it) autofocus capabilities. Optically, the two lenses are identical.", url: "https://www.dpreview.com/news/0958339925/tokina-unveils-firin-20mm-f2-0-fe-af-autofocus-lens-for-sony-e-mount", image: "https://2.img-dpreview.com/files/p/E~C73x0S444x333T200x150~articles/0958339925/firin20af_1.jpeg"))
@@ -64,15 +64,15 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             default: break
             }
         case Context.Tab.libraries:
-            switch Category {
+            switch category {
             case Context.Category.lens:
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Sigma_85mm_F14_DG_HSM_A_Nikon/Marketing_PV/Sigma_85mm_F14_DG_HSM_A_Nikon.png", name: "Sigma 85mm F1.4 DG HSM A Nikon", tags: []))
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Distagon_T_STAR_Otus_55mm_F14_ZF2_Nikon/Marketing_PV/Zeiss_Carl_Zeiss_Distagon_T_STAR_Otus_55mm_F14_ZF2_Nikon.png", name: "Carl Zeiss Distagon T* Otus 1.4/55 ZF.2 Nikon", tags: []))
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Apo_Planar_T_Star_Otus_85mm_F14_ZF2_Nikon/Marketing_PV/Zeiss_Carl_Zeiss_Apo_Planar_T_Star_Otus_85mm_F14_ZF2_Nikon.png", name: "Carl Zeiss Distagon T* Otus 1.4/85 ZF.2 Nikon", tags: []))
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Sony_FE_85mm_F14_GM/Marketing_PV/Sony_FE_85mm_F14_GM.png", name: "Sony FE 85mm F1.4 GM", tags: []))
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Sony_FE_Carl_Zeiss_Sonnar_T_STAR_55mm_F18/Marketing_PV/Sony_FE_Carl_Zeiss_Sonnar_T_STAR_55mm_F18.png", name: "Sony FE Carl Zeiss Sonnar T* 55mm F1.8 ZA", tags: []))
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Apo_Sonnar_T_Star_F2_135_ZE_Canon/Marketing_PV/Zeiss_Carl_Zeiss_Apo_Sonnar_T_Star_F2_135_ZE_Canon.png", name: "Carl Zeiss Apo Sonnar T* 2/135 ZE Canon", tags: []))
-                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Milvus_F14_85mm_ZF2_Nikon/Marketing_PV/Zeiss_Carl_Zeiss_Milvus_F14_85mm_ZF2_Nikon.png", name: "Carl Zeiss Milvus 1.4/85 ZF.2 Nikon", tags: []))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Sigma_85mm_F14_DG_HSM_A_Nikon/Marketing_PV/Sigma_85mm_F14_DG_HSM_A_Nikon.png", name: "Sigma 85mm F1.4 DG HSM A Nikon", tags: ["Nikon F", "Full"]))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Distagon_T_STAR_Otus_55mm_F14_ZF2_Nikon/Marketing_PV/Zeiss_Carl_Zeiss_Distagon_T_STAR_Otus_55mm_F14_ZF2_Nikon.png", name: "Carl Zeiss Distagon T* Otus 1.4/55 ZF.2 Nikon", tags: ["Nikon F", "Full"]))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Apo_Planar_T_Star_Otus_85mm_F14_ZF2_Nikon/Marketing_PV/Zeiss_Carl_Zeiss_Apo_Planar_T_Star_Otus_85mm_F14_ZF2_Nikon.png", name: "Carl Zeiss Distagon T* Otus 1.4/85 ZF.2 Nikon", tags: ["Nikon F", "Full"]))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Sony_FE_85mm_F14_GM/Marketing_PV/Sony_FE_85mm_F14_GM.png", name: "Sony FE 85mm F1.4 GM", tags: ["Sony E", "Full"]))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Sony_FE_Carl_Zeiss_Sonnar_T_STAR_55mm_F18/Marketing_PV/Sony_FE_Carl_Zeiss_Sonnar_T_STAR_55mm_F18.png", name: "Sony FE Carl Zeiss Sonnar T* 55mm F1.8 ZA", tags: ["Sony E", "Full"]))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Apo_Sonnar_T_Star_F2_135_ZE_Canon/Marketing_PV/Zeiss_Carl_Zeiss_Apo_Sonnar_T_Star_F2_135_ZE_Canon.png", name: "Carl Zeiss Apo Sonnar T* 2/135 ZE Canon", tags: ["Canon EF", "Full"]))
+                data.append(ProductModel(hash: "", image: "https://cdn.dxomark.com/dakdata/measures/Optics/Zeiss_Carl_Zeiss_Milvus_F14_85mm_ZF2_Nikon/Marketing_PV/Zeiss_Carl_Zeiss_Milvus_F14_85mm_ZF2_Nikon.png", name: "Carl Zeiss Milvus 1.4/85 ZF.2 Nikon", tags: ["Nikon F", "Full"]))
             default: break
             }
         default:
@@ -87,7 +87,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         // 设置选项卡标题
-        return IndicatorInfo(title: Category)
+        return IndicatorInfo(title: category)
     }
 
     // MARK: - Table view data source
@@ -104,22 +104,29 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         switch tab {
         case Context.Tab.equipment, Context.Tab.libraries, Context.Tab.wishlist:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
-            cell.productImage?.kf.setImage(with: URL(string: (data[indexPath.row] as! ProductModel).image))
-            cell.productName?.text = (data[indexPath.row] as! ProductModel).name
+            let product = data[indexPath.row] as! ProductModel
+            cell.productImage.kf.setImage(with: URL(string: (product.image)))
+            cell.nameLabel.text = product.name
+            cell.mountButton.setTitle(product.tags[0], for: .normal)
+            cell.frameButton.setTitle(product.tags[1], for: .normal)
+            if self.tab == Context.Tab.equipment {
+                cell.mountButton.isEnabled = true
+                cell.frameButton.isEnabled = true
+            }
             return cell
         case Context.Tab.news:
             if let imageUrl = (data[indexPath.row] as! NewsModel).image {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "NewsImageCell", for: indexPath) as! NewsImageCell
-                cell.picture?.kf.setImage(with: URL(string: imageUrl))
-                cell.title?.text = (data[indexPath.row] as! NewsModel).title
-                cell.info?.text = (data[indexPath.row] as! NewsModel).info
-                cell.content?.text = (data[indexPath.row] as! NewsModel).content
+                cell.picture.kf.setImage(with: URL(string: imageUrl))
+                cell.title.text = (data[indexPath.row] as! NewsModel).title
+                cell.info.text = (data[indexPath.row] as! NewsModel).info
+                cell.content.text = (data[indexPath.row] as! NewsModel).content
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
-                cell.title?.text = (data[indexPath.row] as! NewsModel).title
-                cell.info?.text = (data[indexPath.row] as! NewsModel).info
-                cell.content?.text = (data[indexPath.row] as! NewsModel).content
+                cell.title.text = (data[indexPath.row] as! NewsModel).title
+                cell.info.text = (data[indexPath.row] as! NewsModel).info
+                cell.content.text = (data[indexPath.row] as! NewsModel).content
                 return cell
             }
         default:

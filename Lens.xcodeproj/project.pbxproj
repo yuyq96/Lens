@@ -120,7 +120,6 @@
 		214D1A6F2043A57B00A523AD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				214D1A6E2043A54300A523AD /* Cell */,
 				214D1AA02045384C00A523AD /* NavigationController.swift */,
 				214D1A892044397D00A523AD /* WebViewController.swift */,
 				2120A5512042EC6300DDA6B8 /* BrowsePagerTabStripViewController.swift */,
@@ -135,6 +134,7 @@
 		214D1A702043A5AE00A523AD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				214D1A6E2043A54300A523AD /* Cell */,
 				215B083B203FFF3000802011 /* LaunchScreen.storyboard */,
 				21AABCD8204551250013BA40 /* Cell.xib */,
 				21E5F55C20431BE7009D7A71 /* ProductCell.xib */,

@@ -65,13 +65,13 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         // 创建各个选项卡对应的页面
         let lensViewController = BrowseViewController(style: .grouped)
         lensViewController.tab = tab
-        lensViewController.Category = Context.Category.lens
+        lensViewController.category = Context.Category.lens
         let cameraViewController = BrowseViewController(style: .grouped)
         cameraViewController.tab = tab
-        cameraViewController.Category = Context.Category.camera
+        cameraViewController.category = Context.Category.camera
         let accessoriesViewController = BrowseViewController(style: .grouped)
         accessoriesViewController.tab = tab
-        accessoriesViewController.Category = Context.Category.accessories
+        accessoriesViewController.category = Context.Category.accessories
         return [lensViewController, cameraViewController, accessoriesViewController]
     }
     
