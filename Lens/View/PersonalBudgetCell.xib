@@ -23,6 +23,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foH-Ax-Kph">
+                        <rect key="frame" x="12" y="11" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="****" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ci-hT-B65">
                         <rect key="frame" x="322.5" y="12" width="36.5" height="21"/>
                         <constraints>
@@ -35,13 +41,16 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="3ci-hT-B65" secondAttribute="trailing" constant="16" id="1nT-1C-DTg"/>
+                    <constraint firstItem="foH-Ax-Kph" firstAttribute="centerY" secondItem="C1y-Et-pn7" secondAttribute="centerY" id="81P-dP-Osz"/>
                     <constraint firstItem="3ci-hT-B65" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="C1y-Et-pn7" secondAttribute="leading" id="FCa-w7-GgY"/>
                     <constraint firstAttribute="bottom" secondItem="3ci-hT-B65" secondAttribute="bottom" constant="10.5" id="aMO-Qz-qve"/>
                     <constraint firstItem="3ci-hT-B65" firstAttribute="top" secondItem="C1y-Et-pn7" secondAttribute="top" constant="12" id="fwE-gk-HPp"/>
+                    <constraint firstItem="foH-Ax-Kph" firstAttribute="leading" secondItem="C1y-Et-pn7" secondAttribute="leading" constant="12" id="wfH-nu-yPV"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="budget" destination="3ci-hT-B65" id="KCB-h1-FTq"/>
+                <outlet property="label" destination="foH-Ax-Kph" id="LIE-rM-Ag9"/>
             </connections>
         </tableViewCell>
     </objects>

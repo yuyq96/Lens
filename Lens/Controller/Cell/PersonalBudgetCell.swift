@@ -10,6 +10,7 @@ import UIKit
 
 class PersonalBudgetCell: UITableViewCell {
 
+    @IBOutlet weak var label: UILabel!
     @IBOutlet weak var budget: UILabel!
     
     override func awakeFromNib() {

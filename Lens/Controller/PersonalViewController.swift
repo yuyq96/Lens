@@ -107,7 +107,7 @@ class PersonalViewController: UITableViewController {
                 return cell
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalBudgetCell", for: indexPath) as! PersonalBudgetCell
-                cell.textLabel?.text = Context.Tab.budget
+                cell.label?.text = Context.Tab.budget
                 cell.budget?.text = "****"
                 if user.settings.showBudget == true {
                     cell.budget?.text = user.budget
@@ -199,8 +199,8 @@ class PersonalViewController: UITableViewController {
                 }
             } else {
                 let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                let changeNameAction = UIAlertAction(title: "Change username", style: .default, handler: { (action) in
-                    let alertController = UIAlertController(title: "Change username", message: nil, preferredStyle: .alert)
+                let changeNameAction = UIAlertAction(title: "Change Nickname", style: .default, handler: { (action) in
+                    let alertController = UIAlertController(title: "Change Nickname", message: nil, preferredStyle: .alert)
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                     let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
                         let username = alertController.textFields?.first?.text
@@ -210,11 +210,11 @@ class PersonalViewController: UITableViewController {
                     alertController.addAction(cancelAction)
                     alertController.addAction(confirmAction)
                     alertController.addTextField(configurationHandler: { (textField) in
-                        textField.placeholder = "new username"
+                        textField.placeholder = "new nickname"
                     })
                     self.present(alertController, animated: true, completion: nil)
                 })
-                let changeAvatarAction = UIAlertAction(title: "Change avatar", style: .default, handler: { (action) in
+                let changeAvatarAction = UIAlertAction(title: "Change Avatar", style: .default, handler: { (action) in
                     // TODO
                 })
                 let logoutAction = UIAlertAction(title: "Logout", style: .destructive, handler: { (action) in
