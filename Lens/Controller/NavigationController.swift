@@ -8,7 +8,9 @@
 
 import UIKit
 
-class NavigationController: UINavigationController {
+class NavigationController: UINavigationController { // UIGestureRecognizerDelegate
+    
+    var startX: CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()

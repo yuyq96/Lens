@@ -10,7 +10,7 @@ import Foundation
 
 class Context {
     
-    class type {
+    class Tab {
         
         static let equipment = "Equipment"
         static let news = "News"
@@ -21,7 +21,7 @@ class Context {
         
     }
     
-    class info {
+    class Category {
         
         static let lens = "Lens"
         static let camera = "Camera"

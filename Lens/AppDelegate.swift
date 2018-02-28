@@ -13,22 +13,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         self.window?.backgroundColor = .white
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
         let productRootViewContoller = BrowsePagerTabStripViewController()
-        productRootViewContoller.navigationItem.title = Context.type.equipment
+        productRootViewContoller.navigationItem.title = Context.Tab.equipment
         let productViewController = NavigationController(rootViewController: productRootViewContoller)
         
         let newsRootViewContoller = BrowsePagerTabStripViewController()
-        newsRootViewContoller.navigationItem.title = Context.type.news
+        newsRootViewContoller.navigationItem.title = Context.Tab.news
         let newsViewController = NavigationController(rootViewController: newsRootViewContoller)
         
         let personalRootViewController = PersonalViewController(style: .grouped)
-        personalRootViewController.navigationItem.title = Context.type.personal
+        personalRootViewController.navigationItem.title = Context.Tab.personal
         let personalViewController = NavigationController(rootViewController: personalRootViewController)
         
         let tabBarController = UITabBarController()
@@ -36,9 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.tabBar.tintColor = Color.tint
         tabBarController.tabBar.isTranslucent = false
         
-        productViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.type.equipment), selectedImage: UIImage(named: Context.type.equipment + "_S"))
-        newsViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.type.news), selectedImage: UIImage(named: Context.type.news + "_S"))
-        personalViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.type.personal), selectedImage: UIImage(named: Context.type.personal + "_S"))
+        productViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.Tab.equipment), selectedImage: UIImage(named: Context.Tab.equipment + "_S"))
+        newsViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.Tab.news), selectedImage: UIImage(named: Context.Tab.news + "_S"))
+        personalViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.Tab.personal), selectedImage: UIImage(named: Context.Tab.personal + "_S"))
         let insets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         productViewController.tabBarItem.imageInsets = insets
         newsViewController.tabBarItem.imageInsets = insets
@@ -53,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+        // Sent when the application is about to move from active to inactive state. This can occur for certain categorys of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
 

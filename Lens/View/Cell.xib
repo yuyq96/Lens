@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="sQ4-vF-RCq" userLabel="Cell" customClass="Cell" customModule="Lens" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sQ4-vF-RCq" id="5Qi-W3-wFw">
+                <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y2R-sA-KWj">
+                        <rect key="frame" x="12" y="11.5" width="317" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o8q-q1-GBJ">
+                        <rect key="frame" x="277" y="6" width="51" height="31"/>
+                    </switch>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="o8q-q1-GBJ" firstAttribute="centerY" secondItem="5Qi-W3-wFw" secondAttribute="centerY" id="4vs-ha-sdO"/>
+                    <constraint firstItem="Y2R-sA-KWj" firstAttribute="top" secondItem="5Qi-W3-wFw" secondAttribute="top" constant="11.5" id="BEB-Cn-QPd"/>
+                    <constraint firstAttribute="bottom" secondItem="Y2R-sA-KWj" secondAttribute="bottom" constant="11.5" id="EAD-qm-kFc"/>
+                    <constraint firstItem="Y2R-sA-KWj" firstAttribute="leading" secondItem="5Qi-W3-wFw" secondAttribute="leading" constant="12" id="Nv8-6i-Kxr"/>
+                    <constraint firstAttribute="trailing" secondItem="o8q-q1-GBJ" secondAttribute="trailing" constant="15" id="X3p-mw-Fk0"/>
+                    <constraint firstAttribute="trailing" secondItem="Y2R-sA-KWj" secondAttribute="trailing" constant="12" id="iDx-pP-tZX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="label" destination="Y2R-sA-KWj" id="QoW-6k-mBM"/>
+                <outlet property="mSwitch" destination="o8q-q1-GBJ" id="Umr-pb-B9S"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

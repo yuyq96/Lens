@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
 

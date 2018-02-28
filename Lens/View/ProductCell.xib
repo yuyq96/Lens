@@ -18,14 +18,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3tb-11-oOF">
-                        <rect key="frame" x="16" y="8" width="56" height="56"/>
+                        <rect key="frame" x="12" y="8" width="56" height="56"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="56" id="Odq-e6-YwO"/>
                             <constraint firstAttribute="height" constant="56" id="bNT-Us-qjc"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TlZ-NS-FXo">
-                        <rect key="frame" x="80" y="8" width="279" height="20"/>
+                        <rect key="frame" x="76" y="8" width="287" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Nzs-PF-pCx"/>
                         </constraints>
@@ -36,10 +36,10 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="3tb-11-oOF" firstAttribute="top" secondItem="BRj-s2-NLT" secondAttribute="top" constant="8" id="4b6-NR-t6N"/>
-                    <constraint firstItem="3tb-11-oOF" firstAttribute="leading" secondItem="BRj-s2-NLT" secondAttribute="leading" constant="16" id="Jxy-uu-0sE"/>
+                    <constraint firstItem="3tb-11-oOF" firstAttribute="leading" secondItem="BRj-s2-NLT" secondAttribute="leading" constant="12" id="Jxy-uu-0sE"/>
                     <constraint firstItem="TlZ-NS-FXo" firstAttribute="leading" secondItem="3tb-11-oOF" secondAttribute="trailing" constant="8" id="UdF-9n-Ncb"/>
                     <constraint firstItem="TlZ-NS-FXo" firstAttribute="top" secondItem="3tb-11-oOF" secondAttribute="top" id="Z9w-Xc-ETg"/>
-                    <constraint firstAttribute="trailing" secondItem="TlZ-NS-FXo" secondAttribute="trailing" constant="16" id="iVz-6c-w3u"/>
+                    <constraint firstAttribute="trailing" secondItem="TlZ-NS-FXo" secondAttribute="trailing" constant="12" id="iVz-6c-w3u"/>
                     <constraint firstAttribute="bottom" secondItem="3tb-11-oOF" secondAttribute="bottom" constant="7.5" id="vsY-B4-Lvq"/>
                 </constraints>
             </tableViewCellContentView>

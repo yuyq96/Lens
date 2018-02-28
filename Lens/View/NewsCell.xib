@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2O-YK-N4W">
-                        <rect key="frame" x="16" y="8" width="343" height="16"/>
+                        <rect key="frame" x="12" y="8" width="351" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="M7a-mv-dgu"/>
                         </constraints>
@@ -28,7 +28,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70G-Gm-J3s">
-                        <rect key="frame" x="16" y="27" width="343" height="12"/>
+                        <rect key="frame" x="12" y="27" width="351" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="9et-aJ-zHF"/>
                         </constraints>
@@ -37,7 +37,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03r-MO-60Z">
-                        <rect key="frame" x="16" y="42" width="343" height="70"/>
+                        <rect key="frame" x="12" y="42" width="351" height="70"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="70" id="b16-Oh-BQv"/>
                         </constraints>
@@ -47,16 +47,16 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="p2O-YK-N4W" secondAttribute="trailing" constant="16" id="2g0-Xl-7Me"/>
+                    <constraint firstAttribute="trailing" secondItem="p2O-YK-N4W" secondAttribute="trailing" constant="12" id="2g0-Xl-7Me"/>
                     <constraint firstItem="p2O-YK-N4W" firstAttribute="top" secondItem="wGr-D3-fSr" secondAttribute="top" constant="8" id="4JJ-qV-1Gf"/>
-                    <constraint firstAttribute="trailing" secondItem="03r-MO-60Z" secondAttribute="trailing" constant="16" id="6Rm-UJ-084"/>
-                    <constraint firstAttribute="trailing" secondItem="70G-Gm-J3s" secondAttribute="trailing" constant="16" id="Hpd-yv-fE4"/>
-                    <constraint firstItem="p2O-YK-N4W" firstAttribute="leading" secondItem="wGr-D3-fSr" secondAttribute="leading" constant="16" id="Jm5-74-ANx"/>
+                    <constraint firstItem="03r-MO-60Z" firstAttribute="leading" secondItem="p2O-YK-N4W" secondAttribute="leading" id="ETF-d6-jeX"/>
+                    <constraint firstItem="p2O-YK-N4W" firstAttribute="leading" secondItem="wGr-D3-fSr" secondAttribute="leading" constant="12" id="Jm5-74-ANx"/>
+                    <constraint firstItem="70G-Gm-J3s" firstAttribute="trailing" secondItem="p2O-YK-N4W" secondAttribute="trailing" id="PQZ-E6-4rG"/>
                     <constraint firstItem="03r-MO-60Z" firstAttribute="top" secondItem="70G-Gm-J3s" secondAttribute="bottom" constant="3" id="QJC-49-vyu"/>
-                    <constraint firstItem="03r-MO-60Z" firstAttribute="leading" secondItem="wGr-D3-fSr" secondAttribute="leading" constant="16" id="gSi-e3-eUO"/>
-                    <constraint firstItem="70G-Gm-J3s" firstAttribute="leading" secondItem="wGr-D3-fSr" secondAttribute="leading" constant="16" id="kcc-Ty-tTq"/>
+                    <constraint firstItem="03r-MO-60Z" firstAttribute="trailing" secondItem="p2O-YK-N4W" secondAttribute="trailing" id="TXr-Zf-x8f"/>
                     <constraint firstItem="70G-Gm-J3s" firstAttribute="top" secondItem="p2O-YK-N4W" secondAttribute="bottom" constant="3" id="oaM-71-oQA"/>
                     <constraint firstAttribute="bottom" secondItem="03r-MO-60Z" secondAttribute="bottom" constant="7.5" id="pHt-O1-Dwn"/>
+                    <constraint firstItem="70G-Gm-J3s" firstAttribute="leading" secondItem="p2O-YK-N4W" secondAttribute="leading" id="pbb-66-Wn2"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

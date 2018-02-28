@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class PersonalViewController: UITableViewController {
     
@@ -26,19 +27,20 @@ class PersonalViewController: UITableViewController {
         }
         tableView.estimatedSectionHeaderHeight = 0
         tableView.estimatedSectionFooterHeight = 0
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         
         // 注册复用Cell
-        tableView.register(UINib(nibName: "PersonalCell", bundle: nil), forCellReuseIdentifier: "PersonalCell")
+        tableView.register(UINib(nibName: "Cell", bundle: nil), forCellReuseIdentifier: "Cell")
         tableView.register(UINib(nibName: "PersonalUserCell", bundle: nil), forCellReuseIdentifier: "PersonalUserCell")
         tableView.register(UINib(nibName: "PersonalBudgetCell", bundle: nil), forCellReuseIdentifier: "PersonalBudgetCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.shadowImage = nil
+        self.tableView.reloadData()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.shadowImage = nil
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,7 +56,12 @@ class PersonalViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
-        case 0: return 1
+        case 0:
+            if user.id == nil {
+                return 2
+            } else {
+                return 1
+            }
         case 1: return 3
         case 2: return 2
         default: return 0
@@ -64,41 +71,61 @@ class PersonalViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalUserCell", for: indexPath) as! PersonalUserCell
-            cell.username?.text = "Riach"
-            cell.userid?.text = "@riach"
-            return cell
+            if user.id == nil {
+                switch indexPath.row {
+                case 0:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
+                    cell.label?.text = "Login"
+                    return cell
+                case 1:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
+                    cell.label?.text = "Register"
+                    return cell
+                default: return UITableViewCell()
+                }
+                
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalUserCell", for: indexPath) as! PersonalUserCell
+                if user.avatar! == "" {
+                    cell.userAvatar?.image = UIImage(named: "avatar")
+                } else {
+                    cell.userAvatar?.kf.setImage(with: URL(string: user.avatar!))
+                }
+                cell.userName?.text = user.name
+                cell.userID?.text = "@" + user.id!
+                return cell
+            }
         case 1:
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
-                cell.textLabel?.text = Context.type.libraries
+                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
+                cell.label?.text = Context.Tab.libraries
                 return cell
             case 1:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
-                cell.textLabel?.text = Context.type.wishlist
+                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
+                cell.label?.text = Context.Tab.wishlist
                 return cell
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalBudgetCell", for: indexPath) as! PersonalBudgetCell
-                cell.textLabel?.text = Context.type.budget
+                cell.textLabel?.text = Context.Tab.budget
                 cell.budget?.text = "****"
+                if user.settings.showBudget == true {
+                    cell.budget?.text = user.budget
+                }
                 return cell
-            default:
-                return UITableViewCell()
+            default: return UITableViewCell()
             }
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
             switch indexPath.row {
             case 0:
-                cell.textLabel?.text = "Settings"
+                cell.label?.text = "Settings"
             case 1:
-                cell.textLabel?.text = "About"
-            default:
-                break
+                cell.label?.text = "About"
+            default: break
             }
             return cell
-        default:
-            return UITableViewCell()
+        default: return UITableViewCell()
         }
     }
     
@@ -118,19 +145,162 @@ class PersonalViewController: UITableViewController {
         tableView.cellForRow(at: indexPath)?.isSelected = false
         switch indexPath.section {
         case 0:
-            break
+            if user.id == nil {
+                switch indexPath.row {
+                case 0:
+                    let alertController = UIAlertController(title: "Login", message: nil, preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+                        let id = alertController.textFields?.first?.text
+                        let passwd = alertController.textFields?.last?.text
+                        if user.login(id: id!, passwd: passwd!) {
+                            tableView.reloadData()
+                        } else {
+                            // TODO
+                        }
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(confirmAction)
+                    alertController.addTextField(configurationHandler: { (textField) in
+                        textField.placeholder = "username"
+                    })
+                    alertController.addTextField(configurationHandler: { (textField) in
+                        textField.isSecureTextEntry = true
+                        textField.placeholder = "password"
+                    })
+                    self.present(alertController, animated: true, completion: nil)
+                case 1:
+                    let alertController = UIAlertController(title: "Register", message: "Please input username and password", preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+                        let id = alertController.textFields?.first?.text
+                        let passwd = alertController.textFields?.last?.text
+                        if user.register(id: id!, passwd: passwd!) {
+                            tableView.reloadData()
+                        } else {
+                            // TODO
+                        }
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(confirmAction)
+                    alertController.addTextField(configurationHandler: { (textField) in
+                        textField.placeholder = "username"
+                    })
+                    alertController.addTextField(configurationHandler: { (textField) in
+                        textField.isSecureTextEntry = true
+                        textField.placeholder = "password"
+                    })
+                    alertController.addTextField(configurationHandler: { (textField) in
+                        textField.isSecureTextEntry = true
+                        textField.placeholder = "password again"
+                    })
+                    self.present(alertController, animated: true, completion: nil)
+                default: break
+                }
+            } else {
+                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                let changeNameAction = UIAlertAction(title: "Change username", style: .default, handler: { (action) in
+                    let alertController = UIAlertController(title: "Change username", message: nil, preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+                        let username = alertController.textFields?.first?.text
+                        user.name = username
+                        tableView.reloadData()
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(confirmAction)
+                    alertController.addTextField(configurationHandler: { (textField) in
+                        textField.placeholder = "new username"
+                    })
+                    self.present(alertController, animated: true, completion: nil)
+                })
+                let changeAvatarAction = UIAlertAction(title: "Change avatar", style: .default, handler: { (action) in
+                    // TODO
+                })
+                let logoutAction = UIAlertAction(title: "Logout", style: .destructive, handler: { (action) in
+                    user.logout()
+                    tableView.reloadData()
+                })
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alertController.addAction(changeNameAction)
+                alertController.addAction(changeAvatarAction)
+                alertController.addAction(logoutAction)
+                alertController.addAction(cancelAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
         case 1:
+            if user.id == nil {
+                let alertController = UIAlertController(title: "Login first", message: nil, preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+                    let id = alertController.textFields?.first?.text
+                    let passwd = alertController.textFields?.last?.text
+                    if user.login(id: id!, passwd: passwd!) {
+                        tableView.reloadData()
+                    } else {
+                        // TODO
+                    }
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(confirmAction)
+                alertController.addTextField(configurationHandler: { (textField) in
+                    textField.placeholder = "username"
+                })
+                alertController.addTextField(configurationHandler: { (textField) in
+                    textField.isSecureTextEntry = true
+                    textField.placeholder = "password"
+                })
+                self.present(alertController, animated: true, completion: nil)
+            } else {
+                switch indexPath.row {
+                case 0:
+                    let librariesViewController = BrowsePagerTabStripViewController()
+                    librariesViewController.tab = Context.Tab.libraries
+                    librariesViewController.hidesBottomBarWhenPushed = true
+                    self.navigationController?.navigationBar.shadowImage = UIImage()
+                    navigationController?.pushViewController(librariesViewController, animated: true)
+                case 1:
+                    let wishlistViewController = BrowsePagerTabStripViewController()
+                    wishlistViewController.tab = Context.Tab.wishlist
+                    wishlistViewController.hidesBottomBarWhenPushed = true
+                    self.navigationController?.navigationBar.shadowImage = UIImage()
+                    navigationController?.pushViewController(wishlistViewController, animated: true)
+                case 2:
+                    let alertController = UIAlertController(title: "Budget", message: "Please input your budget", preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+                        var budget = alertController.textFields?.last?.text
+                        if budget == "" {
+                            budget = "0"
+                        }
+                        user.budget = budget
+                        tableView.reloadData()
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(confirmAction)
+                    alertController.addTextField(configurationHandler: { (textField) in
+                        textField.keyboardType = .decimalPad
+                        textField.placeholder = user.budget
+                        textField.addTarget(self, action: #selector(self.budgetTextFieldChanged(textField:)), for: .editingChanged)
+                    })
+                    self.present(alertController, animated: true, completion: nil)
+                default:
+                    break
+                }
+            }
+        case 2:
             switch indexPath.row {
             case 0:
-                let librariesViewController = BrowsePagerTabStripViewController()
-                librariesViewController.type = Context.type.libraries
-                librariesViewController.hidesBottomBarWhenPushed = true
-                navigationController?.pushViewController(librariesViewController, animated: true)
+                let settingsViewController = SettingsViewController(style: .grouped)
+                settingsViewController.hidesBottomBarWhenPushed = true
+                settingsViewController.navigationItem.title = "Settings"
+                navigationController?.pushViewController(settingsViewController, animated: true)
             case 1:
-                let wishlistViewController = BrowsePagerTabStripViewController()
-                wishlistViewController.type = Context.type.wishlist
-                wishlistViewController.hidesBottomBarWhenPushed = true
-                navigationController?.pushViewController(wishlistViewController, animated: true)
+                let aboutViewController = WebViewController()
+                aboutViewController.hidesBottomBarWhenPushed = true
+                aboutViewController.navigationItem.title = "About"
+                aboutViewController.urlString = "https://github.com/archie-yu/Lens"
+                navigationController?.pushViewController(aboutViewController, animated: true)
             default:
                 break
             }
@@ -138,6 +308,24 @@ class PersonalViewController: UITableViewController {
             break
         }
     }
+    
+    @objc func budgetTextFieldChanged(textField: UITextField) {
+        if let oldText = textField.text {
+            var newText = ""
+            for char in oldText {
+                if "0123456789".contains(char) {
+                    newText.append(char)
+                }
+            }
+            textField.text = newText
+        }
+    }
+    
+//    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+//        if viewController == self {
+//            self.navigationController?.navigationBar.shadowImage = nil
+//        }
+//    }
     
     /*
     // Override to support conditional editing of the table view.

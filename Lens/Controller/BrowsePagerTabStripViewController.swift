@@ -12,14 +12,14 @@ import XLPagerTabStrip
 class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
     
     let shadow = UIView()
-    var type: String?
+    var tab: String?
     
     override func viewDidLoad() {
-        // 设置默认type
-        if self.type == nil {
-            self.type = navigationItem.title
+        // 设置默认category
+        if self.tab == nil {
+            self.tab = navigationItem.title
         } else {
-            navigationItem.title = self.type
+            navigationItem.title = self.tab
         }
         
         // 设置PagerTabStripView风格
@@ -41,7 +41,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         super.viewDidLoad()
         
         // 在库和愿望清单中禁用PagerTab滑动，避免和TableView编辑冲突
-        if type == Context.type.libraries || type == Context.type.wishlist {
+        if tab == Context.Tab.libraries || tab == Context.Tab.wishlist {
             self.containerView.isScrollEnabled = false
         }
         
@@ -61,27 +61,17 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         self.shadow.frame = CGRect(x: 0, y: buttonBarView.frame.height, width: UIScreen.main.bounds.width, height: 0.5)
     }
 
-//    override func viewWillAppear(_ animated: Bool) {
-//        // 隐藏NavigationBar阴影
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
-//    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        // 恢复NavigationBar阴影
-//        self.navigationController?.navigationBar.shadowImage = nil
-//    }
-
     override public func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         // 创建各个选项卡对应的页面
-        let lensViewController = BrowseTableViewController(style: .grouped)
-        lensViewController.type = type
-        lensViewController.info = Context.info.lens
-        let cameraViewController = BrowseTableViewController(style: .grouped)
-        cameraViewController.type = type
-        cameraViewController.info = Context.info.camera
-        let accessoriesViewController = BrowseTableViewController(style: .grouped)
-        accessoriesViewController.type = type
-        accessoriesViewController.info = Context.info.accessories
+        let lensViewController = BrowseViewController(style: .grouped)
+        lensViewController.tab = tab
+        lensViewController.Category = Context.Category.lens
+        let cameraViewController = BrowseViewController(style: .grouped)
+        cameraViewController.tab = tab
+        cameraViewController.Category = Context.Category.camera
+        let accessoriesViewController = BrowseViewController(style: .grouped)
+        accessoriesViewController.tab = tab
+        accessoriesViewController.Category = Context.Category.accessories
         return [lensViewController, cameraViewController, accessoriesViewController]
     }
     
