@@ -57,7 +57,7 @@ class PersonalViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
         case 0:
-            if user.id == nil {
+            if user.token == nil {
                 return 2
             } else {
                 return 1
@@ -71,7 +71,7 @@ class PersonalViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            if user.id == nil {
+            if user.token == nil {
                 switch indexPath.row {
                 case 0:
                     let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
@@ -86,13 +86,13 @@ class PersonalViewController: UITableViewController {
                 
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalUserCell", for: indexPath) as! PersonalUserCell
-                if user.avatar! == "" {
-                    cell.userAvatar?.image = UIImage(named: "avatar")
+                if user.avatar == "" {
+                    cell.avatarImageView?.image = UIImage(named: "avatar")
                 } else {
-                    cell.userAvatar?.kf.setImage(with: URL(string: user.avatar!))
+                    cell.avatarImageView?.kf.setImage(with: URL(string: user.avatar))
                 }
-                cell.userName?.text = user.name
-                cell.userID?.text = "@" + user.id!
+                cell.nicknameLabel?.text = user.nickname
+                cell.usernameLabel?.text = "@" + user.username
                 return cell
             }
         case 1:
@@ -110,7 +110,7 @@ class PersonalViewController: UITableViewController {
                 cell.label?.text = Context.Tab.budget
                 cell.budget?.text = "****"
                 if user.settings.showBudget == true {
-                    cell.budget?.text = user.budget
+                    cell.budget?.text = user.settings.budget
                 }
                 return cell
             default: return UITableViewCell()
@@ -145,18 +145,20 @@ class PersonalViewController: UITableViewController {
         tableView.cellForRow(at: indexPath)?.isSelected = false
         switch indexPath.section {
         case 0:
-            if user.id == nil {
+            if user.token == nil {
                 switch indexPath.row {
                 case 0:
                     let alertController = UIAlertController(title: "Login", message: nil, preferredStyle: .alert)
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                     let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
-                        let id = alertController.textFields?.first?.text
+                        let username = alertController.textFields?.first?.text
                         let passwd = alertController.textFields?.last?.text
-                        if user.login(id: id!, passwd: passwd!) {
-                            tableView.reloadData()
-                        } else {
-                            // TODO
+                        user.login(username: username!, password: passwd!) { result in
+                            if result {
+                                tableView.reloadData()
+                            } else {
+                                // TODO
+                            }
                         }
                     })
                     alertController.addAction(cancelAction)
@@ -175,10 +177,12 @@ class PersonalViewController: UITableViewController {
                     let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
                         let id = alertController.textFields?.first?.text
                         let passwd = alertController.textFields?.last?.text
-                        if user.register(id: id!, passwd: passwd!) {
-                            tableView.reloadData()
-                        } else {
-                            // TODO
+                        user.register(username: id!, password: passwd!) { result in
+                            if result {
+                                tableView.reloadData()
+                            } else {
+                                // TODO
+                            }
                         }
                     })
                     alertController.addAction(cancelAction)
@@ -203,9 +207,15 @@ class PersonalViewController: UITableViewController {
                     let alertController = UIAlertController(title: "Change Nickname", message: nil, preferredStyle: .alert)
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                     let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
-                        let username = alertController.textFields?.first?.text
-                        user.name = username
-                        tableView.reloadData()
+                        if let nickname = alertController.textFields?.first?.text {
+                            user.update(nickname: nickname) { result in
+                                if result {
+                                    tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                                } else {
+                                    // TODO
+                                }
+                            }
+                        }
                     })
                     alertController.addAction(cancelAction)
                     alertController.addAction(confirmAction)
@@ -217,28 +227,58 @@ class PersonalViewController: UITableViewController {
                 let changeAvatarAction = UIAlertAction(title: "Change Avatar", style: .default, handler: { (action) in
                     // TODO
                 })
+                let changePassAction = UIAlertAction(title: "Change Password", style: .default, handler: { (action) in
+                    let alertController = UIAlertController(title: "Change Password", message: nil, preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+                        if let oldPass = alertController.textFields?.first?.text,
+                            let newPass = alertController.textFields?.last?.text {
+                            user.updatePassword(old: oldPass, new: newPass) { result in
+                                if !result {
+                                    // TODO
+                                }
+                            }
+                        }
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(confirmAction)
+                    alertController.addTextField(configurationHandler: { (textField) in
+                        textField.placeholder = "old password"
+                    })
+                    alertController.addTextField(configurationHandler: { (textField) in
+                        textField.placeholder = "new password"
+                    })
+                    alertController.addTextField(configurationHandler: { (textField) in
+                        textField.placeholder = "new password again"
+                    })
+                    self.present(alertController, animated: true, completion: nil)
+                })
                 let logoutAction = UIAlertAction(title: "Logout", style: .destructive, handler: { (action) in
-                    user.logout()
-                    tableView.reloadData()
+                    user.logout() {
+                        tableView.reloadData()
+                    }
                 })
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 alertController.addAction(changeNameAction)
                 alertController.addAction(changeAvatarAction)
+                alertController.addAction(changePassAction)
                 alertController.addAction(logoutAction)
                 alertController.addAction(cancelAction)
                 self.present(alertController, animated: true, completion: nil)
             }
         case 1:
-            if user.id == nil {
+            if user.token == nil {
                 let alertController = UIAlertController(title: "Login first", message: nil, preferredStyle: .alert)
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
-                    let id = alertController.textFields?.first?.text
+                    let username = alertController.textFields?.first?.text
                     let passwd = alertController.textFields?.last?.text
-                    if user.login(id: id!, passwd: passwd!) {
-                        tableView.reloadData()
-                    } else {
-                        // TODO
+                    user.login(username: username!, password: passwd!) { result in
+                        if result {
+                            tableView.reloadData()
+                        } else {
+                            // TODO
+                        }
                     }
                 })
                 alertController.addAction(cancelAction)
@@ -269,18 +309,20 @@ class PersonalViewController: UITableViewController {
                     let alertController = UIAlertController(title: "Budget", message: "Please input your budget", preferredStyle: .alert)
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                     let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
-                        var budget = alertController.textFields?.last?.text
-                        if budget == "" {
-                            budget = "0"
+                        if let budget = alertController.textFields?.last?.text {
+                            if budget != "" {
+                                user.settings.budget = budget
+                                user.syncSettings(completion: nil)
+                                tableView.reloadData()
+                            }
                         }
-                        user.budget = budget
-                        tableView.reloadData()
                     })
                     alertController.addAction(cancelAction)
                     alertController.addAction(confirmAction)
                     alertController.addTextField(configurationHandler: { (textField) in
                         textField.keyboardType = .decimalPad
-                        textField.placeholder = user.budget
+                        textField.placeholder = user.settings.budget
+                        user.syncSettings(completion: nil)
                         textField.addTarget(self, action: #selector(self.budgetTextFieldChanged(textField:)), for: .editingChanged)
                     })
                     self.present(alertController, animated: true, completion: nil)

@@ -23,8 +23,8 @@ class Context {
     
     class Category {
         
-        static let lens = "Lens"
-        static let camera = "Camera"
+        static let lens = "Lenses"
+        static let camera = "Cameras"
         static let accessories = "Accessories"
         
     }

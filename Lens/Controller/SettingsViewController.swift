@@ -60,6 +60,7 @@ class SettingsViewController: UITableViewController {
     
     @objc func budgetSwitchChanged(mSwitch: UISwitch) {
         user.settings.showBudget = mSwitch.isOn
+        user.syncSettings(completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

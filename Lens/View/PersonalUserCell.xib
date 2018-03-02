@@ -59,9 +59,9 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="userAvatar" destination="EO7-kh-fsA" id="hF6-yc-991"/>
-                <outlet property="userID" destination="LL3-yC-IdN" id="xE4-Pw-1OA"/>
-                <outlet property="userName" destination="nhe-D2-Nf7" id="p4v-t6-BfG"/>
+                <outlet property="avatarImageView" destination="EO7-kh-fsA" id="hF6-yc-991"/>
+                <outlet property="nicknameLabel" destination="nhe-D2-Nf7" id="p4v-t6-BfG"/>
+                <outlet property="usernameLabel" destination="LL3-yC-IdN" id="xE4-Pw-1OA"/>
             </connections>
         </tableViewCell>
     </objects>

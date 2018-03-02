@@ -10,6 +10,12 @@ import Foundation
 
 class ProductModel {
     
+    var hash: String!
+    var image: String!
+    var name: String!
+    var tags: [String]!
+    var detail: Detail?
+    
     class Detail {
         
         var image: String!
@@ -23,12 +29,6 @@ class ProductModel {
         }
         
     }
-    
-    var hash: String!
-    var image: String!
-    var name: String!
-    var tags: [String]!
-    var detail: Detail?
     
     init(hash: String, image: String, name: String, tags: [String]) {
         self.hash = hash
