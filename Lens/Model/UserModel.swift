@@ -11,14 +11,13 @@ import Alamofire
 
 class UserModel {
     
-    let url = "http://115.159.208.82:443/lens/user"
     private var _token = UserDefaults.standard.string(forKey: "Token")
     private var _username = UserDefaults.standard.string(forKey: "Username")
     private var _nickname = UserDefaults.standard.string(forKey: "Nickname")
     private var _avatar = UserDefaults.standard.string(forKey: "Avatar")
     var settings = Settings()
-    var libraries: Products!
-    var wishlist: Products!
+    var libraries = Products()
+    var wishlist = Products()
     var token: String? {
         get {
             return self._token
@@ -58,9 +57,9 @@ class UserModel {
     
     class Products {
         
-        var lens: [String]!
-        var camera: [String]!
-        var accessories: [String]!
+        var lens: [String] = []
+        var camera: [String] = []
+        var accessories: [String] = []
         
     }
     
@@ -103,7 +102,7 @@ class UserModel {
     
     func register(username: String, password: String, completion: @escaping (Bool) -> Void) {
         let parameters: Parameters = ["task": "register", "username": username, "password": password]
-        Alamofire.request(self.url, parameters: parameters).responseJSON() { response in
+        Alamofire.request(Server.userUrl, parameters: parameters).responseJSON() { response in
             if let json = response.result.value as? [String : Any] {
                 let status = json["status"] as! String
                 if status == "success", let userInfo = json["user_info"] as! [String : Any]? {
@@ -126,7 +125,7 @@ class UserModel {
     
     func login(username: String, password: String, completion: @escaping (Bool) -> Void) {
         let parameters: Parameters = ["task": "login", "username": username, "password": password]
-        Alamofire.request(self.url, parameters: parameters).responseJSON() { response in
+        Alamofire.request(Server.userUrl, parameters: parameters).responseJSON() { response in
             if let json = response.result.value as? [String : Any] {
                 let status = json["status"] as! String
                 if status == "success", let userInfo = json["user_info"] as! [String : Any]? {
@@ -157,7 +156,7 @@ class UserModel {
     
     func update(nickname: String, completion: @escaping (Bool) -> Void) {
         let parameters: Parameters = ["task": "update_nickname", "token": self.token!, "nickname": nickname]
-        Alamofire.request("\(self.url)/info", parameters: parameters).responseJSON() { response in
+        Alamofire.request(Server.userInfoUrl, parameters: parameters).responseJSON() { response in
             if let json = response.result.value as? [String : Any] {
                 let status = json["status"] as! String
                 if status == "success" {
@@ -175,7 +174,7 @@ class UserModel {
     
     func update(avatar: String, completion: @escaping (Bool) -> Void) {
         let parameters: Parameters = ["task": "update_avatar", "token": self.token!, "avatar": avatar]
-        Alamofire.request("\(self.url)/info", parameters: parameters).responseJSON() { response in
+        Alamofire.request(Server.userInfoUrl, parameters: parameters).responseJSON() { response in
             if let json = response.result.value as? [String : Any] {
                 let status = json["status"] as! String
                 if status == "success" {
@@ -193,7 +192,7 @@ class UserModel {
     
     func updatePassword(old: String, new: String, completion: @escaping (Bool) -> Void) {
         let parameters: Parameters = ["task": "update_password", "token": self.token!, "old": old, "new": new]
-        Alamofire.request("\(self.url)/info", parameters: parameters).responseJSON() { response in
+        Alamofire.request(Server.userInfoUrl, parameters: parameters).responseJSON() { response in
             if let json = response.result.value as? [String : Any] {
                 let status = json["status"] as! String
                 if status == "success" {
@@ -211,7 +210,7 @@ class UserModel {
     func syncSettings(completion: ((Bool) -> Void)?) {
         if self.settings.needsSync {
             let parameters: Parameters = ["task": "sync_settings", "token": self.token!, "budget": self.settings.budget, "show_budget": self.settings.showBudget]
-            Alamofire.request("\(self.url)/info", parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+            Alamofire.request(Server.userInfoUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 if let json = response.result.value as? [String : Any] {
                     let status = json["status"] as! String
                     if status == "success" {

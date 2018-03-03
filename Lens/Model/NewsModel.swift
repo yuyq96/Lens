@@ -11,30 +11,27 @@ import Foundation
 class NewsModel {
     
     var title: String!
-    var info: String!
+    var source: String!
+    var timestamp: String!
+    var info: String {
+        get {
+            let timeInterval = TimeInterval(timestamp)
+            let date = Date(timeIntervalSince1970: timeInterval!)
+            let dformatter = DateFormatter()
+            dformatter.dateFormat = "MMM.dd yyyy"
+            return "\(source!)    \(dformatter.string(from: date))"
+        }
+    }
     var content: String!
-    var url: String?
-    var image: String?
+    var image: String!
+    var link: String!
     
-    init(title: String, info: String, content: String) {
+    init(title: String, source: String, timestamp: String, content: String, link: String, image: String) {
         self.title = title
-        self.info = info
+        self.source = source
+        self.timestamp = timestamp
         self.content = content
-    }
-    
-    convenience init(title: String, info: String, content: String, url: String) {
-        self.init(title: title, info: info, content: content)
-        self.url = url
-    }
-    
-    convenience init(title: String, info: String, content: String, image: String) {
-        self.init(title: title, info: info, content: content)
-        self.image = image
-    }
-    
-    convenience init(title: String, info: String, content: String, url: String, image: String) {
-        self.init(title: title, info: info, content: content)
-        self.url = url
+        self.link = link
         self.image = image
     }
     

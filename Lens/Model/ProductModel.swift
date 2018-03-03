@@ -10,7 +10,7 @@ import Foundation
 
 class ProductModel {
     
-    var hash: String!
+    var pid: String!
     var image: String!
     var name: String!
     var tags: [String]!
@@ -19,10 +19,19 @@ class ProductModel {
     class Detail {
         
         var image: String!
-        var specs: [String]!
+        var specs: [String: String]!
         var samples: [String]!
+        var info: String {
+            get {
+                var info = ""
+                for (attr, value) in self.specs {
+                    info += "\(attr): \(value)\n"
+                }
+                return info
+            }
+        }
         
-        init(image: String, specs: [String], samples: [String]) {
+        init(image: String, specs: [String: String], samples: [String]) {
             self.image = image
             self.specs = specs
             self.samples = samples
@@ -30,14 +39,14 @@ class ProductModel {
         
     }
     
-    init(hash: String, image: String, name: String, tags: [String]) {
-        self.hash = hash
+    init(pid: String, image: String, name: String, tags: [String]) {
+        self.pid = pid
         self.image = image
         self.name = name
         self.tags = tags
     }
     
-    func setDetail(image: String, specs: [String], samples: [String]) {
+    func setDetail(image: String, specs: [String: String], samples: [String]) {
         self.detail = Detail(image: image, specs: specs, samples: samples)
     }
     

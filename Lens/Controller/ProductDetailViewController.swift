@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import Alamofire
 import Kingfisher
 
 class ProductDetailViewController: UITableViewController {
     
     let shadow = UIView()
-    var shadowY: CGFloat!
     
+    var category: String!
     var data: ProductModel!
 
     override func viewDidLoad() {
@@ -25,6 +26,11 @@ class ProductDetailViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
+        // 设置NavigationBar阴影
+        self.shadow.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
+        self.shadow.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 0.5)
+        self.tableView.addSubview(shadow)
+        
         // 设置TableView风格
         tableView.tableFooterView = UIView()
         tableView.separatorInset = .zero
@@ -35,14 +41,27 @@ class ProductDetailViewController: UITableViewController {
         tableView.register(UINib(nibName: "ProductDetailBasicCell", bundle: nil), forCellReuseIdentifier: "ProductDetailBasicCell")
         tableView.register(UINib(nibName: "ProductDetailSampleCell", bundle: nil), forCellReuseIdentifier: "ProductDetailSampleCell")
         
-        // 设置NavigationBar阴影
-        self.shadow.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
-        self.view.addSubview(shadow)
+        if self.data.detail == nil {
+            let parameters: Parameters = ["category": self.category.lowercased(), "pid": self.data.pid]
+            Alamofire.request(Server.productUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+//                print(response.result.value ?? "no response result value")
+                if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
+                    if status == "success", let source = json["source"] as? [String : Any] {
+                        self.data.setDetail(image: "https://cdn.dxomark.com/wp-content/uploads/2017/09/Sony-Zeiss-Sonnar-T-FE-55mm-f1.8-ZA-lens-review-Exemplary-performance.jpg", specs: ["Aperture": "\(source["aperture_max"] as! Float)"], samples: ["http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/01_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/02_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/03_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/04_1920x1080.jpg"])
+                        OperationQueue.main.addOperation {
+                            self.tableView.reloadData()
+                        }
+                    } else if status == "failure" {
+                        print(json["error"]!)
+                    }
+                }
+            }
+        }
     }
     
-    override func viewWillLayoutSubviews() {
-        // 旋转屏幕时刷新NavigationBar阴影位置
-        self.shadow.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 0.5)
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = self.tableView.contentOffset.y
+        self.shadow.frame = CGRect(x: 0, y: offset, width: UIScreen.main.bounds.width, height: 0.5)
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,19 +83,23 @@ class ProductDetailViewController: UITableViewController {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailImageCell", for: indexPath) as! ProductDetailImageCell
-            cell.productImage.kf.setImage(with: URL(string: (data.detail!.image)!))
+            if let detail = data.detail {
+                cell.productImage.kf.setImage(with: URL(string: detail.image))
+            }
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailBasicCell", for: indexPath) as! ProductDetailBasicCell
-            var info = ""
-            for spec in (data.detail!.specs)! {
-                info += spec + "\n"
+            cell.productName.text = data.name
+            if let detail = data.detail {
+                cell.productBasicInfo.text = detail.info
             }
-            cell.productBasicInfo?.text = info
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailSampleCell", for: indexPath) as! ProductDetailSampleCell
-            cell.samples = data.detail!.samples
+            if let detail = data.detail {
+                cell.samples = detail.samples
+//                cell.productSample.reloadData()
+            }
             return cell
         default:
             return UITableViewCell()
@@ -86,10 +109,14 @@ class ProductDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0: return 180
-        case 1: return 42 + 11 * 16
+        case 1:
+            if let detail = data.detail {
+                return 44 + CGFloat(detail.specs.count) * 16
+            }
         case 2: return 138
         default: return 44
         }
+        return 44
     }
 
     /*
