@@ -32,6 +32,7 @@
 		215B083D203FFF3000802011 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 215B083B203FFF3000802011 /* LaunchScreen.storyboard */; };
 		2166ACAD2042A1A3002D1C36 /* PersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2166ACAC2042A1A3002D1C36 /* PersonalViewController.swift */; };
 		21A16CAD204A47CA0049FF55 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A16CAC204A47CA0049FF55 /* Server.swift */; };
+		21A16CAF204A86B30049FF55 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A16CAE204A86B30049FF55 /* Shadow.swift */; };
 		21AABCD7204551080013BA40 /* PersonalUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21AABCD6204551080013BA40 /* PersonalUserCell.xib */; };
 		21AABCD9204551250013BA40 /* Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21AABCD8204551250013BA40 /* Cell.xib */; };
 		21AABCDB204551490013BA40 /* PersonalBudgetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21AABCDA204551490013BA40 /* PersonalBudgetCell.xib */; };
@@ -74,6 +75,7 @@
 		215B083E203FFF3000802011 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2166ACAC2042A1A3002D1C36 /* PersonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewController.swift; sourceTree = "<group>"; };
 		21A16CAC204A47CA0049FF55 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		21A16CAE204A86B30049FF55 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
 		21AABCD6204551080013BA40 /* PersonalUserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalUserCell.xib; sourceTree = "<group>"; };
 		21AABCD8204551250013BA40 /* Cell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Cell.xib; sourceTree = "<group>"; };
 		21AABCDA204551490013BA40 /* PersonalBudgetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalBudgetCell.xib; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		214D1A702043A5AE00A523AD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				21A16CAE204A86B30049FF55 /* Shadow.swift */,
 				214D1A6E2043A54300A523AD /* Cell */,
 				215B083B203FFF3000802011 /* LaunchScreen.storyboard */,
 				21AABCD8204551250013BA40 /* Cell.xib */,
@@ -367,6 +370,7 @@
 				214D1A7A2043B0B900A523AD /* ProductDetailImageCell.swift in Sources */,
 				214D1AA12045384C00A523AD /* NavigationController.swift in Sources */,
 				21AABCE420464CF70013BA40 /* UserModel.swift in Sources */,
+				21A16CAF204A86B30049FF55 /* Shadow.swift in Sources */,
 				214D1A912044584D00A523AD /* ProductModel.swift in Sources */,
 				214D1A8E2044504F00A523AD /* Color.swift in Sources */,
 				21AABCE12045BBC10013BA40 /* SettingsViewController.swift in Sources */,

@@ -11,7 +11,6 @@ import XLPagerTabStrip
 
 class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
     
-    let shadow = UIView()
     var tab: String?
     
     override func viewDidLoad() {
@@ -52,13 +51,8 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         self.buttonBarView.backgroundColor = .white
         
         // 设置PagerTab阴影
-        self.shadow.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
-        self.buttonBarView.superview?.addSubview(shadow)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        // 旋转屏幕时刷新PagerTab阴影位置
-        self.shadow.frame = CGRect(x: 0, y: buttonBarView.frame.height, width: UIScreen.main.bounds.width, height: 0.5)
+        let constraint = Shadow.add(to: self.buttonBarView.superview!)
+        constraint.constant = self.buttonBarView.frame.height
     }
 
     override public func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {

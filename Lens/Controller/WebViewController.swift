@@ -11,7 +11,6 @@ import WebKit
 
 class WebViewController: UIViewController, WKNavigationDelegate {
     
-    let shadow = UIView()
     var webView: WKWebView!
     var progressView: UIProgressView!
     
@@ -19,12 +18,20 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .white
         
         // 设置WKWebView
         self.webView = WKWebView()
         self.webView.navigationDelegate = self
         self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         self.view.addSubview(self.webView)
+        self.webView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addConstraints([
+            NSLayoutConstraint(item: self.webView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self.webView, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self.webView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self.webView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0)
+            ])
         
         // 设置进度条
         self.progressView = UIProgressView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 2))
@@ -34,20 +41,12 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         self.view.addSubview(self.progressView)
         
         // 设置NavigationBar阴影
-        self.shadow.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
-        self.view.addSubview(shadow)
+        Shadow.add(to: self.view)
         
         // 开始加载
         if let url = URL(string: urlString) {
             self.webView.load(URLRequest(url: url))
         }
-    }
-    
-    override func viewWillLayoutSubviews() {
-        // 旋转屏幕时刷新NavigationBar阴影位置
-        self.shadow.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 0.5)
-        // 旋转屏幕时刷新WKWebView大小
-        self.webView.frame = self.view.bounds
     }
 
     override func didReceiveMemoryWarning() {

@@ -12,7 +12,7 @@ import Kingfisher
 
 class ProductDetailViewController: UITableViewController {
     
-    let shadow = UIView()
+    var shadowConstraint: NSLayoutConstraint!
     
     var category: String!
     var data: ProductModel!
@@ -27,9 +27,7 @@ class ProductDetailViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         // 设置NavigationBar阴影
-        self.shadow.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
-        self.shadow.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 0.5)
-        self.tableView.addSubview(shadow)
+        shadowConstraint = Shadow.add(to: self.tableView)
         
         // 设置TableView风格
         tableView.tableFooterView = UIView()
@@ -60,8 +58,7 @@ class ProductDetailViewController: UITableViewController {
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = self.tableView.contentOffset.y
-        self.shadow.frame = CGRect(x: 0, y: offset, width: UIScreen.main.bounds.width, height: 0.5)
+        self.shadowConstraint.constant = self.tableView.contentOffset.y
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,7 +95,7 @@ class ProductDetailViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailSampleCell", for: indexPath) as! ProductDetailSampleCell
             if let detail = data.detail {
                 cell.samples = detail.samples
-//                cell.productSample.reloadData()
+                cell.productSample.reloadData()
             }
             return cell
         default:

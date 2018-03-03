@@ -9,6 +9,8 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
+    
+    var shadowConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +20,9 @@ class SettingsViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        // 设置NavigationBar阴影
+        shadowConstraint = Shadow.add(to: self.tableView)
         
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
@@ -30,6 +35,10 @@ class SettingsViewController: UITableViewController {
         
         // 注册复用Cell
         tableView.register(UINib(nibName: "Cell", bundle: nil), forCellReuseIdentifier: "Cell")
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.shadowConstraint.constant = self.tableView.contentOffset.y
     }
 
     override func didReceiveMemoryWarning() {

@@ -11,7 +11,7 @@ import Kingfisher
 
 class PersonalViewController: UITableViewController {
     
-    let shadow = UIView()
+    var shadowConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +23,7 @@ class PersonalViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         // 设置NavigationBar阴影
-        self.shadow.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
-        self.shadow.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 0.5)
-        self.tableView.addSubview(shadow)
+        shadowConstraint = Shadow.add(to: self.tableView)
         
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
@@ -47,8 +45,7 @@ class PersonalViewController: UITableViewController {
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = self.tableView.contentOffset.y
-        self.shadow.frame = CGRect(x: 0, y: offset, width: UIScreen.main.bounds.width, height: 0.5)
+        self.shadowConstraint.constant = self.tableView.contentOffset.y
     }
 
     override func didReceiveMemoryWarning() {
