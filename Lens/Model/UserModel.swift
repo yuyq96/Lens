@@ -16,8 +16,8 @@ class UserModel {
     private var _nickname = UserDefaults.standard.string(forKey: "Nickname")
     private var _avatar = UserDefaults.standard.string(forKey: "Avatar")
     var settings = Settings()
-    var libraries = Products()
-    var wishlist = Products()
+    var libraries = ProductsGroup()
+    var wishlist = ProductsGroup()
     var token: String? {
         get {
             return self._token
@@ -55,11 +55,90 @@ class UserModel {
         }
     }
     
-    class Products {
+    class Products: Sequence {
         
-        var lens: [String] = []
-        var camera: [String] = []
-        var accessories: [String] = []
+        private var list = [String]()
+        var count: Int {
+            get {
+                return list.count
+            }
+        }
+        
+        subscript(index: Int) -> String {
+            get {
+                return list[index]
+            }
+            set(newValue) {
+                list[index] = newValue
+            }
+        }
+        
+        func contains(_ pid: String) -> Bool {
+            return list.contains(pid)
+        }
+        
+        func append(_ pid: String) {
+            if !list.contains(pid) {
+                list.append(pid)
+            }
+        }
+        
+        func append(_ pids: Set<String>) {
+            for pid in pids {
+                list.append(pid)
+            }
+        }
+        
+        func remove(_ pid: String) {
+            if let index = list.index(of: pid) {
+                list.remove(at: index)
+            }
+        }
+        
+        func remove(at index: Int) {
+            list.remove(at: index)
+        }
+        
+        func makeIterator() -> UserModel.Products.Iterator {
+            return Iterator(self)
+        }
+        
+        struct Iterator: IteratorProtocol {
+            let products: Products
+            var index = 0
+            
+            init(_ products: Products) {
+                self.products = products
+            }
+            
+            mutating func next() -> String? {
+                guard index < products.count
+                    else { return nil }
+                let pid = products[index]
+                index += 1
+                return pid
+            }
+            
+        }
+        
+    }
+    
+    class ProductsGroup {
+        
+        var lenses = Products()
+        var cameras = Products()
+        var accessories = Products()
+        
+        subscript(category: Context.Category) -> Products {
+            switch category {
+            case Context.Category.lenses:
+                return lenses
+            case Context.Category.cameras:
+                return cameras
+            case Context.Category.accessories:
+                return accessories
+            }
+        }
         
     }
     

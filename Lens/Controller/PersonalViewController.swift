@@ -104,15 +104,15 @@ class PersonalViewController: UITableViewController {
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
-                cell.label?.text = Context.Tab.libraries
+                cell.label?.text = Context.Tab.libraries.rawValue
                 return cell
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
-                cell.label?.text = Context.Tab.wishlist
+                cell.label?.text = Context.Tab.wishlist.rawValue
                 return cell
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalBudgetCell", for: indexPath) as! PersonalBudgetCell
-                cell.label?.text = Context.Tab.budget
+                cell.label?.text = Context.Tab.budget.rawValue
                 cell.budget?.text = "****"
                 if user.settings.showBudget == true {
                     cell.budget?.text = user.settings.budget

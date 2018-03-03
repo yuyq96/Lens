@@ -20,16 +20,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
         let productRootViewContoller = BrowsePagerTabStripViewController()
-        productRootViewContoller.navigationItem.title = Context.Tab.equipment
+        productRootViewContoller.tab = .equipment
         productRootViewContoller.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search")?.withRenderingMode(.alwaysOriginal), style: .plain, target: productRootViewContoller, action: #selector(productRootViewContoller.setProdutFilter))
         let productViewController = NavigationController(rootViewController: productRootViewContoller)
         
         let newsRootViewContoller = BrowsePagerTabStripViewController()
-        newsRootViewContoller.navigationItem.title = Context.Tab.news
+        newsRootViewContoller.tab = .news
         let newsViewController = NavigationController(rootViewController: newsRootViewContoller)
         
         let personalRootViewController = PersonalViewController(style: .grouped)
-        personalRootViewController.navigationItem.title = Context.Tab.personal
+        personalRootViewController.navigationItem.title = Context.Tab.personal.rawValue
         let personalViewController = NavigationController(rootViewController: personalRootViewController)
         
         let tabBarController = UITabBarController()
@@ -37,9 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.tabBar.tintColor = Color.tint
         tabBarController.tabBar.isTranslucent = false
         
-        productViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.Tab.equipment), selectedImage: UIImage(named: Context.Tab.equipment + "_S"))
-        newsViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.Tab.news), selectedImage: UIImage(named: Context.Tab.news + "_S"))
-        personalViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.Tab.personal), selectedImage: UIImage(named: Context.Tab.personal + "_S"))
+        productViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.Tab.equipment.rawValue), selectedImage: UIImage(named: Context.Tab.equipment.rawValue + "_S"))
+        newsViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.Tab.news.rawValue), selectedImage: UIImage(named: Context.Tab.news.rawValue + "_S"))
+        personalViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: Context.Tab.personal.rawValue), selectedImage: UIImage(named: Context.Tab.personal.rawValue + "_S"))
         let insets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         productViewController.tabBarItem.imageInsets = insets
         newsViewController.tabBarItem.imageInsets = insets

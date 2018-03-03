@@ -10,23 +10,19 @@ import Foundation
 
 class Context {
     
-    class Tab {
-        
-        static let equipment = "Equipment"
-        static let news = "News"
-        static let personal = "Personal"
-        static let wishlist = "Wishlist"
-        static let libraries = "My Equipment"
-        static let budget = "Budget"
-        
+    enum Tab: String {
+        case equipment = "Equipment"
+        case news = "News"
+        case personal = "Personal"
+        case wishlist = "Wishlist"
+        case libraries = "My Equipment"
+        case budget = "Budget"
     }
     
-    class Category {
-        
-        static let lens = "Lenses"
-        static let camera = "Cameras"
-        static let accessories = "Accessories"
-        
+    enum Category: String {
+        case lenses = "Lenses"
+        case cameras = "Cameras"
+        case accessories = "Accessories"
     }
     
 }

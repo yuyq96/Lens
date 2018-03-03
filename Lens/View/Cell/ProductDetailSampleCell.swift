@@ -21,7 +21,7 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
         
         // 设置样片列表
         self.productSample = UITableView(frame: .zero, style: .grouped)
-        self.productSample.contentMode = .scaleAspectFill
+        self.productSample.contentMode = .scaleToFill
         self.productSample.backgroundColor = UIColor(white: 1, alpha: 0)
         self.productSample.showsVerticalScrollIndicator = false
         self.productSample.showsHorizontalScrollIndicator = false
@@ -64,9 +64,11 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductSampleCell", for: indexPath) as! ProductSampleCell
         cell.sampleImageView.kf.setImage(with: URL(string: samples[indexPath.section]), completionHandler: {
             (image, error, cacheType, imageUrl) in
-            self.sampleWidths[indexPath.row] = (image?.size.width)! / (image?.size.height)! * 90
+            self.sampleWidths[indexPath.section] = (image?.size.width)! / (image?.size.height)! * 90
             tableView.reloadRows(at: [indexPath], with: .automatic)
         })
+        print(cell.frame)
+//        cell.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
         return cell
     }
     

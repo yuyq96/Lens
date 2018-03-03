@@ -14,8 +14,11 @@ class ProductDetailViewController: UITableViewController {
     
     var shadowConstraint: NSLayoutConstraint!
     
-    var category: String!
+    var category: Context.Category!
     var data: ProductModel!
+    
+    var wishlistButton: UIBarButtonItem!
+    var librariesButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +32,19 @@ class ProductDetailViewController: UITableViewController {
         // 设置NavigationBar阴影
         shadowConstraint = Shadow.add(to: self.tableView)
         
+        // 设置NavigationBar按钮
+        if user.libraries[category].contains(data.pid) {
+            self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
+            self.librariesButton = UIBarButtonItem(image: UIImage(named: "inbox_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
+        } else if user.wishlist[category].contains(data.pid) {
+            self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(removeFromWishlist))
+            self.librariesButton = UIBarButtonItem(image: UIImage(named: "inbox")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToLibraries))
+        } else {
+            self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToWishlist))
+            self.librariesButton = UIBarButtonItem(image: UIImage(named: "inbox")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToLibraries))
+        }
+        self.navigationItem.rightBarButtonItems = [self.wishlistButton, self.librariesButton]
+        
         // 设置TableView风格
         tableView.tableFooterView = UIView()
         tableView.separatorInset = .zero
@@ -40,7 +56,7 @@ class ProductDetailViewController: UITableViewController {
         tableView.register(UINib(nibName: "ProductDetailSampleCell", bundle: nil), forCellReuseIdentifier: "ProductDetailSampleCell")
         
         if self.data.detail == nil {
-            let parameters: Parameters = ["category": self.category.lowercased(), "pid": self.data.pid]
+            let parameters: Parameters = ["category": self.category.rawValue.lowercased(), "pid": self.data.pid]
             Alamofire.request(Server.productUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
 //                print(response.result.value ?? "no response result value")
                 if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
@@ -60,7 +76,27 @@ class ProductDetailViewController: UITableViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.shadowConstraint.constant = self.tableView.contentOffset.y
     }
-
+    
+    @objc func addToLibraries(sender: UIBarButtonItem) {
+        user.wishlist[category].remove(data.pid)
+        user.libraries[category].append(data.pid)
+        self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
+        self.librariesButton = UIBarButtonItem(image: UIImage(named: "inbox_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
+        self.navigationItem.setRightBarButtonItems([self.wishlistButton, self.librariesButton], animated: true)
+    }
+    
+    @objc func addToWishlist(sender: UIBarButtonItem) {
+        user.wishlist[category].append(data.pid)
+        self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(removeFromWishlist))
+        self.navigationItem.setRightBarButtonItems([self.wishlistButton, self.librariesButton], animated: true)
+    }
+    
+    @objc func removeFromWishlist(sender: UIBarButtonItem) {
+        user.wishlist[category].remove(data.pid)
+        self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToWishlist))
+        self.navigationItem.setRightBarButtonItems([self.wishlistButton, self.librariesButton], animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

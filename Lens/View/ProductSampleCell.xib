@@ -20,13 +20,15 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZCW-IY-r6T">
                         <rect key="frame" x="0.0" y="0.0" width="160" height="90"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="90" id="xmi-09-UPT"/>
+                        </constraints>
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="ZCW-IY-r6T" secondAttribute="bottom" constant="-0.5" id="9ld-FY-uJi"/>
-                    <constraint firstItem="ZCW-IY-r6T" firstAttribute="top" secondItem="CJs-vy-4f3" secondAttribute="top" id="db1-2e-Dfc"/>
-                    <constraint firstItem="ZCW-IY-r6T" firstAttribute="leading" secondItem="CJs-vy-4f3" secondAttribute="leading" id="fzF-G1-KpH"/>
-                    <constraint firstAttribute="trailing" secondItem="ZCW-IY-r6T" secondAttribute="trailing" id="kHs-ac-1MA"/>
+                    <constraint firstItem="ZCW-IY-r6T" firstAttribute="leading" secondItem="CJs-vy-4f3" secondAttribute="leading" id="Hu7-EV-uQV"/>
+                    <constraint firstAttribute="bottom" secondItem="ZCW-IY-r6T" secondAttribute="bottom" constant="-0.5" id="b1I-Lj-7f2"/>
+                    <constraint firstAttribute="trailing" secondItem="ZCW-IY-r6T" secondAttribute="trailing" id="etS-r0-RDN"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

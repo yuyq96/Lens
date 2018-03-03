@@ -13,8 +13,8 @@ import XLPagerTabStrip
 
 class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
-    var tab: String!
-    var category: String!
+    var tab: Context.Tab!
+    var category: Context.Category!
     var data: [Any] = []
 
     override func viewDidLoad() {
@@ -40,10 +40,10 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
         tableView.register(UINib(nibName: "NewsImageCell", bundle: nil), forCellReuseIdentifier: "NewsImageCell")
         
-        switch self.tab {
-        case Context.Tab.equipment:
-            switch self.category {
-            case Context.Category.lens:
+        switch self.tab! {
+        case .equipment:
+            switch self.category! {
+            case .lenses:
                 let parameters: Parameters = ["category": "lenses"]
                 Alamofire.request(Server.productUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
 //                    print(response.result.value ?? "no response result value")
@@ -64,9 +64,9 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 }
             default: break
             }
-        case Context.Tab.news:
-            switch self.category {
-            case Context.Category.lens:
+        case .news:
+            switch self.category! {
+            case .lenses:
                 let parameters: Parameters = ["category": "lenses"]
                 Alamofire.request(Server.newsUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
 //                    print(response.result.value ?? "no response result value")
@@ -87,10 +87,10 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 }
             default: break
             }
-        case Context.Tab.libraries:
-            switch self.category {
-            case Context.Category.lens:
-                for pid in user.libraries.lens {
+        case .libraries:
+            switch self.category! {
+            case .lenses:
+                for pid in user.libraries.lenses {
                     let parameters: Parameters = ["category": "lenses", "pid": pid]
                     Alamofire.request(Server.productUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
 //                        print(response.result.value ?? "no response result value")
@@ -108,8 +108,28 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 }
             default: break
             }
-        default:
-            break
+        case .wishlist:
+            switch self.category! {
+            case .lenses:
+                for pid in user.wishlist[.lenses] {
+                    let parameters: Parameters = ["category": "lenses", "pid": pid]
+                    Alamofire.request(Server.productUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+//                        print(response.result.value ?? "no response result value")
+                        if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
+                            if status == "success", let source = json["source"] as? [String : Any] {
+                                self.data.append(ProductModel(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"]))
+                                OperationQueue.main.addOperation {
+                                    self.tableView.reloadData()
+                                }
+                            } else if status == "failure" {
+                                print(json["error"]!)
+                            }
+                        }
+                    }
+                }
+            default: break
+            }
+        default: break
         }
     }
 
@@ -120,7 +140,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         // 设置选项卡标题
-        return IndicatorInfo(title: category)
+        return IndicatorInfo(title: self.category.rawValue)
     }
 
     // MARK: - Table view data source
@@ -134,8 +154,8 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch self.tab {
-        case Context.Tab.equipment, Context.Tab.libraries, Context.Tab.wishlist:
+        switch self.tab! {
+        case .equipment, .libraries, .wishlist:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
             let product = data[indexPath.row] as! ProductModel
             cell.productImage.kf.setImage(with: URL(string: (product.image)))
@@ -147,7 +167,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
 //                cell.frameButton.isEnabled = true
 //            }
             return cell
-        case Context.Tab.news:
+        case .news:
             let news = data[indexPath.row] as! NewsModel
             if news.image != "" {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "NewsImageCell", for: indexPath) as! NewsImageCell
@@ -178,14 +198,14 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
-        switch self.tab {
-        case Context.Tab.equipment, Context.Tab.libraries, Context.Tab.wishlist:
+        switch self.tab! {
+        case .equipment, .libraries, .wishlist:
             let productDetailTableViewController = ProductDetailViewController()
             productDetailTableViewController.data = data[indexPath.row] as! ProductModel
             productDetailTableViewController.category = self.category
             productDetailTableViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(productDetailTableViewController, animated: true)
-        case Context.Tab.news:
+        case .news:
             let url = (data[indexPath.row] as! NewsModel).link
             if url != "" {
                 let newsDetailViewController = WebViewController()
@@ -207,8 +227,15 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            tableView.deleteRows(at: [indexPath], with: .fade)
             data.remove(at: indexPath.row)
+            switch self.tab! {
+            case .libraries:
+                user.libraries[self.category].remove(at: indexPath.row)
+            case .wishlist:
+                user.wishlist[self.category].remove(at: indexPath.row)
+            default: break
+            }
+            tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
