@@ -51,7 +51,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                         if status == "success", let hits = json["hits"] as? [[String : Any]] {
                             for hit in hits {
                                 if let source = hit["_source"] as? [String : Any] {
-                                    self.data.append(ProductModel(pid: hit["_id"] as! String, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"]))
+                                    self.data.append(Product(pid: hit["_id"] as! String, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"]))
                                 }
                             }
                             OperationQueue.main.addOperation {
@@ -74,7 +74,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                         if status == "success", let hits = json["hits"] as? [[String : Any]] {
                             for hit in hits {
                                 if let source = hit["_source"] as? [String : Any] {
-                                    self.data.append(NewsModel(title: source["title"] as! String, source: source["source"] as! String, timestamp: source["timestamp"] as! String, content: source["content"] as! String, link: source["link"] as! String, image: source["image"] as! String))
+                                    self.data.append(News(title: source["title"] as! String, source: source["source"] as! String, timestamp: source["timestamp"] as! String, content: source["content"] as! String, link: source["link"] as! String, image: source["image"] as! String))
                                 }
                             }
                             OperationQueue.main.addOperation {
@@ -96,7 +96,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
 //                        print(response.result.value ?? "no response result value")
                         if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                             if status == "success", let source = json["source"] as? [String : Any] {
-                                self.data.append(ProductModel(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"]))
+                                self.data.append(Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"]))
                                 OperationQueue.main.addOperation {
                                     self.tableView.reloadData()
                                 }
@@ -117,7 +117,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
 //                        print(response.result.value ?? "no response result value")
                         if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                             if status == "success", let source = json["source"] as? [String : Any] {
-                                self.data.append(ProductModel(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"]))
+                                self.data.append(Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"]))
                                 OperationQueue.main.addOperation {
                                     self.tableView.reloadData()
                                 }
@@ -157,7 +157,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         switch self.tab! {
         case .equipment, .libraries, .wishlist:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
-            let product = data[indexPath.row] as! ProductModel
+            let product = data[indexPath.row] as! Product
             cell.productImage.kf.setImage(with: URL(string: (product.image)))
             cell.nameLabel.text = product.name
             cell.mountButton.setTitle(product.tags[0], for: .normal)
@@ -168,7 +168,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
 //            }
             return cell
         case .news:
-            let news = data[indexPath.row] as! NewsModel
+            let news = data[indexPath.row] as! News
             if news.image != "" {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "NewsImageCell", for: indexPath) as! NewsImageCell
                 cell.picture.kf.setImage(with: URL(string: news.image))
@@ -201,12 +201,12 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         switch self.tab! {
         case .equipment, .libraries, .wishlist:
             let productDetailTableViewController = ProductDetailViewController()
-            productDetailTableViewController.data = data[indexPath.row] as! ProductModel
+            productDetailTableViewController.data = data[indexPath.row] as! Product
             productDetailTableViewController.category = self.category
             productDetailTableViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(productDetailTableViewController, animated: true)
         case .news:
-            let url = (data[indexPath.row] as! NewsModel).link
+            let url = (data[indexPath.row] as! News).link
             if url != "" {
                 let newsDetailViewController = WebViewController()
                 newsDetailViewController.urlString = url

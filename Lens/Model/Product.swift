@@ -1,5 +1,5 @@
 //
-//  ProductModel.swift
+//  Product.swift
 //  Lens
 //
 //  Created by Archie Yu on 2018/2/26.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ProductModel {
+class Product {
     
     var pid: String!
     var image: String!

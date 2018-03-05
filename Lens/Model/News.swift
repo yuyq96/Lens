@@ -1,5 +1,5 @@
 //
-//  NewsModel.swift
+//  News.swift
 //  Lens
 //
 //  Created by Archie Yu on 2018/2/26.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NewsModel {
+class News {
     
     var title: String!
     var source: String!

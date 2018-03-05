@@ -15,7 +15,7 @@ class ProductDetailViewController: UITableViewController {
     var shadowConstraint: NSLayoutConstraint!
     
     var category: Context.Category!
-    var data: ProductModel!
+    var data: Product!
     
     var wishlistButton: UIBarButtonItem!
     var librariesButton: UIBarButtonItem!

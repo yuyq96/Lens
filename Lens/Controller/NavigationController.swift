@@ -14,12 +14,14 @@ class NavigationController: UINavigationController { // UIGestureRecognizerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.view.backgroundColor = .white
         self.navigationBar.backgroundColor = .white
         self.navigationBar.tintColor = Color.tint
         self.navigationBar.isTranslucent = false
         self.navigationBar.titleTextAttributes = [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 17)]
         self.navigationBar.shadowImage = UIImage()
+
     }
 
     override func didReceiveMemoryWarning() {

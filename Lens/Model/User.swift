@@ -1,5 +1,5 @@
 //
-//  UserModel.swift
+//  User.swift
 //  Lens
 //
 //  Created by Archie Yu on 2018/2/28.
@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class UserModel {
+class User {
     
     private var _token = UserDefaults.standard.string(forKey: "Token")
     private var _username = UserDefaults.standard.string(forKey: "Username")
@@ -99,7 +99,7 @@ class UserModel {
             list.remove(at: index)
         }
         
-        func makeIterator() -> UserModel.Products.Iterator {
+        func makeIterator() -> User.Products.Iterator {
             return Iterator(self)
         }
         
@@ -308,4 +308,4 @@ class UserModel {
     
 }
 
-let user = UserModel()
+let user = User()

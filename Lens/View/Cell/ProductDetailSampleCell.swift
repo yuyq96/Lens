@@ -67,8 +67,6 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
             self.sampleWidths[indexPath.section] = (image?.size.width)! / (image?.size.height)! * 90
             tableView.reloadRows(at: [indexPath], with: .automatic)
         })
-        print(cell.frame)
-//        cell.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
         return cell
     }
     
