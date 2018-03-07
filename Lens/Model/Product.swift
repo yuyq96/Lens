@@ -72,7 +72,6 @@ class Product: NSObject, NSCoding {
         self.name = aDecoder.decodeObject(forKey: "name") as! String
         self.image = aDecoder.decodeObject(forKey: "image") as! String
         self.tags = aDecoder.decodeObject(forKey: "tags") as! [String]
-        self.detail = aDecoder.decodeObject(forKey: "detail") as? Detail
     }
     
     func cache() {
@@ -89,6 +88,14 @@ class Product: NSObject, NSCoding {
     
     func setDetail(image: String, specs: [String: String], samples: [String]) {
         self.detail = Detail(image: image, specs: specs, samples: samples)
+        PINCache.shared().setObject(self.detail!, forKey: "\(self.pid!)_detail")
+    }
+    
+    func loadDetail() -> Bool {
+        PINCache.shared().object(forKey: "\(self.pid!)_detail") { (cache, key, object) in
+            self.detail = object as? Detail
+        }
+        return PINCache.shared().containsObject(forKey: "\(self.pid!)_detail")
     }
     
     func delDetail() {

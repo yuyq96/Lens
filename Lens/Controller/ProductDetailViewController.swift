@@ -15,7 +15,7 @@ class ProductDetailViewController: UITableViewController {
     var shadowConstraint: NSLayoutConstraint!
     
     var category: Context.Category!
-    var data: Product!
+    var product: Product!
     
     var wishlistButton: UIBarButtonItem!
     var librariesButton: UIBarButtonItem!
@@ -33,10 +33,10 @@ class ProductDetailViewController: UITableViewController {
         shadowConstraint = Shadow.add(to: self.tableView)
         
         // 设置NavigationBar按钮
-        if user.libraries[category].contains(data.pid) {
+        if user.libraries[category].contains(product.pid) {
             self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
             self.librariesButton = UIBarButtonItem(image: UIImage(named: "inbox_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
-        } else if user.wishlist[category].contains(data.pid) {
+        } else if user.wishlist[category].contains(product.pid) {
             self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(removeFromWishlist))
             self.librariesButton = UIBarButtonItem(image: UIImage(named: "inbox")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToLibraries))
         } else {
@@ -55,13 +55,12 @@ class ProductDetailViewController: UITableViewController {
         tableView.register(UINib(nibName: "ProductDetailBasicCell", bundle: nil), forCellReuseIdentifier: "ProductDetailBasicCell")
         tableView.register(UINib(nibName: "ProductDetailSampleCell", bundle: nil), forCellReuseIdentifier: "ProductDetailSampleCell")
         
-        if self.data.detail == nil {
-            let parameters: Parameters = ["category": self.category.rawValue.lowercased(), "pid": self.data.pid]
-            Alamofire.request(Server.productUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
-//                print(response.result.value ?? "no response result value")
+        if !self.product.loadDetail() {
+            let parameters: Parameters = ["category": self.category.rawValue.lowercased(), "pid": self.product.pid]
+            Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                     if status == "success", let source = json["source"] as? [String : Any] {
-                        self.data.setDetail(image: "https://cdn.dxomark.com/wp-content/uploads/2017/09/Sony-Zeiss-Sonnar-T-FE-55mm-f1.8-ZA-lens-review-Exemplary-performance.jpg", specs: ["Aperture": "\(source["aperture_max"] as! Float)"], samples: ["http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/01_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/02_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/03_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/04_1920x1080.jpg"])
+                        self.product.setDetail(image: "https://cdn.dxomark.com/wp-content/uploads/2017/09/Sony-Zeiss-Sonnar-T-FE-55mm-f1.8-ZA-lens-review-Exemplary-performance.jpg", specs: ["Aperture": "\(source["aperture_max"] as! Float)"], samples: ["http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/01_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/02_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/03_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/04_1920x1080.jpg"])
                         OperationQueue.main.addOperation {
                             self.tableView.reloadData()
                         }
@@ -78,21 +77,21 @@ class ProductDetailViewController: UITableViewController {
     }
     
     @objc func addToLibraries(sender: UIBarButtonItem) {
-        user.wishlist[category].remove(data.pid)
-        user.libraries[category].append(data.pid)
+        user.wishlist[category].remove(product.pid)
+        user.libraries[category].append(product.pid)
         self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
         self.librariesButton = UIBarButtonItem(image: UIImage(named: "inbox_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
         self.navigationItem.setRightBarButtonItems([self.wishlistButton, self.librariesButton], animated: true)
     }
     
     @objc func addToWishlist(sender: UIBarButtonItem) {
-        user.wishlist[category].append(data.pid)
+        user.wishlist[category].append(product.pid)
         self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(removeFromWishlist))
         self.navigationItem.setRightBarButtonItems([self.wishlistButton, self.librariesButton], animated: true)
     }
     
     @objc func removeFromWishlist(sender: UIBarButtonItem) {
-        user.wishlist[category].remove(data.pid)
+        user.wishlist[category].remove(product.pid)
         self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToWishlist))
         self.navigationItem.setRightBarButtonItems([self.wishlistButton, self.librariesButton], animated: true)
     }
@@ -116,20 +115,20 @@ class ProductDetailViewController: UITableViewController {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailImageCell", for: indexPath) as! ProductDetailImageCell
-            if let detail = data.detail {
+            if let detail = product.detail {
                 cell.productImage.kf.setImage(with: URL(string: detail.image))
             }
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailBasicCell", for: indexPath) as! ProductDetailBasicCell
-            cell.productName.text = data.name
-            if let detail = data.detail {
+            cell.productName.text = product.name
+            if let detail = product.detail {
                 cell.productBasicInfo.text = detail.info
             }
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailSampleCell", for: indexPath) as! ProductDetailSampleCell
-            if let detail = data.detail {
+            if let detail = product.detail {
                 cell.samples = detail.samples
                 cell.productSample.reloadData()
             }
@@ -143,7 +142,7 @@ class ProductDetailViewController: UITableViewController {
         switch indexPath.row {
         case 0: return 180
         case 1:
-            if let detail = data.detail {
+            if let detail = product.detail {
                 return 44 + CGFloat(detail.specs.count) * 16
             }
         case 2: return 138

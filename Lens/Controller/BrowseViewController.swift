@@ -71,7 +71,6 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                         parameters["filters"] = jsonString
                     } catch { }
                 }
-                print(parameters)
                 Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                     if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                         if status == "success", let hits = json["hits"] as? [[String : Any]] {
@@ -81,7 +80,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                                     if let product = Product.load(pid: pid) {
                                         self.data.append(product)
                                     } else if let source = hit["_source"] as? [String : Any] {
-                                        let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"])
+                                        let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
                                         product.cache()
                                         self.data.append(product)
                                     }
@@ -196,11 +195,9 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             let product = data[indexPath.row] as! Product
             cell.productImage.kf.setImage(with: URL(string: (product.image)))
             cell.nameLabel.text = product.name
-            cell.mountButton.setTitle(product.tags[0], for: .normal)
-            cell.frameButton.setTitle(product.tags[1], for: .normal)
+            cell.tagButton.setTitle(product.tags[0], for: .normal)
 //            if self.tab == Context.Tab.equipment {
-//                cell.mountButton.isEnabled = true
-//                cell.frameButton.isEnabled = true
+//                cell.tagButton.isEnabled = true
 //            }
             return cell
         case .news:
@@ -237,7 +234,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         switch self.tab! {
         case .equipment, .libraries, .wishlist:
             let productDetailTableViewController = ProductDetailViewController()
-            productDetailTableViewController.data = data[indexPath.row] as! Product
+            productDetailTableViewController.product = data[indexPath.row] as! Product
             productDetailTableViewController.category = self.category
             productDetailTableViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(productDetailTableViewController, animated: true)

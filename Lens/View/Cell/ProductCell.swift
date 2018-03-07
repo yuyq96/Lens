@@ -12,14 +12,12 @@ class ProductCell: UITableViewCell {
 
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var mountButton: UIButton!
-    @IBOutlet weak var frameButton: UIButton!
+    @IBOutlet weak var tagButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        setButtonStyle(button: mountButton)
-        setButtonStyle(button: frameButton)
+        setButtonStyle(button: tagButton)
     }
     
     func setButtonStyle(button: UIButton) {
