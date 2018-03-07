@@ -58,10 +58,11 @@ class ProductDetailViewController: UITableViewController {
         tableView.register(UINib(nibName: "ProductDetailBasicCell", bundle: nil), forCellReuseIdentifier: "ProductDetailBasicCell")
         tableView.register(UINib(nibName: "ProductDetailSampleCell", bundle: nil), forCellReuseIdentifier: "ProductDetailSampleCell")
         
-//        self.refresh()
-        if !self.product.loadDetail() {
-            self.refresh()
-        }
+//        if !self.product.loadDetail() {
+//            self.refresh()
+//        }
+        self.product.loadDetail()
+        self.refresh()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -99,7 +100,7 @@ class ProductDetailViewController: UITableViewController {
                     case .accessories:
                         specs = [[], []]
                     }
-                    self.product.setDetail(image: "https://cdn.dxomark.com/wp-content/uploads/2017/09/Sony-Zeiss-Sonnar-T-FE-55mm-f1.8-ZA-lens-review-Exemplary-performance.jpg", specs: specs, samples: ["http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/01_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/02_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/03_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/04_1920x1080.jpg"])
+                    self.product.setDetail(image: self.product.image, specs: specs, samples: ["http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/01_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/02_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/03_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/04_1920x1080.jpg"])
                     OperationQueue.main.addOperation {
                         self.tableView.reloadData()
                     }

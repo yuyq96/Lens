@@ -9,9 +9,13 @@
 import UIKit
 import Alamofire
 import Kingfisher
+import MJRefresh
 import XLPagerTabStrip
 
 class BrowseViewController: UITableViewController, IndicatorInfoProvider {
+    
+    var header: MJRefreshHeader!
+    var footer: MJRefreshFooter?
     
     var tab: Context.Tab!
     var category: Context.Category!
@@ -37,6 +41,20 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         self.tableView.estimatedSectionHeaderHeight = 0
         self.tableView.estimatedSectionFooterHeight = 0
         self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        
+        // 下拉刷新
+        self.header = MJRefreshNormalHeader(refreshingBlock: {
+            self.refresh()
+            self.header.endRefreshing()
+        })
+        self.header.lastUpdatedTimeKey = "\(self.tab!.rawValue)_\(self.category!.rawValue)"
+        self.tableView.mj_header = self.header
+        if self.tab! == .equipment || self.tab! == .news {
+            self.footer = MJRefreshBackStateFooter(refreshingBlock: {
+                self.loadMore()
+            })
+        }
+        self.tableView.mj_footer = self.footer
         
         // 注册复用Cell
         self.tableView.register(UINib(nibName: "ProductCell", bundle: nil), forCellReuseIdentifier: "ProductCell")
@@ -77,9 +95,17 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     func refresh() {
         self.ids = []
         self.data = []
+        self.tableView.reloadData()
+        self.loadMore()
+    }
+    
+    func loadMore() {
         switch self.tab! {
         case .equipment:
-            var parameters: Parameters = ["category": self.category.rawValue.lowercased()]
+            var parameters: Parameters = [
+                "category": self.category.rawValue.lowercased(),
+                "from": self.ids.count
+            ]
             if keyword != nil {
                 parameters["keyword"] = keyword!
             }
@@ -102,6 +128,9 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                     if status == "success", let hits = json["hits"] as? [[String : Any]] {
+                        if hits.count == 0 {
+                            self.footer?.endRefreshingWithNoMoreData()
+                        }
                         for hit in hits {
                             if let pid = hit["_id"] as? String {
                                 self.ids.append(pid)
@@ -135,10 +164,16 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         case .news:
             switch self.category! {
             case .lenses:
-                let parameters: Parameters = ["category": self.category.rawValue.lowercased()]
+                let parameters: Parameters = [
+                    "category": self.category.rawValue.lowercased(),
+                    "from": self.ids.count
+                ]
                 Alamofire.request(Server.newsUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                     if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                         if status == "success", let hits = json["hits"] as? [[String : Any]] {
+                            if hits.count == 0 {
+                                self.footer?.endRefreshingWithNoMoreData()
+                            }
                             for hit in hits {
                                 if let source = hit["_source"] as? [String : Any] {
                                     self.ids.append("")
@@ -169,6 +204,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             self.tableView.reloadData()
         default: break
         }
+        self.footer?.endRefreshing()
     }
 
     // MARK: - Table view data source
@@ -178,7 +214,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.ids.count
+        return self.data.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

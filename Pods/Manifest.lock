@@ -1,21 +1,24 @@
 PODS:
   - Alamofire (4.6.0)
   - Kingfisher (4.6.2)
+  - MJRefresh (3.1.15.3)
   - PINCache (2.3)
   - XLPagerTabStrip (8.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.6)
   - Kingfisher (~> 4.0)
+  - MJRefresh
   - PINCache
   - XLPagerTabStrip (~> 8.0)
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   Kingfisher: 55b9c395bf8d3949676ad3861111923990ab68cf
+  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   XLPagerTabStrip: d1ab378af0923320ec0b5eab11d7b2f803d31261
 
-PODFILE CHECKSUM: b9f0d011228d81fba7867ea3ffcbc34685d9fe47
+PODFILE CHECKSUM: e4be12c604296c6f94df9868d1d6bbcb82e43151
 
 COCOAPODS: 1.4.0

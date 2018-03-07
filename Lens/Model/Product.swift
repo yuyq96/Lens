@@ -90,7 +90,7 @@ class Product: NSObject, NSCoding {
         PINCache.shared().setObject(self.detail!, forKey: "\(self.pid!)_detail")
     }
     
-    func loadDetail() -> Bool {
+    @discardableResult func loadDetail() -> Bool {
         PINCache.shared().object(forKey: "\(self.pid!)_detail") { (cache, key, object) in
             self.detail = object as? Detail
         }
