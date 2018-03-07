@@ -10,15 +10,25 @@ import UIKit
 
 class FilterViewController: UITableViewController {
     
+    var browseViewController: BrowseViewController!
     var shadowConstraint: NSLayoutConstraint!
-    var keyword: String {
+    var keyword: String? {
         get {
             let searchCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! SearchCell
             return searchCell.keyword
         }
     }
-    var filters: [Filter]!
-
+    var filters: [FilterCopy]!
+    
+    init(style: UITableViewStyle, browseViewController: BrowseViewController) {
+        super.init(style: style)
+        self.browseViewController = browseViewController
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -52,6 +62,19 @@ class FilterViewController: UITableViewController {
     }
     
     @objc func confirm(sender: UIBarButtonItem) {
+        for filter in self.filters {
+            filter.save()
+        }
+        var filtersJson: [String : [String : [Any]]]?
+        for filter in filters {
+            if let filterJson = filter.json {
+                if filtersJson == nil {
+                    filtersJson = ["bool": ["must": []]]
+                }
+                filtersJson!["bool"]!["must"]!.append(filterJson)
+            }
+        }
+        self.browseViewController.refresh(keyword: keyword, filtered: filtersJson)
         self.navigationController?.popViewController(animated: true)
     }
 
@@ -108,8 +131,6 @@ class FilterViewController: UITableViewController {
                 break
             case .float:
                 break
-            default:
-                break
             }
         default:
             break
@@ -130,7 +151,6 @@ class FilterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == tableView.numberOfSections - 1 {
             let footerView = UIView()
-            
             let confirmButton = UIButton(type: .roundedRect)
             confirmButton.backgroundColor = Color.tint
             confirmButton.layer.cornerRadius = 6
@@ -146,7 +166,6 @@ class FilterViewController: UITableViewController {
                 NSLayoutConstraint(item: confirmButton, attribute: .leading, relatedBy: .equal, toItem: footerView, attribute: .leading, multiplier: 1, constant: 12),
                 NSLayoutConstraint(item: confirmButton, attribute: .width, relatedBy: .equal, toItem: footerView, attribute: .width, multiplier: 1, constant: -24)
                 ])
-            
             return footerView
         }
         return nil

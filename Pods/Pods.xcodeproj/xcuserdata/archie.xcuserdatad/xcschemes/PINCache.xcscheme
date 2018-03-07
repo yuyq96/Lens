@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AC3C8D984B96513B94AE6DCDEDC0D18A"
-               BuildableName = "Pods_Lens.framework"
-               BlueprintName = "Pods-Lens"
+               BlueprintIdentifier = "6A4878A4A87B118BAF0877A103373708"
+               BuildableName = "PINCache.framework"
+               BlueprintName = "PINCache"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AC3C8D984B96513B94AE6DCDEDC0D18A"
-            BuildableName = "Pods_Lens.framework"
-            BlueprintName = "Pods-Lens"
+            BlueprintIdentifier = "6A4878A4A87B118BAF0877A103373708"
+            BuildableName = "PINCache.framework"
+            BlueprintName = "PINCache"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

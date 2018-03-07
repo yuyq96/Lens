@@ -84,16 +84,17 @@ class FilterOptionsViewController: UITableViewController {
         } else {
             if filter.allSelected {
                 filter.disselectAll()
-                let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! CheckmarkCell
-                cell.setCheck(false)
-            }
-            filter.selections[indexPath.row - 1] = cell.check()
-            if filter.allSelected {
-                tableView.reloadData()
-            }
-            if filter.allDisselected {
-                filter.selectAll()
-                tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.accessoryType = .checkmark
+                (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CheckmarkCell)?.setCheck(false)
+                filter.selections[indexPath.row - 1] = cell.check()
+            } else {
+                filter.selections[indexPath.row - 1] = cell.check()
+                if filter.allSelected {
+                    tableView.reloadData()
+                }
+                if filter.allDisselected {
+                    filter.selectAll()
+                    (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CheckmarkCell)?.setCheck(true)
+                }
             }
         }
     }

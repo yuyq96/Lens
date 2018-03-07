@@ -15,7 +15,8 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
     var tab: Context.Tab!
     var category: Context.Category!
-    var data: [Any] = []
+    var pids = [String]()
+    var data: [Any]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,31 +28,63 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
+            self.tableView.contentInsetAdjustmentBehavior = .never
         } else {
-            automaticallyAdjustsScrollViewInsets = false
+            self.automaticallyAdjustsScrollViewInsets = false
         }
-        tableView.estimatedSectionHeaderHeight = 0
-        tableView.estimatedSectionFooterHeight = 0
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        self.tableView.estimatedSectionHeaderHeight = 0
+        self.tableView.estimatedSectionFooterHeight = 0
+        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         
         // 注册复用Cell
-        tableView.register(UINib(nibName: "ProductCell", bundle: nil), forCellReuseIdentifier: "ProductCell")
-        tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
-        tableView.register(UINib(nibName: "NewsImageCell", bundle: nil), forCellReuseIdentifier: "NewsImageCell")
+        self.tableView.register(UINib(nibName: "ProductCell", bundle: nil), forCellReuseIdentifier: "ProductCell")
+        self.tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
+        self.tableView.register(UINib(nibName: "NewsImageCell", bundle: nil), forCellReuseIdentifier: "NewsImageCell")
         
+        self.refresh(keyword: nil, filtered: nil)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+        // 设置选项卡标题
+        return IndicatorInfo(title: self.category.rawValue)
+    }
+    
+    func refresh(keyword: String?, filtered filters: Any?) {
+        self.data = []
         switch self.tab! {
         case .equipment:
             switch self.category! {
             case .lenses:
-                let parameters: Parameters = ["category": "lenses"]
-                Alamofire.request(Server.productUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
-//                    print(response.result.value ?? "no response result value")
+                var parameters: Parameters = ["category": self.category.rawValue.lowercased()]
+                if keyword != nil {
+                    parameters["keyword"] = keyword!
+                }
+                if filters != nil {
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: filters!, options: [])
+                        let jsonString = String(data: jsonData, encoding: String.Encoding.utf8)
+                        parameters["filters"] = jsonString
+                    } catch { }
+                }
+                print(parameters)
+                Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                     if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                         if status == "success", let hits = json["hits"] as? [[String : Any]] {
                             for hit in hits {
-                                if let source = hit["_source"] as? [String : Any] {
-                                    self.data.append(Product(pid: hit["_id"] as! String, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"]))
+                                if let pid = hit["_id"] as? String {
+                                    self.pids.append(pid)
+                                    if let product = Product.load(pid: pid) {
+                                        self.data.append(product)
+                                    } else if let source = hit["_source"] as? [String : Any] {
+                                        let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"])
+                                        product.cache()
+                                        self.data.append(product)
+                                    }
                                 }
                             }
                             OperationQueue.main.addOperation {
@@ -67,9 +100,8 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         case .news:
             switch self.category! {
             case .lenses:
-                let parameters: Parameters = ["category": "lenses"]
-                Alamofire.request(Server.newsUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
-//                    print(response.result.value ?? "no response result value")
+                let parameters: Parameters = ["category": self.category.rawValue.lowercased()]
+                Alamofire.request(Server.newsUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                     if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                         if status == "success", let hits = json["hits"] as? [[String : Any]] {
                             for hit in hits {
@@ -90,18 +122,25 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         case .libraries:
             switch self.category! {
             case .lenses:
-                for pid in user.libraries.lenses {
-                    let parameters: Parameters = ["category": "lenses", "pid": pid]
-                    Alamofire.request(Server.productUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
-//                        print(response.result.value ?? "no response result value")
-                        if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
-                            if status == "success", let source = json["source"] as? [String : Any] {
-                                self.data.append(Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"]))
-                                OperationQueue.main.addOperation {
-                                    self.tableView.reloadData()
+                for i in 0..<user.libraries.lenses.count {
+                    let pid = user.libraries.lenses[i]
+                    if let product = Product.load(pid: pid) {
+                        self.data.append(product)
+                        self.tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
+                    } else {
+                        let parameters: Parameters = ["category": self.category.rawValue.lowercased(), "pid": pid]
+                        Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+                            if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
+                                if status == "success", let source = json["source"] as? [String : Any] {
+                                    let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"])
+                                    product.cache()
+                                    self.data.append(product)
+                                    OperationQueue.main.addOperation {
+                                        self.tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
+                                    }
+                                } else if status == "failure" {
+                                    print(json["error"]!)
                                 }
-                            } else if status == "failure" {
-                                print(json["error"]!)
                             }
                         }
                     }
@@ -111,18 +150,25 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         case .wishlist:
             switch self.category! {
             case .lenses:
-                for pid in user.wishlist[.lenses] {
-                    let parameters: Parameters = ["category": "lenses", "pid": pid]
-                    Alamofire.request(Server.productUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
-//                        print(response.result.value ?? "no response result value")
-                        if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
-                            if status == "success", let source = json["source"] as? [String : Any] {
-                                self.data.append(Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"]))
-                                OperationQueue.main.addOperation {
-                                    self.tableView.reloadData()
+                for i in 0..<user.libraries.lenses.count {
+                    let pid = user.libraries.lenses[i]
+                    if let product = Product.load(pid: pid) {
+                        self.data.append(product)
+                        self.tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
+                    } else {
+                        let parameters: Parameters = ["category": self.category.rawValue.lowercased(), "pid": pid]
+                        Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+                            if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
+                                if status == "success", let source = json["source"] as? [String : Any] {
+                                    let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"])
+                                    product.cache()
+                                    self.data.append(product)
+                                    OperationQueue.main.addOperation {
+                                        self.tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
+                                    }
+                                } else if status == "failure" {
+                                    print(json["error"]!)
                                 }
-                            } else if status == "failure" {
-                                print(json["error"]!)
                             }
                         }
                     }
@@ -131,16 +177,6 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             }
         default: break
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        // 设置选项卡标题
-        return IndicatorInfo(title: self.category.rawValue)
     }
 
     // MARK: - Table view data source

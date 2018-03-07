@@ -14,6 +14,8 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
     var tab: Context.Tab!
     var filters: [[Filter]]!
     
+    var subViewControllers: [BrowseViewController] = []
+    
     override func viewDidLoad() {
         // 根据tab设置标题
         self.navigationItem.title = self.tab.rawValue
@@ -73,18 +75,24 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         let lensViewController = BrowseViewController(style: .grouped)
         lensViewController.tab = tab
         lensViewController.category = Context.Category.lenses
+        self.subViewControllers.append(lensViewController)
         let cameraViewController = BrowseViewController(style: .grouped)
         cameraViewController.tab = tab
         cameraViewController.category = Context.Category.cameras
+        self.subViewControllers.append(cameraViewController)
         let accessoriesViewController = BrowseViewController(style: .grouped)
         accessoriesViewController.tab = tab
         accessoriesViewController.category = Context.Category.accessories
-        return [lensViewController, cameraViewController, accessoriesViewController]
+        self.subViewControllers.append(accessoriesViewController)
+        return self.subViewControllers
     }
     
     @objc func setProdutFilter(sender: UIBarButtonItem) {
-        let filterViewController = FilterViewController(style: .grouped)
-        filterViewController.filters = filters[self.currentIndex]
+        let filterViewController = FilterViewController(style: .grouped, browseViewController: self.subViewControllers[self.currentIndex])
+        filterViewController.filters = []
+        for filter in self.filters[self.currentIndex] {
+            filterViewController.filters.append(filter.copy)
+        }
         filterViewController.hidesBottomBarWhenPushed = true
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         self.navigationController?.pushViewController(filterViewController, animated: true)

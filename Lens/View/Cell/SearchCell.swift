@@ -11,9 +11,9 @@ import UIKit
 class SearchCell: UITableViewCell, UISearchBarDelegate {
     
     private let searchBar = UISearchBar()
-    var keyword: String {
+    var keyword: String? {
         get {
-            return searchBar.text ?? ""
+            return searchBar.text
         }
     }
 
