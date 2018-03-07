@@ -15,8 +15,10 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
     var tab: Context.Tab!
     var category: Context.Category!
-    var pids = [String]()
-    var data: [Any]!
+    var keyword: String?
+    var filters = [Filter]()
+    var ids = [String]()
+    var data: [Any?]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +43,25 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         self.tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
         self.tableView.register(UINib(nibName: "NewsImageCell", bundle: nil), forCellReuseIdentifier: "NewsImageCell")
         
-        self.refresh(keyword: nil, filtered: nil)
+        switch self.category! {
+        case .lenses:
+            filters.append(Filter(name: "Brand", include: ["Canon", "Carl Zeiss", "Fujifilm", "Kenko Tokina", "Konica Minolta", "Leica", "Lensbaby", "Lomography", "Mitakon", "Nikon", "Noktor", "Olympus", "Panasonic", "Pentax", "Ricoh", "Samyung", "Schneider Kreuznach", "Sigma", "Sony", "Tamron", "Tokina", "Voigtlander", "YI"]))
+            filters.append(Filter(name: "Mount Type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
+            filters.append(Filter(name: "Lens Type", include: ["Zoom", "Prime"]))
+            filters.append(Filter(name: "Lens Size", include: ["super wide-angle", "wide-angle", "standard", "telephoto", "super telephoto"]))
+            filters.append(Filter(name: "Focal Range", from: 1, to: 1500))
+            filters.append(Filter(name: "Aperture", from: 0.95, to: 45))
+        case .cameras:
+            filters.append(Filter(name: "Brand", include: ["Canon", "Casio", "DJI", "DxO", "GoPro", "Hasselblad", "Konica Minolta", "Fujifilm", "Leaf", "Leica", "Mamiya", "Nikon", "Nokia", "Olympus", "Panasonic", "Pentax", "Phase One", "Ricoh", "Samsung", "Sigma", "Sony", "YI", "YUNEEC"]))
+            filters.append(Filter(name: "Mount Type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
+            filters.append(Filter(name: "Sensor Format", include: ["Full Frame", "Medium Format", "APS-H", "APS-C", "4/3\"", "1\"", "2/3\"", "1/1.7\"", "1/2.3\""]))
+            filters.append(Filter(name: "Lens Size", include: ["super wide-angle", "wide-angle", "standard", "telephoto", "super telephoto"]))
+            filters.append(Filter(name: "Resolution(M)", from: 1.0, to: 100.0))
+        default:
+            break
+        }
+        
+        self.refresh()
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,47 +74,63 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         return IndicatorInfo(title: self.category.rawValue)
     }
     
-    func refresh(keyword: String?, filtered filters: Any?) {
+    func refresh() {
+        self.ids = []
         self.data = []
         switch self.tab! {
         case .equipment:
-            switch self.category! {
-            case .lenses:
-                var parameters: Parameters = ["category": self.category.rawValue.lowercased()]
-                if keyword != nil {
-                    parameters["keyword"] = keyword!
+            var parameters: Parameters = ["category": self.category.rawValue.lowercased()]
+            if keyword != nil {
+                parameters["keyword"] = keyword!
+            }
+            var filtersJson: [String : [String : [Any]]]?
+            for filter in self.filters {
+                if let filterJson = filter.json {
+                    if filtersJson == nil {
+                        filtersJson = ["bool": ["must": []]]
+                    }
+                    filtersJson!["bool"]!["must"]!.append(filterJson)
                 }
-                if filters != nil {
-                    do {
-                        let jsonData = try JSONSerialization.data(withJSONObject: filters!, options: [])
-                        let jsonString = String(data: jsonData, encoding: String.Encoding.utf8)
-                        parameters["filters"] = jsonString
-                    } catch { }
-                }
-                Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
-                    if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
-                        if status == "success", let hits = json["hits"] as? [[String : Any]] {
-                            for hit in hits {
-                                if let pid = hit["_id"] as? String {
-                                    self.pids.append(pid)
-                                    if let product = Product.load(pid: pid) {
-                                        self.data.append(product)
-                                    } else if let source = hit["_source"] as? [String : Any] {
+            }
+            if filtersJson != nil {
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: filtersJson!, options: [])
+                    let jsonString = String(data: jsonData, encoding: String.Encoding.utf8)
+                    parameters["filters"] = jsonString
+                } catch { }
+            }
+            Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+                if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
+                    if status == "success", let hits = json["hits"] as? [[String : Any]] {
+                        for hit in hits {
+                            if let pid = hit["_id"] as? String {
+                                self.ids.append(pid)
+                                if let source = hit["_source"] as? [String : Any] {
+                                    switch self.category! {
+                                    case .lenses:
                                         let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
                                         product.cache()
                                         self.data.append(product)
+                                    case .cameras:
+                                        let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
+                                        product.cache()
+                                        self.data.append(product)
+                                    case .accessories:
+                                        let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [])
+                                        product.cache()
+                                        self.data.append(product)
                                     }
+                                    
                                 }
                             }
-                            OperationQueue.main.addOperation {
-                                self.tableView.reloadData()
-                            }
-                        } else if status == "failure" {
-                            print(json["error"]!)
                         }
+                        OperationQueue.main.addOperation {
+                            self.tableView.reloadData()
+                        }
+                    } else if status == "failure" {
+                        print(json["error"]!)
                     }
                 }
-            default: break
             }
         case .news:
             switch self.category! {
@@ -105,6 +141,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                         if status == "success", let hits = json["hits"] as? [[String : Any]] {
                             for hit in hits {
                                 if let source = hit["_source"] as? [String : Any] {
+                                    self.ids.append("")
                                     self.data.append(News(title: source["title"] as! String, source: source["source"] as! String, timestamp: source["timestamp"] as! String, content: source["content"] as! String, link: source["link"] as! String, image: source["image"] as! String))
                                 }
                             }
@@ -119,61 +156,17 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             default: break
             }
         case .libraries:
-            switch self.category! {
-            case .lenses:
-                for i in 0..<user.libraries.lenses.count {
-                    let pid = user.libraries.lenses[i]
-                    if let product = Product.load(pid: pid) {
-                        self.data.append(product)
-                        self.tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
-                    } else {
-                        let parameters: Parameters = ["category": self.category.rawValue.lowercased(), "pid": pid]
-                        Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
-                            if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
-                                if status == "success", let source = json["source"] as? [String : Any] {
-                                    let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"])
-                                    product.cache()
-                                    self.data.append(product)
-                                    OperationQueue.main.addOperation {
-                                        self.tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
-                                    }
-                                } else if status == "failure" {
-                                    print(json["error"]!)
-                                }
-                            }
-                        }
-                    }
-                }
-            default: break
+            for pid in user.libraries[self.category!] {
+                self.ids.append(pid)
+                self.data.append(nil)
             }
+            self.tableView.reloadData()
         case .wishlist:
-            switch self.category! {
-            case .lenses:
-                for i in 0..<user.libraries.lenses.count {
-                    let pid = user.libraries.lenses[i]
-                    if let product = Product.load(pid: pid) {
-                        self.data.append(product)
-                        self.tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
-                    } else {
-                        let parameters: Parameters = ["category": self.category.rawValue.lowercased(), "pid": pid]
-                        Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
-                            if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
-                                if status == "success", let source = json["source"] as? [String : Any] {
-                                    let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String, "Full Frame"])
-                                    product.cache()
-                                    self.data.append(product)
-                                    OperationQueue.main.addOperation {
-                                        self.tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
-                                    }
-                                } else if status == "failure" {
-                                    print(json["error"]!)
-                                }
-                            }
-                        }
-                    }
-                }
-            default: break
+            for pid in user.wishlist[self.category!] {
+                self.ids.append(pid)
+                self.data.append(nil)
             }
+            self.tableView.reloadData()
         default: break
         }
     }
@@ -185,37 +178,68 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return self.ids.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch self.tab! {
         case .equipment, .libraries, .wishlist:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
-            let product = data[indexPath.row] as! Product
-            cell.productImage.kf.setImage(with: URL(string: (product.image)))
-            cell.nameLabel.text = product.name
-            cell.tagButton.setTitle(product.tags[0], for: .normal)
-//            if self.tab == Context.Tab.equipment {
-//                cell.tagButton.isEnabled = true
-//            }
+            // product已加载
+            if let product = data[indexPath.row] as? Product {
+                cell.productImage.kf.setImage(with: URL(string: (product.image)))
+                cell.nameLabel.text = product.name
+                cell.tagButton.setTitle(product.tags[0], for: .normal)
+                if self.tab == Context.Tab.equipment {
+                    cell.tagButton.isEnabled = true
+                }
+            } else {
+                // product未加载
+                let id = self.ids[indexPath.row]
+                // 尝试从缓存中加载
+                if !Product.load(pid: id, completion: { product in
+                    self.data[indexPath.row] = product
+                    OperationQueue.main.addOperation {
+                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
+                }) {
+                    // 缓存加载失败，从服务器获取并缓存
+                    let parameters: Parameters = ["category": self.category.rawValue.lowercased(), "pid": id]
+                    Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+                        if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
+                            if status == "success", let source = json["source"] as? [String : Any] {
+                                let product = Product(pid: id, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
+                                product.cache()
+                                self.data[indexPath.row] = product
+                                OperationQueue.main.addOperation {
+                                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                                }
+                            } else if status == "failure" {
+                                print(json["error"]!)
+                            }
+                        }
+                    }
+                }
+            }
             return cell
         case .news:
-            let news = data[indexPath.row] as! News
-            if news.image != "" {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "NewsImageCell", for: indexPath) as! NewsImageCell
-                cell.picture.kf.setImage(with: URL(string: news.image))
-                cell.title.text = news.title
-                cell.info.text = news.info
-                cell.content.text = news.content
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
-                cell.title.text = news.title
-                cell.info.text = news.info
-                cell.content.text = news.content
-                return cell
+            if let news = data[indexPath.row] as? News {
+                if news.image != "" {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "NewsImageCell", for: indexPath) as! NewsImageCell
+                    cell.picture.kf.setImage(with: URL(string: news.image))
+                    cell.title.text = news.title
+                    cell.info.text = news.info
+                    cell.content.text = news.content
+                    return cell
+                } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
+                    cell.title.text = news.title
+                    cell.info.text = news.info
+                    cell.content.text = news.content
+                    return cell
+                }
             }
+            return UITableViewCell()
         default:
             return UITableViewCell()
         }
@@ -234,7 +258,9 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         switch self.tab! {
         case .equipment, .libraries, .wishlist:
             let productDetailTableViewController = ProductDetailViewController()
+            productDetailTableViewController.browseViewController = self
             productDetailTableViewController.product = data[indexPath.row] as! Product
+            productDetailTableViewController.tab = self.tab
             productDetailTableViewController.category = self.category
             productDetailTableViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(productDetailTableViewController, animated: true)
@@ -260,6 +286,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            ids.remove(at: indexPath.row)
             data.remove(at: indexPath.row)
             switch self.tab! {
             case .libraries:

@@ -8,6 +8,197 @@
 
 import Foundation
 import Alamofire
+import PINCache
+
+class Products: NSObject, NSCoding, Sequence {
+    
+    var name: String
+    private var list: [String]
+    var needsSync: Bool
+    var count: Int {
+        get {
+            return list.count
+        }
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.name, forKey: "name")
+        aCoder.encode(self.list, forKey: "list")
+        aCoder.encode(self.needsSync, forKey: "needsSync")
+    }
+    
+    init(name: String) {
+        self.name = name
+        self.list = []
+        self.needsSync = false
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.name = aDecoder.decodeObject(forKey: "name") as! String
+        self.list = aDecoder.decodeObject(forKey: "list") as! [String]
+        self.needsSync = aDecoder.decodeBool(forKey: "needsSync")
+    }
+    
+    subscript(index: Int) -> String {
+        get {
+            return self.list[index]
+        }
+        set(newValue) {
+            self.list[index] = newValue
+            self.cache()
+        }
+    }
+    
+    func contains(_ pid: String) -> Bool {
+        return self.list.contains(pid)
+    }
+    
+    func append(_ pid: String) {
+        if !self.list.contains(pid) {
+            self.list.append(pid)
+            self.cache()
+        }
+    }
+    
+    func append(_ pids: Set<String>) {
+        for pid in pids {
+            self.list.append(pid)
+        }
+        self.cache()
+    }
+    
+    func remove(_ pid: String) {
+        if let index = self.list.index(of: pid) {
+            self.list.remove(at: index)
+            self.cache()
+        }
+    }
+    
+    func remove(at index: Int) {
+        self.list.remove(at: index)
+        self.cache()
+    }
+    
+    func makeIterator() -> Products.Iterator {
+        return Iterator(self)
+    }
+    
+    struct Iterator: IteratorProtocol {
+        
+        let products: Products
+        var index = 0
+        
+        init(_ products: Products) {
+            self.products = products
+        }
+        
+        mutating func next() -> String? {
+            guard index < products.count
+                else { return nil }
+            let pid = products[index]
+            index += 1
+            return pid
+        }
+        
+    }
+    
+    func cache() {
+        PINCache.shared().setObject(self, forKey: self.name)
+    }
+    
+    @discardableResult static func load(name: String, completion: @escaping (Products?) -> Void) -> Bool {
+        PINCache.shared().object(forKey: name) { (cache, key, object) in
+            completion(object as? Products)
+        }
+        return PINCache.shared().containsObject(forKey: name)
+    }
+    
+    func sync() {
+        if self.needsSync {
+            
+        }
+    }
+    
+}
+
+class ProductsGroup {
+    
+    var name: String
+    var lenses: Products
+    var cameras: Products
+    var accessories: Products
+    
+    init(name: String) {
+        self.name = name
+        self.lenses = Products(name: "\(name)Lenses")
+        self.cameras = Products(name: "\(name)Cameras")
+        self.accessories = Products(name: "\(name)Accessories")
+        Products.load(name: "\(name)Lenses") { products in
+            if products != nil {
+                self.lenses = products!
+            }
+        }
+        Products.load(name: "\(name)Cameras") { products in
+            if products != nil {
+                self.cameras = products!
+            }
+        }
+        Products.load(name: "\(name)Accessories") { products in
+            if products != nil {
+                self.accessories = products!
+            }
+        }
+    }
+    
+    subscript(category: Context.Category) -> Products {
+        switch category {
+        case Context.Category.lenses:
+            return lenses
+        case Context.Category.cameras:
+            return cameras
+        case Context.Category.accessories:
+            return accessories
+        }
+    }
+    
+}
+
+class Settings {
+    
+    private var _needsSync = UserDefaults.standard.bool(forKey: "SettingsNeedsSync")
+    private var _budget = UserDefaults.standard.string(forKey: "SettingsBudget")
+    private var _showBudget = UserDefaults.standard.bool(forKey: "SettingsShowBudget")
+    var needsSync: Bool {
+        get {
+            return self._needsSync
+        }
+        set(newNeedsSync) {
+            self._needsSync = newNeedsSync
+            UserDefaults.standard.set(self._needsSync, forKey: "SettingsNeedsSync")
+        }
+    }
+    var budget: String! {
+        get {
+            return self._budget ?? "0"
+        }
+        set(newBudget) {
+            self._budget = newBudget
+            UserDefaults.standard.set(self._budget, forKey: "SettingsBudget")
+            self.needsSync = true
+        }
+    }
+    var showBudget: Bool {
+        get {
+            return self._showBudget
+        }
+        set(newShowBudget) {
+            self._showBudget = newShowBudget
+            UserDefaults.standard.set(self._showBudget, forKey: "SettingsShowBudget")
+            self.needsSync = true
+        }
+    }
+    
+}
 
 class User {
     
@@ -16,8 +207,8 @@ class User {
     private var _nickname = UserDefaults.standard.string(forKey: "Nickname")
     private var _avatar = UserDefaults.standard.string(forKey: "Avatar")
     var settings = Settings()
-    var libraries = ProductsGroup()
-    var wishlist = ProductsGroup()
+    var libraries = ProductsGroup(name: "Libraries")
+    var wishlist = ProductsGroup(name: "Wishlist")
     var token: String? {
         get {
             return self._token
@@ -53,130 +244,6 @@ class User {
             self._avatar = newAvatar
             UserDefaults.standard.set(self._avatar, forKey: "Avatar")
         }
-    }
-    
-    class Products: Sequence {
-        
-        private var list = [String]()
-        var count: Int {
-            get {
-                return list.count
-            }
-        }
-        
-        subscript(index: Int) -> String {
-            get {
-                return list[index]
-            }
-            set(newValue) {
-                list[index] = newValue
-            }
-        }
-        
-        func contains(_ pid: String) -> Bool {
-            return list.contains(pid)
-        }
-        
-        func append(_ pid: String) {
-            if !list.contains(pid) {
-                list.append(pid)
-            }
-        }
-        
-        func append(_ pids: Set<String>) {
-            for pid in pids {
-                list.append(pid)
-            }
-        }
-        
-        func remove(_ pid: String) {
-            if let index = list.index(of: pid) {
-                list.remove(at: index)
-            }
-        }
-        
-        func remove(at index: Int) {
-            list.remove(at: index)
-        }
-        
-        func makeIterator() -> User.Products.Iterator {
-            return Iterator(self)
-        }
-        
-        struct Iterator: IteratorProtocol {
-            let products: Products
-            var index = 0
-            
-            init(_ products: Products) {
-                self.products = products
-            }
-            
-            mutating func next() -> String? {
-                guard index < products.count
-                    else { return nil }
-                let pid = products[index]
-                index += 1
-                return pid
-            }
-            
-        }
-        
-    }
-    
-    class ProductsGroup {
-        
-        var lenses = Products()
-        var cameras = Products()
-        var accessories = Products()
-        
-        subscript(category: Context.Category) -> Products {
-            switch category {
-            case Context.Category.lenses:
-                return lenses
-            case Context.Category.cameras:
-                return cameras
-            case Context.Category.accessories:
-                return accessories
-            }
-        }
-        
-    }
-    
-    class Settings {
-        
-        private var _needsSync = UserDefaults.standard.bool(forKey: "SettingsNeedsSync")
-        private var _budget = UserDefaults.standard.string(forKey: "SettingsBudget")
-        private var _showBudget = UserDefaults.standard.bool(forKey: "SettingsShowBudget")
-        var needsSync: Bool {
-            get {
-                return self._needsSync
-            }
-            set(newNeedsSync) {
-                self._needsSync = newNeedsSync
-                UserDefaults.standard.set(self._needsSync, forKey: "SettingsNeedsSync")
-            }
-        }
-        var budget: String! {
-            get {
-                return self._budget ?? "0"
-            }
-            set(newBudget) {
-                self._budget = newBudget
-                UserDefaults.standard.set(self._budget, forKey: "SettingsBudget")
-                self.needsSync = true
-            }
-        }
-        var showBudget: Bool {
-            get {
-                return self._showBudget
-            }
-            set(newShowBudget) {
-                self._showBudget = newShowBudget
-                UserDefaults.standard.set(self._showBudget, forKey: "SettingsShowBudget")
-                self.needsSync = true
-            }
-        }
-        
     }
     
     func register(username: String, password: String, completion: @escaping (Bool) -> Void) {

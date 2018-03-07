@@ -13,20 +13,21 @@ class SearchCell: UITableViewCell, UISearchBarDelegate {
     private let searchBar = UISearchBar()
     var keyword: String? {
         get {
-            return searchBar.text
+            return self.searchBar.text
+        }
+        set(newKeyword) {
+            self.searchBar.text = newKeyword
         }
     }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.searchBar.searchBarStyle = .minimal
-//        self.searchBar.placeholder = "search"
         self.searchBar.returnKeyType = .done
         self.searchBar.enablesReturnKeyAutomatically = false
         self.searchBar.delegate = self
         self.addSubview(self.searchBar)
         self.searchBar.translatesAutoresizingMaskIntoConstraints = false
-//        searchBar.addConstraint(NSLayoutConstraint(item: searchBar, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 40))
         self.addConstraints([
             NSLayoutConstraint(item: self.searchBar, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: self.searchBar, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0),

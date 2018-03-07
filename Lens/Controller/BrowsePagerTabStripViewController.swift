@@ -12,7 +12,6 @@ import XLPagerTabStrip
 class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
     
     var tab: Context.Tab!
-    var filters: [[Filter]]!
     
     var subViewControllers: [BrowseViewController] = []
     
@@ -54,19 +53,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         constraint.constant = self.buttonBarView.frame.height
         
         if tab == .equipment {
-            self.filters = [[], [], []]
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(setProdutFilter))
-            filters[0].append(Filter(name: "Brand", include: ["Canon", "Carl Zeiss", "Fujifilm", "Kenko Tokina", "Konica Minolta", "Leica", "Lensbaby", "Lomography", "Mitakon", "Nikon", "Noktor", "Olympus", "Panasonic", "Pentax", "Ricoh", "Samyung", "Schneider Kreuznach", "Sigma", "Sony", "Tamron", "Tokina", "Voigtlander", "YI"]))
-            filters[0].append(Filter(name: "Mount Type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
-            filters[0].append(Filter(name: "Lens Type", include: ["Zoom", "Prime"]))
-            filters[0].append(Filter(name: "Lens Size", include: ["super wide-angle", "wide-angle", "standard", "telephoto", "super telephoto"]))
-            filters[0].append(Filter(name: "Focal Range", from: 1, to: 1500))
-            filters[0].append(Filter(name: "Aperture", from: 0.95, to: 45))
-            filters[1].append(Filter(name: "Brand", include: ["Canon", "Casio", "DJI", "DxO", "GoPro", "Hasselblad", "Konica Minolta", "Fujifilm", "Leaf", "Leica", "Mamiya", "Nikon", "Nokia", "Olympus", "Panasonic", "Pentax", "Phase One", "Ricoh", "Samsung", "Sigma", "Sony", "YI", "YUNEEC"]))
-            filters[1].append(Filter(name: "Mount Type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
-            filters[1].append(Filter(name: "Sensor Format", include: ["Full Frame", "Medium Format", "APS-H", "APS-C", "4/3\"", "1\"", "2/3\"", "1/1.7\"", "1/2.3\""]))
-            filters[1].append(Filter(name: "Lens Size", include: ["super wide-angle", "wide-angle", "standard", "telephoto", "super telephoto"]))
-            filters[1].append(Filter(name: "Resolution(M)", from: 1.0, to: 100.0))
         }
     }
 
@@ -75,22 +62,28 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         let lensViewController = BrowseViewController(style: .grouped)
         lensViewController.tab = tab
         lensViewController.category = Context.Category.lenses
+        lensViewController.filters = []
         self.subViewControllers.append(lensViewController)
         let cameraViewController = BrowseViewController(style: .grouped)
         cameraViewController.tab = tab
         cameraViewController.category = Context.Category.cameras
+        cameraViewController.filters = []
         self.subViewControllers.append(cameraViewController)
         let accessoriesViewController = BrowseViewController(style: .grouped)
         accessoriesViewController.tab = tab
         accessoriesViewController.category = Context.Category.accessories
+        accessoriesViewController.filters = []
         self.subViewControllers.append(accessoriesViewController)
         return self.subViewControllers
     }
     
     @objc func setProdutFilter(sender: UIBarButtonItem) {
         let filterViewController = FilterViewController(style: .grouped, browseViewController: self.subViewControllers[self.currentIndex])
+        // 拷贝关键字
+        filterViewController.keyword = self.subViewControllers[self.currentIndex].keyword
+        // 拷贝过滤器
         filterViewController.filters = []
-        for filter in self.filters[self.currentIndex] {
+        for filter in self.subViewControllers[self.currentIndex].filters {
             filterViewController.filters.append(filter.copy)
         }
         filterViewController.hidesBottomBarWhenPushed = true

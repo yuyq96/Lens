@@ -12,12 +12,9 @@ class FilterViewController: UITableViewController {
     
     var browseViewController: BrowseViewController!
     var shadowConstraint: NSLayoutConstraint!
-    var keyword: String? {
-        get {
-            let searchCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! SearchCell
-            return searchCell.keyword
-        }
-    }
+    var searchCell: SearchCell!
+    
+    var keyword: String?
     var filters: [FilterCopy]!
     
     init(style: UITableViewStyle, browseViewController: BrowseViewController) {
@@ -62,19 +59,11 @@ class FilterViewController: UITableViewController {
     }
     
     @objc func confirm(sender: UIBarButtonItem) {
+        self.browseViewController.keyword = self.searchCell.keyword
         for filter in self.filters {
             filter.save()
         }
-        var filtersJson: [String : [String : [Any]]]?
-        for filter in filters {
-            if let filterJson = filter.json {
-                if filtersJson == nil {
-                    filtersJson = ["bool": ["must": []]]
-                }
-                filtersJson!["bool"]!["must"]!.append(filterJson)
-            }
-        }
-        self.browseViewController.refresh(keyword: keyword, filtered: filtersJson)
+        self.browseViewController.refresh()
         self.navigationController?.popViewController(animated: true)
     }
 
@@ -107,8 +96,11 @@ class FilterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath)
-            return cell
+            self.searchCell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
+            if let keyword = self.keyword {
+                self.searchCell.keyword = keyword
+            }
+            return self.searchCell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCell", for: indexPath)
             cell.textLabel?.text = self.filters[indexPath.row].text

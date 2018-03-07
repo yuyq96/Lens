@@ -12,13 +12,16 @@ import Kingfisher
 
 class ProductDetailViewController: UITableViewController {
     
+    var browseViewController: BrowseViewController!
+    var needsRefresh = false
     var shadowConstraint: NSLayoutConstraint!
     
+    var tab: Context.Tab!
     var category: Context.Category!
     var product: Product!
     
-    var wishlistButton: UIBarButtonItem!
-    var librariesButton: UIBarButtonItem!
+    var wishlistButton = [UIBarButtonItem]()
+    var librariesButton = [UIBarButtonItem]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,17 +36,17 @@ class ProductDetailViewController: UITableViewController {
         shadowConstraint = Shadow.add(to: self.tableView)
         
         // 设置NavigationBar按钮
+        self.wishlistButton.append(UIBarButtonItem(image: UIImage(named: "wish")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToWishlist)))
+        self.wishlistButton.append(UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(removeFromWishlist)))
+        self.librariesButton.append(UIBarButtonItem(image: UIImage(named: "inbox")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToLibraries)))
+        self.librariesButton.append(UIBarButtonItem(image: UIImage(named: "inbox_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(removeFromLibraries)))
         if user.libraries[category].contains(product.pid) {
-            self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
-            self.librariesButton = UIBarButtonItem(image: UIImage(named: "inbox_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
+            self.navigationItem.setRightBarButtonItems([self.librariesButton[1]], animated: false)
         } else if user.wishlist[category].contains(product.pid) {
-            self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(removeFromWishlist))
-            self.librariesButton = UIBarButtonItem(image: UIImage(named: "inbox")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToLibraries))
+            self.navigationItem.setRightBarButtonItems([self.wishlistButton[1], self.librariesButton[0]], animated: false)
         } else {
-            self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToWishlist))
-            self.librariesButton = UIBarButtonItem(image: UIImage(named: "inbox")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToLibraries))
+            self.navigationItem.setRightBarButtonItems([self.wishlistButton[0], self.librariesButton[0]], animated: false)
         }
-        self.navigationItem.rightBarButtonItems = [self.wishlistButton, self.librariesButton]
         
         // 设置TableView风格
         tableView.tableFooterView = UIView()
@@ -55,18 +58,53 @@ class ProductDetailViewController: UITableViewController {
         tableView.register(UINib(nibName: "ProductDetailBasicCell", bundle: nil), forCellReuseIdentifier: "ProductDetailBasicCell")
         tableView.register(UINib(nibName: "ProductDetailSampleCell", bundle: nil), forCellReuseIdentifier: "ProductDetailSampleCell")
         
+//        self.refresh()
         if !self.product.loadDetail() {
-            let parameters: Parameters = ["category": self.category.rawValue.lowercased(), "pid": self.product.pid]
-            Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
-                if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
-                    if status == "success", let source = json["source"] as? [String : Any] {
-                        self.product.setDetail(image: "https://cdn.dxomark.com/wp-content/uploads/2017/09/Sony-Zeiss-Sonnar-T-FE-55mm-f1.8-ZA-lens-review-Exemplary-performance.jpg", specs: ["Aperture": "\(source["aperture_max"] as! Float)"], samples: ["http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/01_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/02_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/03_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/04_1920x1080.jpg"])
-                        OperationQueue.main.addOperation {
-                            self.tableView.reloadData()
+            self.refresh()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if (tab! == .libraries || tab! == .wishlist) && self.needsRefresh {
+            self.browseViewController.refresh()
+        }
+    }
+    
+    func refresh() {
+        let parameters: Parameters = ["category": self.category.rawValue.lowercased(), "pid": self.product.pid]
+        Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+            if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
+                if status == "success", let source = json["source"] as? [String : Any] {
+                    var specs: [[String]]!
+                    switch self.category! {
+                    case .lenses:
+                        let focal_range_min = source["focal_range_min"] as! Int
+                        let focal_range_max = source["focal_range_max"] as! Int
+                        var focal_range: String!
+                        if focal_range_min == focal_range_max {
+                            focal_range = "\(focal_range_min)"
+                        } else {
+                            focal_range = "\(focal_range_min) ~ \(focal_range_max)"
                         }
-                    } else if status == "failure" {
-                        print(json["error"]!)
+                        specs = [["Brand", "Mount Type", "Lens Type", "Lens Size", "Aperture", "Focal range (mm)"], [
+                            source["brand"] as! String,
+                            source["mount_type"] as! String,
+                            source["lens_type"] as! String,
+                            source["lens_size"] as! String,
+                            "\(source["aperture_max"] as! Float)",
+                            focal_range
+                        ]]
+                    case .cameras:
+                        specs = [[], []]
+                    case .accessories:
+                        specs = [[], []]
                     }
+                    self.product.setDetail(image: "https://cdn.dxomark.com/wp-content/uploads/2017/09/Sony-Zeiss-Sonnar-T-FE-55mm-f1.8-ZA-lens-review-Exemplary-performance.jpg", specs: specs, samples: ["http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/01_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/02_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/03_1920x1080.jpg", "http://www.sonystyle.com.cn/activity/wallpaper/2018/feb/04_1920x1080.jpg"])
+                    OperationQueue.main.addOperation {
+                        self.tableView.reloadData()
+                    }
+                } else if status == "failure" {
+                    print(json["error"]!)
                 }
             }
         }
@@ -77,23 +115,28 @@ class ProductDetailViewController: UITableViewController {
     }
     
     @objc func addToLibraries(sender: UIBarButtonItem) {
+        self.needsRefresh = true
         user.wishlist[category].remove(product.pid)
         user.libraries[category].append(product.pid)
-        self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
-        self.librariesButton = UIBarButtonItem(image: UIImage(named: "inbox_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: nil, action: nil)
-        self.navigationItem.setRightBarButtonItems([self.wishlistButton, self.librariesButton], animated: true)
+        self.navigationItem.setRightBarButtonItems([self.librariesButton[1]], animated: true)
+    }
+    
+    @objc func removeFromLibraries(sender: UIBarButtonItem) {
+        self.needsRefresh = true
+        user.libraries[category].remove(product.pid)
+        self.navigationItem.setRightBarButtonItems([self.wishlistButton[0], self.librariesButton[0]], animated: true)
     }
     
     @objc func addToWishlist(sender: UIBarButtonItem) {
+        self.needsRefresh = true
         user.wishlist[category].append(product.pid)
-        self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(removeFromWishlist))
-        self.navigationItem.setRightBarButtonItems([self.wishlistButton, self.librariesButton], animated: true)
+        self.navigationItem.setRightBarButtonItems([self.wishlistButton[1], self.librariesButton[0]], animated: true)
     }
     
     @objc func removeFromWishlist(sender: UIBarButtonItem) {
+        self.needsRefresh = true
         user.wishlist[category].remove(product.pid)
-        self.wishlistButton = UIBarButtonItem(image: UIImage(named: "wish")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToWishlist))
-        self.navigationItem.setRightBarButtonItems([self.wishlistButton, self.librariesButton], animated: true)
+        self.navigationItem.setRightBarButtonItems([self.wishlistButton[0], self.librariesButton[0]], animated: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -143,7 +186,7 @@ class ProductDetailViewController: UITableViewController {
         case 0: return 180
         case 1:
             if let detail = product.detail {
-                return 44 + CGFloat(detail.specs.count) * 16
+                return 44 + CGFloat(detail.specs[0].count) * 16
             }
         case 2: return 138
         default: return 44

@@ -11,14 +11,14 @@ import PINCache
 
 class Detail: NSObject, NSCoding {
     
-    var image: String!
-    var specs: [String : String]!
-    var samples: [String]!
+    var image: String
+    var specs: [[String]]
+    var samples: [String]
     var info: String {
         get {
             var info = ""
-            for (attr, value) in self.specs {
-                info += "\(attr): \(value)\n"
+            for i in 0..<self.specs[0].count {
+                info += "\(self.specs[0][i]): \(self.specs[1][i])\n"
             }
             return info
         }
@@ -30,7 +30,7 @@ class Detail: NSObject, NSCoding {
         aCoder.encode(self.samples, forKey: "samples")
     }
     
-    init(image: String, specs: [String: String], samples: [String]) {
+    init(image: String, specs: [[String]], samples: [String]) {
         self.image = image
         self.specs = specs
         self.samples = samples
@@ -38,7 +38,7 @@ class Detail: NSObject, NSCoding {
     
     required init?(coder aDecoder: NSCoder) {
         self.image = aDecoder.decodeObject(forKey: "image") as! String
-        self.specs = aDecoder.decodeObject(forKey: "specs") as! [String : String]
+        self.specs = aDecoder.decodeObject(forKey: "specs") as! [[String]]
         self.samples = aDecoder.decodeObject(forKey: "samples") as! [String]
     }
     
@@ -78,15 +78,14 @@ class Product: NSObject, NSCoding {
         PINCache.shared().setObject(self, forKey: self.pid)
     }
     
-    static func load(pid: String) -> Product? {
-        var product: Product?
+    static func load(pid: String, completion: @escaping (Product?) -> Void) -> Bool {
         PINCache.shared().object(forKey: pid) { (cache, key, object) in
-            product = object as? Product
+            completion(object as? Product)
         }
-        return product
+        return PINCache.shared().containsObject(forKey: pid)
     }
     
-    func setDetail(image: String, specs: [String: String], samples: [String]) {
+    func setDetail(image: String, specs: [[String]], samples: [String]) {
         self.detail = Detail(image: image, specs: specs, samples: samples)
         PINCache.shared().setObject(self.detail!, forKey: "\(self.pid!)_detail")
     }
