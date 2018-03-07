@@ -14,8 +14,8 @@ import XLPagerTabStrip
 
 class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
-    var header: MJRefreshHeader!
-    var footer: MJRefreshFooter?
+    var header: MJRefreshNormalHeader!
+    var footer: MJRefreshBackStateFooter?
     
     var tab: Context.Tab!
     var category: Context.Category!
@@ -48,11 +48,25 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             self.header.endRefreshing()
         })
         self.header.lastUpdatedTimeKey = "\(self.tab!.rawValue)_\(self.category!.rawValue)"
+        self.header.setTitle("PULL DOWN TO REFRESH", for: .idle)
+        self.header.setTitle("RELEASE TO REFRESH", for: .pulling)
+        self.header.setTitle("LOADING", for: .refreshing)
+        self.header.lastUpdatedTimeLabel.text = self.lastUpdatedTimeText(date: self.header.lastUpdatedTime)
+        self.header.lastUpdatedTimeText = { date in
+            return self.lastUpdatedTimeText(date: date)
+        }
+        self.header.stateLabel.font = UIFont.systemFont(ofSize: 15)
+        self.header.lastUpdatedTimeLabel.font = UIFont.systemFont(ofSize: 14)
         self.tableView.mj_header = self.header
         if self.tab! == .equipment || self.tab! == .news {
             self.footer = MJRefreshBackStateFooter(refreshingBlock: {
                 self.loadMore()
             })
+            self.footer?.setTitle("PULL UP TO LOAD MORE", for: .idle)
+            self.footer?.setTitle("RELEASE TO LOAD MORE", for: .pulling)
+            self.footer?.setTitle("LOADING", for: .refreshing)
+            self.footer?.setTitle("NO MORE DATA", for: .noMoreData)
+            self.footer?.stateLabel.font = UIFont.systemFont(ofSize: 14)
         }
         self.tableView.mj_footer = self.footer
         
@@ -80,6 +94,19 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         }
         
         self.refresh()
+    }
+    
+    func lastUpdatedTimeText(date: Date?) -> String {
+        if date == nil {
+            return "Last Updated: No record"
+        } else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.doesRelativeDateFormatting = true
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "h:mm a"
+            return "Last Updated: \(dateFormatter.string(from: date!)) \(timeFormatter.string(from: date!))"
+        }
     }
 
     override func didReceiveMemoryWarning() {
