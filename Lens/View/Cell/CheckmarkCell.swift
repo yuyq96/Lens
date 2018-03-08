@@ -12,6 +12,7 @@ class CheckmarkCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.clipsToBounds = true
         self.tintColor = Color.tint
         self.textLabel?.textColor = .gray
     }

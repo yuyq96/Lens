@@ -22,6 +22,7 @@ class SearchCell: UITableViewCell, UISearchBarDelegate {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.clipsToBounds = true
         self.searchBar.searchBarStyle = .minimal
         self.searchBar.returnKeyType = .done
         self.searchBar.enablesReturnKeyAutomatically = false

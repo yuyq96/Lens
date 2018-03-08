@@ -12,6 +12,7 @@ class FilterCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.clipsToBounds = true
         self.accessoryType = .disclosureIndicator
         self.textLabel?.textColor = .gray
     }

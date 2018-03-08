@@ -12,13 +12,47 @@ import PINCache
 class Detail: NSObject, NSCoding {
     
     var image: String
-    var specs: [[String]]
+    var specs: [KV]
     var samples: [String]
-    var info: String {
+    var info: NSMutableAttributedString? {
         get {
-            var info = ""
-            for i in 0..<self.specs[0].count {
-                info += "\(self.specs[0][i]): \(self.specs[1][i])\n"
+            let paraph = NSMutableParagraphStyle()
+            paraph.lineSpacing = 4
+            let attribAttributes = [
+//                NSAttributedStringKey.kern: NSNumber(value: 1.2),
+                NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15),
+                NSAttributedStringKey.foregroundColor: UIColor.black,
+                NSAttributedStringKey.paragraphStyle: paraph
+            ]
+            let valueAttributes = [
+//                NSAttributedStringKey.kern: NSNumber(value: 1.2),
+                NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15),
+                NSAttributedStringKey.foregroundColor: UIColor.gray,
+                NSAttributedStringKey.paragraphStyle: paraph
+            ]
+            var text: String?
+            for spec in self.specs {
+                if text == nil {
+                    text = spec.key + ":\t" + spec.value
+                } else {
+                    text! += "\n" + spec.key + ": " + spec.value
+                }
+            }
+            let info = NSMutableAttributedString(string: text!)
+            var pos = -1
+            var len: Int!
+            for spec in self.specs {
+                if pos == -1 {
+                    pos = 0
+                    len = spec.key.count + 2
+                } else {
+                    len = spec.key.count + 3
+                }
+                info.addAttributes(attribAttributes, range: NSMakeRange(pos, len))
+                pos += len
+                len = spec.value.count
+                info.addAttributes(valueAttributes, range: NSMakeRange(pos, len))
+                pos += len
             }
             return info
         }
@@ -30,26 +64,39 @@ class Detail: NSObject, NSCoding {
         aCoder.encode(self.samples, forKey: "samples")
     }
     
-    init(image: String, specs: [[String]], samples: [String]) {
+    init(image: String, specs: [KV], samples: [String]) {
         self.image = image
         self.specs = specs
         self.samples = samples
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.image = aDecoder.decodeObject(forKey: "image") as! String
-        self.specs = aDecoder.decodeObject(forKey: "specs") as! [[String]]
-        self.samples = aDecoder.decodeObject(forKey: "samples") as! [String]
+        if let image = aDecoder.decodeObject(forKey: "image") as? String {
+            self.image = image
+        } else {
+            return nil
+        }
+        if let specs = aDecoder.decodeObject(forKey: "specs") as? [KV] {
+            self.specs = specs
+        } else {
+            return nil
+        }
+        if let samples = aDecoder.decodeObject(forKey: "samples") as? [String] {
+            self.samples = samples
+        } else {
+            return nil
+        }
+        
     }
     
 }
 
 class Product: NSObject, NSCoding {
     
-    var pid: String!
-    var image: String!
-    var name: String!
-    var tags: [String]!
+    var pid: String
+    var image: String
+    var name: String
+    var tags: [String]
     var detail: Detail?
     
     func encode(with aCoder: NSCoder) {
@@ -85,16 +132,16 @@ class Product: NSObject, NSCoding {
         return PINCache.shared().containsObject(forKey: pid)
     }
     
-    func setDetail(image: String, specs: [[String]], samples: [String]) {
+    func setDetail(image: String, specs: [KV], samples: [String]) {
         self.detail = Detail(image: image, specs: specs, samples: samples)
-        PINCache.shared().setObject(self.detail!, forKey: "\(self.pid!)_detail")
+        PINCache.shared().setObject(self.detail!, forKey: "\(self.pid)_detail")
     }
     
     @discardableResult func loadDetail() -> Bool {
-        PINCache.shared().object(forKey: "\(self.pid!)_detail") { (cache, key, object) in
+        PINCache.shared().object(forKey: "\(self.pid)_detail") { (cache, key, object) in
             self.detail = object as? Detail
         }
-        return PINCache.shared().containsObject(forKey: "\(self.pid!)_detail")
+        return PINCache.shared().containsObject(forKey: "\(self.pid)_detail")
     }
     
     func delDetail() {

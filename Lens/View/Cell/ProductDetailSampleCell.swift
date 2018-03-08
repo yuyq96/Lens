@@ -11,35 +11,56 @@ import Kingfisher
 
 class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
 
-    var productSample: UITableView!
+    var sampleLabel = UILabel()
+    var sampleTableView = UITableView(frame: .zero, style: .grouped)
     
     var samples: [String] = []
     var sampleWidths: [Int : CGFloat] = [:]
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.clipsToBounds = true
+        
+        // 设置标题
+        self.sampleLabel.text = "Sample"
+        self.sampleLabel.font = .systemFont(ofSize: 17)
         
         // 设置样片列表
-        self.productSample = UITableView(frame: .zero, style: .grouped)
-        self.productSample.contentMode = .scaleToFill
-        self.productSample.backgroundColor = UIColor(white: 1, alpha: 0)
-        self.productSample.showsVerticalScrollIndicator = false
-        self.productSample.showsHorizontalScrollIndicator = false
-        self.productSample.transform = CGAffineTransform(rotationAngle: -.pi/2)
-        self.productSample.frame = CGRect(x: 0, y: 37, width: UIScreen.main.bounds.width, height: 90)
-        self.productSample.estimatedSectionHeaderHeight = 0
-        self.productSample.estimatedSectionFooterHeight = 0
+        self.sampleTableView.contentMode = .scaleToFill
+        self.sampleTableView.backgroundColor = UIColor(white: 1, alpha: 0)
+        self.sampleTableView.showsVerticalScrollIndicator = false
+        self.sampleTableView.showsHorizontalScrollIndicator = false
+        self.sampleTableView.transform = CGAffineTransform(rotationAngle: -.pi/2)
+        self.sampleTableView.frame = CGRect(x: 0, y: 40, width: UIScreen.main.bounds.width, height: 90)
+        self.sampleTableView.estimatedSectionHeaderHeight = 0
+        self.sampleTableView.estimatedSectionFooterHeight = 0
         
         // 设置代理/数据
-        self.productSample.delegate = self
-        self.productSample.dataSource = self
+        self.sampleTableView.delegate = self
+        self.sampleTableView.dataSource = self
         
         // 注册复用Cell
-        self.productSample.register(UINib(nibName: "ProductSampleCell", bundle: nil), forCellReuseIdentifier: "ProductSampleCell")
+        self.sampleTableView.register(UINib(nibName: "ProductSampleCell", bundle: nil), forCellReuseIdentifier: "ProductSampleCell")
         
-        addSubview(self.productSample)
+        self.contentView.addSubview(self.sampleLabel)
+        self.contentView.addSubview(self.sampleTableView)
+        self.sampleLabel.translatesAutoresizingMaskIntoConstraints = false
+        let topConstraint = NSLayoutConstraint(item: self.sampleLabel, attribute: .top, relatedBy: .equal, toItem: self.contentView, attribute: .top, multiplier: 1, constant: 11)
+        topConstraint.priority = .defaultHigh
+        let bottomConstraint = NSLayoutConstraint(item: self.sampleLabel, attribute: .top, relatedBy: .equal, toItem: self.contentView, attribute: .bottom, multiplier: 1, constant: -130)
+        bottomConstraint.priority = .defaultHigh
+        self.contentView.addConstraints([
+            topConstraint,
+            bottomConstraint,
+            NSLayoutConstraint(item: self.sampleLabel, attribute: .leading, relatedBy: .equal, toItem: self.contentView, attribute: .leading, multiplier: 1, constant: 12),
+            NSLayoutConstraint(item: self.sampleLabel, attribute: .trailing, relatedBy: .equal, toItem: self.contentView, attribute: .trailing, multiplier: 1, constant: -12)
+        ])
     }
-
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -48,7 +69,7 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
     
     override func layoutSubviews() {
         // 旋转屏幕时调整宽度
-        self.productSample.frame = CGRect(x: 0, y: 37, width: UIScreen.main.bounds.width, height: 90)
+        self.sampleTableView.frame = CGRect(x: 0, y: 40, width: UIScreen.main.bounds.width, height: 90)
         super.layoutSubviews()
     }
     

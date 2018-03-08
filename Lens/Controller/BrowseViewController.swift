@@ -15,7 +15,7 @@ import XLPagerTabStrip
 class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
     var header: MJRefreshNormalHeader!
-    var footer: MJRefreshBackStateFooter?
+    var footer: MJRefreshAutoStateFooter?
     
     var tab: Context.Tab!
     var category: Context.Category!
@@ -59,7 +59,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         self.header.lastUpdatedTimeLabel.font = UIFont.systemFont(ofSize: 14)
         self.tableView.mj_header = self.header
         if self.tab! == .equipment || self.tab! == .news {
-            self.footer = MJRefreshBackStateFooter(refreshingBlock: {
+            self.footer = MJRefreshAutoStateFooter(refreshingBlock: {
                 self.loadMore()
             })
             self.footer?.setTitle("PULL UP TO LOAD MORE", for: .idle)
@@ -79,15 +79,14 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         case .lenses:
             filters.append(Filter(name: "Brand", include: ["Canon", "Carl Zeiss", "Fujifilm", "Kenko Tokina", "Konica Minolta", "Leica", "Lensbaby", "Lomography", "Mitakon", "Nikon", "Noktor", "Olympus", "Panasonic", "Pentax", "Ricoh", "Samyung", "Schneider Kreuznach", "Sigma", "Sony", "Tamron", "Tokina", "Voigtlander", "YI"]))
             filters.append(Filter(name: "Mount Type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
-            filters.append(Filter(name: "Lens Type", include: ["Zoom", "Prime"]))
-            filters.append(Filter(name: "Lens Size", include: ["super wide-angle", "wide-angle", "standard", "telephoto", "super telephoto"]))
+            filters.append(Filter(name: "Zoom Type", include: ["Zoom", "Prime"]))
+            filters.append(Filter(name: "Lens Size", include: ["Super Wide-angle", "Wide-angle", "Wtandard", "Telephoto", "Tuper Telephoto"]))
             filters.append(Filter(name: "Focal Range", from: 1, to: 1500))
             filters.append(Filter(name: "Aperture", from: 0.95, to: 45))
         case .cameras:
             filters.append(Filter(name: "Brand", include: ["Canon", "Casio", "DJI", "DxO", "GoPro", "Hasselblad", "Konica Minolta", "Fujifilm", "Leaf", "Leica", "Mamiya", "Nikon", "Nokia", "Olympus", "Panasonic", "Pentax", "Phase One", "Ricoh", "Samsung", "Sigma", "Sony", "YI", "YUNEEC"]))
             filters.append(Filter(name: "Mount Type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
             filters.append(Filter(name: "Sensor Format", include: ["Full Frame", "Medium Format", "APS-H", "APS-C", "4/3\"", "1\"", "2/3\"", "1/1.7\"", "1/2.3\""]))
-            filters.append(Filter(name: "Lens Size", include: ["super wide-angle", "wide-angle", "standard", "telephoto", "super telephoto"]))
             filters.append(Filter(name: "Resolution(M)", from: 1.0, to: 100.0))
         default:
             break
@@ -164,7 +163,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                                 if let source = hit["_source"] as? [String : Any] {
                                     switch self.category! {
                                     case .lenses:
-                                        let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
+                                        let product = Product(pid: pid, image: source["small_image"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
                                         product.cache()
                                         self.data.append(product)
                                     case .cameras:
@@ -257,7 +256,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                     cell.tagButton.isEnabled = true
                 }
             } else {
-                // product未加载
+                // product未加载(Libraries/Wishlist)
                 let id = self.ids[indexPath.row]
                 // 尝试从缓存中加载
                 if !Product.load(pid: id, completion: { product in
@@ -271,7 +270,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                     Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                         if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                             if status == "success", let source = json["source"] as? [String : Any] {
-                                let product = Product(pid: id, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
+                                let product = Product(pid: id, image: source["small_image"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
                                 product.cache()
                                 self.data[indexPath.row] = product
                                 OperationQueue.main.addOperation {

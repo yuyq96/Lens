@@ -23,7 +23,8 @@ class FilterOptionsViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        shadowConstraint = Shadow.add(to: self.tableView)
+        // 设置NavigationBar阴影
+        self.shadowConstraint = Shadow.add(to: self.tableView)
         
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never

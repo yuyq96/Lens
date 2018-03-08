@@ -28,7 +28,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         self.settings.style.buttonBarMinimumLineSpacing = 0
         
         // 更改选中选项卡标题颜色
-        changeCurrentIndexProgressive = { (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
+        self.changeCurrentIndexProgressive = { (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
             guard changeCurrentIndex == true else { return }
 
             oldCell?.label.textColor = .black

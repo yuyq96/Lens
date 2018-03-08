@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21019188205092B7000CF1D4 /* KV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21019187205092B7000CF1D4 /* KV.swift */; };
 		2120A54E2042A8E600DDA6B8 /* PersonalUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120A54D2042A8E600DDA6B8 /* PersonalUserCell.swift */; };
 		2120A5502042B27800DDA6B8 /* PersonalBudgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120A54F2042B27800DDA6B8 /* PersonalBudgetCell.swift */; };
 		2120A5522042EC6300DDA6B8 /* BrowsePagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120A5512042EC6300DDA6B8 /* BrowsePagerTabStripViewController.swift */; };
@@ -15,10 +16,7 @@
 		21314867204C66DF00235739 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21314865204C66DF00235739 /* FilterCell.xib */; };
 		21314869204C676100235739 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21314868204C676100235739 /* Tag.swift */; };
 		214D1A762043AF1B00A523AD /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214D1A752043AF1B00A523AD /* ProductDetailViewController.swift */; };
-		214D1A782043AF7100A523AD /* ProductDetailImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 214D1A772043AF7100A523AD /* ProductDetailImageCell.xib */; };
 		214D1A7A2043B0B900A523AD /* ProductDetailImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214D1A792043B0B900A523AD /* ProductDetailImageCell.swift */; };
-		214D1A7C2043B24000A523AD /* ProductDetailBasicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 214D1A7B2043B24000A523AD /* ProductDetailBasicCell.xib */; };
-		214D1A7E2043B3A700A523AD /* ProductDetailSampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 214D1A7D2043B3A700A523AD /* ProductDetailSampleCell.xib */; };
 		214D1A802043B4DD00A523AD /* ProductDetailSampleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214D1A7F2043B4DD00A523AD /* ProductDetailSampleCell.swift */; };
 		214D1A822043B85A00A523AD /* ProductSampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 214D1A812043B85A00A523AD /* ProductSampleCell.xib */; };
 		214D1A842043B8C200A523AD /* ProductSampleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214D1A832043B8C200A523AD /* ProductSampleCell.swift */; };
@@ -56,6 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		21019187205092B7000CF1D4 /* KV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KV.swift; sourceTree = "<group>"; };
 		2120A54D2042A8E600DDA6B8 /* PersonalUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalUserCell.swift; sourceTree = "<group>"; };
 		2120A54F2042B27800DDA6B8 /* PersonalBudgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBudgetCell.swift; sourceTree = "<group>"; };
 		2120A5512042EC6300DDA6B8 /* BrowsePagerTabStripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowsePagerTabStripViewController.swift; sourceTree = "<group>"; };
@@ -64,10 +63,7 @@
 		21314865204C66DF00235739 /* FilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
 		21314868204C676100235739 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		214D1A752043AF1B00A523AD /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
-		214D1A772043AF7100A523AD /* ProductDetailImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDetailImageCell.xib; sourceTree = "<group>"; };
 		214D1A792043B0B900A523AD /* ProductDetailImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailImageCell.swift; sourceTree = "<group>"; };
-		214D1A7B2043B24000A523AD /* ProductDetailBasicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDetailBasicCell.xib; sourceTree = "<group>"; };
-		214D1A7D2043B3A700A523AD /* ProductDetailSampleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDetailSampleCell.xib; sourceTree = "<group>"; };
 		214D1A7F2043B4DD00A523AD /* ProductDetailSampleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailSampleCell.swift; sourceTree = "<group>"; };
 		214D1A812043B85A00A523AD /* ProductSampleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductSampleCell.xib; sourceTree = "<group>"; };
 		214D1A832043B8C200A523AD /* ProductSampleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSampleCell.swift; sourceTree = "<group>"; };
@@ -165,9 +161,6 @@
 				215B083B203FFF3000802011 /* LaunchScreen.storyboard */,
 				21AABCD8204551250013BA40 /* Cell.xib */,
 				21E5F55C20431BE7009D7A71 /* ProductCell.xib */,
-				214D1A772043AF7100A523AD /* ProductDetailImageCell.xib */,
-				214D1A7B2043B24000A523AD /* ProductDetailBasicCell.xib */,
-				214D1A7D2043B3A700A523AD /* ProductDetailSampleCell.xib */,
 				214D1A812043B85A00A523AD /* ProductSampleCell.xib */,
 				214D1A9520445D0800A523AD /* NewsCell.xib */,
 				21E5F55E204320EB009D7A71 /* NewsImageCell.xib */,
@@ -181,6 +174,7 @@
 		214D1A8F204457F100A523AD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				21019187205092B7000CF1D4 /* KV.swift */,
 				214D1A902044584D00A523AD /* Product.swift */,
 				214D1A922044597000A523AD /* News.swift */,
 				21AABCE320464CF70013BA40 /* User.swift */,
@@ -302,19 +296,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				214D1A7C2043B24000A523AD /* ProductDetailBasicCell.xib in Resources */,
 				21AABCD9204551250013BA40 /* Cell.xib in Resources */,
 				21AABCD7204551080013BA40 /* PersonalUserCell.xib in Resources */,
 				215B083D203FFF3000802011 /* LaunchScreen.storyboard in Resources */,
 				214D1A9720445D0800A523AD /* NewsCell.xib in Resources */,
 				214D1A822043B85A00A523AD /* ProductSampleCell.xib in Resources */,
-				214D1A7E2043B3A700A523AD /* ProductDetailSampleCell.xib in Resources */,
 				21E5F55F204320EB009D7A71 /* NewsImageCell.xib in Resources */,
 				21AABCDB204551490013BA40 /* PersonalBudgetCell.xib in Resources */,
 				215B083A203FFF3000802011 /* Assets.xcassets in Resources */,
 				21314867204C66DF00235739 /* FilterCell.xib in Resources */,
 				21E5F55D20431BE7009D7A71 /* ProductCell.xib in Resources */,
-				214D1A782043AF7100A523AD /* ProductDetailImageCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +398,7 @@
 				214D1A8E2044504F00A523AD /* Color.swift in Sources */,
 				21AABCE12045BBC10013BA40 /* SettingsViewController.swift in Sources */,
 				214D1A9620445D0800A523AD /* NewsCell.swift in Sources */,
+				21019188205092B7000CF1D4 /* KV.swift in Sources */,
 				216E96F4204D5A5800BB6CB7 /* CheckmarkCell.swift in Sources */,
 				214D1A802043B4DD00A523AD /* ProductDetailSampleCell.swift in Sources */,
 				21E5F55620430860009D7A71 /* NewsImageCell.swift in Sources */,

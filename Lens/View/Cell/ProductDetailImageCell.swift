@@ -12,23 +12,28 @@ class ProductDetailImageCell: UITableViewCell {
 
     let productImage = UIImageView()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.clipsToBounds = true
         self.productImage.contentMode = .scaleAspectFit
-        self.addSubview(productImage)
+        self.contentView.addSubview(self.productImage)
+        self.productImage.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addConstraints([
+            NSLayoutConstraint(item: self.productImage, attribute: .leading, relatedBy: .equal, toItem: self.contentView, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self.productImage, attribute: .trailing, relatedBy: .equal, toItem: self.contentView, attribute: .trailing, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self.productImage, attribute: .top, relatedBy: .equal, toItem: self.contentView, attribute: .top, multiplier: 1, constant: 12),
+            NSLayoutConstraint(item: self.productImage, attribute: .bottom, relatedBy: .equal, toItem: self.contentView, attribute: .bottom, multiplier: 1, constant: -12)
+            ])
     }
-
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-    
-    override func layoutSubviews() {
-        // 旋转屏幕时调整宽度
-        self.productImage.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 180)
-        super.layoutSubviews()
     }
 
 }

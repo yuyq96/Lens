@@ -23,7 +23,7 @@ class PersonalViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         // 设置NavigationBar阴影
-        shadowConstraint = Shadow.add(to: self.tableView)
+        self.shadowConstraint = Shadow.add(to: self.tableView)
         
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
