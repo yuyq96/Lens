@@ -39,33 +39,39 @@ class FilterViewController: UITableViewController {
         self.shadowConstraint = Shadow.add(to: self.tableView)
         
         if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
+            self.tableView.contentInsetAdjustmentBehavior = .never
         } else {
             self.automaticallyAdjustsScrollViewInsets = false
         }
-        tableView.estimatedSectionHeaderHeight = 0
-        tableView.estimatedSectionFooterHeight = 0
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        self.tableView.estimatedSectionHeaderHeight = 0
+        self.tableView.estimatedSectionFooterHeight = 0
+        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        
+        self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(clear)), animated: false)
         
         self.tableView.register(SearchCell.self, forCellReuseIdentifier: "SearchCell")
         self.tableView.register(FilterCell.self, forCellReuseIdentifier: "FilterCell")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.tableView.reloadData()
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.shadowConstraint.constant = self.tableView.contentOffset.y
     }
     
-    @objc func confirm(sender: UIBarButtonItem) {
+    @objc func confirm(_ sender: UIButton) {
         self.browseViewController.keyword = self.searchCell.keyword
         for filter in self.filters {
             filter.save()
         }
         self.browseViewController.refresh()
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func clear(_ sender: UIButton) {
+        self.searchCell.keyword = nil
+        for filter in self.filters {
+            filter.clear()
+        }
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -119,6 +125,9 @@ class FilterViewController: UITableViewController {
             case .option:
                 let filterOptionsViewController = FilterOptionsViewController(style: .grouped)
                 filterOptionsViewController.filter = filter
+                filterOptionsViewController.completionHandler = {
+                    tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
                 self.navigationController?.pushViewController(filterOptionsViewController, animated: true)
             case .int:
                 break

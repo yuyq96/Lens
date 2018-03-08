@@ -27,13 +27,13 @@ class SearchCell: UITableViewCell, UISearchBarDelegate {
         self.searchBar.returnKeyType = .done
         self.searchBar.enablesReturnKeyAutomatically = false
         self.searchBar.delegate = self
-        self.addSubview(self.searchBar)
+        self.contentView.addSubview(self.searchBar)
         self.searchBar.translatesAutoresizingMaskIntoConstraints = false
-        self.addConstraints([
-            NSLayoutConstraint(item: self.searchBar, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: self.searchBar, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: self.searchBar, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: self.searchBar, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0),
+        self.contentView.addConstraints([
+            NSLayoutConstraint(item: self.searchBar, attribute: .leading, relatedBy: .equal, toItem: self.contentView, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self.searchBar, attribute: .trailing, relatedBy: .equal, toItem: self.contentView, attribute: .trailing, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self.searchBar, attribute: .top, relatedBy: .equal, toItem: self.contentView, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self.searchBar, attribute: .bottom, relatedBy: .equal, toItem: self.contentView, attribute: .bottom, multiplier: 1, constant: 0),
             ])
     }
     

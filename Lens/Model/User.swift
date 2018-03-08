@@ -152,11 +152,11 @@ class ProductsGroup {
     
     subscript(category: Context.Category) -> Products {
         switch category {
-        case Context.Category.lenses:
+        case .lenses:
             return lenses
-        case Context.Category.cameras:
+        case .cameras:
             return cameras
-        case Context.Category.accessories:
+        case .accessories:
             return accessories
         }
     }
@@ -243,6 +243,17 @@ class User {
         set(newAvatar) {
             self._avatar = newAvatar
             UserDefaults.standard.set(self._avatar, forKey: "Avatar")
+        }
+    }
+    
+    subscript(tab: Context.Tab) -> ProductsGroup? {
+        switch tab {
+        case .libraries:
+            return libraries
+        case .wishlist:
+            return wishlist
+        default:
+            return nil
         }
     }
     

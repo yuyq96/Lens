@@ -198,9 +198,21 @@ class ProductDetailViewController: UITableViewController {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailImageCell", for: indexPath) as! ProductDetailImageCell
             if let detail = product.detail {
-                cell.productImage.kf.setImage(with: URL(string: detail.image), completionHandler: { (image, error, cacheType, url) in
-                    tableView.reloadRows(at: [indexPath], with: .automatic)
-                })
+                let score = product.dxoScore
+                if score != 0 {
+                    cell.dxomark.scoreLabel.text = "\(score)"
+                    switch self.category! {
+                    case .lenses:
+                        cell.dxomark.lensLabel.isHidden = false
+                    case .cameras:
+                        cell.dxomark.sensorLabel.isHidden = false
+                    default:
+                        break
+                    }
+                } else {
+                    cell.dxomark.isHidden = true
+                }
+                cell.productImage.kf.setImage(with: URL(string: detail.image))
             }
             return cell
         case 1:

@@ -22,6 +22,8 @@ class Filter {
     var selections: [Bool]!
     var min: Any!
     var max: Any!
+    var defaultMin: Any!
+    var defaultMax: Any!
     var count: Int {
         get {
             if type == .option {
@@ -104,9 +106,9 @@ class Filter {
                 copy.selections = self.selections
                 return copy
             case .int:
-                return FilterCopy(root: self, name: name, from: min as! Int, to: max as! Int)
+                return FilterCopy(root: self, name: name, min: defaultMin as! Int, max: defaultMax as! Int, from: min as! Int, to: max as! Int)
             case .float:
-                return FilterCopy(root: self, name: name, from: min as! Float, to: max as! Float)
+                return FilterCopy(root: self, name: name, min: defaultMin as! Float, max: defaultMax as! Float, from: min as! Float, to: max as! Float)
             }
         }
     }
@@ -118,16 +120,38 @@ class Filter {
         self.selectAll()
     }
     
-    init(name: String, from min: Int, to max: Int) {
+    init(name: String, min defaultMin: Int, max defaultMax: Int) {
         self.name = name
         self.type = .int
+        self.defaultMin = defaultMin
+        self.defaultMax = defaultMax
+        self.min = defaultMin
+        self.max = defaultMax
+    }
+    
+    init(name: String, min defaultMin: Float, max defaultMax: Float) {
+        self.name = name
+        self.type = .float
+        self.defaultMin = defaultMin
+        self.defaultMax = defaultMax
+        self.min = defaultMin
+        self.max = defaultMax
+    }
+    
+    init(name: String, min defaultMin: Int, max defaultMax: Int, from min: Int, to max: Int) {
+        self.name = name
+        self.type = .int
+        self.defaultMin = defaultMin
+        self.defaultMax = defaultMax
         self.min = min
         self.max = max
     }
     
-    init(name: String, from min: Float, to max: Float) {
+    init(name: String, min defaultMin: Float, max defaultMax: Float, from min: Float, to max: Float) {
         self.name = name
         self.type = .float
+        self.defaultMin = defaultMin
+        self.defaultMax = defaultMax
         self.min = min
         self.max = max
     }
@@ -157,13 +181,13 @@ class FilterCopy: Filter {
         self.root = root
     }
     
-    init(root: Filter, name: String, from min: Int, to max: Int) {
-        super.init(name: name, from: min, to: max)
+    init(root: Filter, name: String, min: Int, max: Int, from: Int, to: Int) {
+        super.init(name: name, min: min, max: max, from: from, to: to)
         self.root = root
     }
     
-    init(root: Filter, name: String, from min: Float, to max: Float) {
-        super.init(name: name, from: min, to: max)
+    init(root: Filter, name: String, min: Float, max: Float, from: Float, to: Float) {
+        super.init(name: name, min: min, max: max, from: from, to: to)
         self.root = root
     }
     
@@ -174,6 +198,16 @@ class FilterCopy: Filter {
         case .int, .float:
             root.min = self.min
             root.max = self.max
+        }
+    }
+    
+    func clear() {
+        switch self.type {
+        case .option:
+            self.selectAll()
+        case .int, .float:
+            self.min = self.defaultMin
+            self.max = self.defaultMax
         }
     }
     

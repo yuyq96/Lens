@@ -41,7 +41,7 @@ class PersonalViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tableView.reloadData()
+        self.tableView.reloadRows(at: [IndexPath(row: 2, section: 1)], with: .automatic)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -80,11 +80,11 @@ class PersonalViewController: UITableViewController {
                 switch indexPath.row {
                 case 0:
                     let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
-                    cell.label?.text = "Login"
+                    cell.label.text = "Login"
                     return cell
                 case 1:
                     let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
-                    cell.label?.text = "Register"
+                    cell.label.text = "Register"
                     return cell
                 default: return UITableViewCell()
                 }
@@ -92,12 +92,12 @@ class PersonalViewController: UITableViewController {
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalUserCell", for: indexPath) as! PersonalUserCell
                 if user.avatar == "" {
-                    cell.avatarImageView?.image = UIImage(named: "avatar")
+                    cell.avatarImageView.image = UIImage(named: "avatar")
                 } else {
-                    cell.avatarImageView?.kf.setImage(with: URL(string: user.avatar))
+                    cell.avatarImageView.kf.setImage(with: URL(string: user.avatar))
                 }
-                cell.nicknameLabel?.text = user.nickname
-                cell.usernameLabel?.text = "@" + user.username
+                cell.nicknameLabel.text = user.nickname
+                cell.usernameLabel.text = "@" + user.username
                 return cell
             }
         case 1:

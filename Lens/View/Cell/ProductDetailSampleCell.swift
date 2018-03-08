@@ -86,7 +86,9 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
         cell.sampleImageView.kf.setImage(with: URL(string: samples[indexPath.section]), completionHandler: {
             (image, error, cacheType, imageUrl) in
             self.sampleWidths[indexPath.section] = (image?.size.width)! / (image?.size.height)! * 90
-            tableView.reloadRows(at: [indexPath], with: .automatic)
+//            if tableView.cellForRow(at: indexPath) != nil {
+//                tableView.reloadRows(at: [indexPath], with: .automatic)
+//            }
         })
         return cell
     }

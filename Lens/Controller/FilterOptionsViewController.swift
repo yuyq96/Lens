@@ -13,6 +13,7 @@ class FilterOptionsViewController: UITableViewController {
     var shadowConstraint: NSLayoutConstraint!
     
     var filter: Filter!
+    var completionHandler: (() -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,19 +28,29 @@ class FilterOptionsViewController: UITableViewController {
         self.shadowConstraint = Shadow.add(to: self.tableView)
         
         if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
+            self.tableView.contentInsetAdjustmentBehavior = .never
         } else {
             self.automaticallyAdjustsScrollViewInsets = false
         }
-        tableView.estimatedSectionHeaderHeight = 0
-        tableView.estimatedSectionFooterHeight = 0
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        self.tableView.estimatedSectionHeaderHeight = 0
+        self.tableView.estimatedSectionFooterHeight = 0
+        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        
+        self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Finish", style: .plain, target: self, action: #selector(finished)), animated: false)
         
         self.tableView.register(CheckmarkCell.self, forCellReuseIdentifier: "CheckmarkCell")
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        completionHandler?()
+    }
+    
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.shadowConstraint.constant = self.tableView.contentOffset.y
+    }
+    
+    @objc func finished(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
 
     override func didReceiveMemoryWarning() {

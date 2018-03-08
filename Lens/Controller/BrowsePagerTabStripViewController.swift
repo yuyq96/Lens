@@ -37,11 +37,6 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         
         super.viewDidLoad()
         
-        // 在库和愿望清单中禁用PagerTab滑动，避免和TableView编辑冲突
-        if tab == .libraries || tab == .wishlist {
-            self.containerView.isScrollEnabled = false
-        }
-        
         // 禁用PagerTab回弹
         self.containerView.bounces = false
         
@@ -52,9 +47,26 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         let constraint = Shadow.add(to: self.buttonBarView.superview!)
         constraint.constant = self.buttonBarView.frame.height
         
-        if tab == .equipment {
+        switch self.tab! {
+        case .equipment:
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(setProdutFilter))
+        case .libraries, .wishlist:
+//            // 在库和愿望清单中禁用PagerTab滑动，避免和TableView编辑冲突
+//            self.containerView.isScrollEnabled = false
+            self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(beginEditing)), animated: false)
+        default:
+            break
         }
+    }
+    
+    @objc func beginEditing(_ sender: UIButton) {
+        self.subViewControllers[self.currentIndex].tableView.isEditing = true
+        self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Finish", style: .plain, target: self, action: #selector(endEditing)), animated: true)
+    }
+    
+    @objc func endEditing(_ sender: UIButton) {
+        self.subViewControllers[self.currentIndex].tableView.isEditing = false
+        self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(beginEditing)), animated: true)
     }
 
     override public func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {

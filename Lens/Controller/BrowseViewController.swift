@@ -45,8 +45,6 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         // 下拉刷新
         self.header = MJRefreshNormalHeader(refreshingBlock: {
             self.refresh()
-            // TODO
-            self.header.endRefreshing()
         })
         self.header.lastUpdatedTimeKey = "\(self.tab!.rawValue)_\(self.category!.rawValue)"
         self.header.setTitle("PULL DOWN TO REFRESH", for: .idle)
@@ -72,29 +70,34 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         }
         
         // 注册复用Cell
-        self.tableView.register(UINib(nibName: "ProductCell", bundle: nil), forCellReuseIdentifier: "ProductCell")
+        self.tableView.register(ProductCell.self, forCellReuseIdentifier: "ProductCell")
         self.tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
         self.tableView.register(UINib(nibName: "NewsImageCell", bundle: nil), forCellReuseIdentifier: "NewsImageCell")
         
         switch self.category! {
         case .lenses:
-            filters.append(Filter(name: "Brand", include: ["Canon", "Carl Zeiss", "Fujifilm", "Kenko Tokina", "Konica Minolta", "Leica", "Lensbaby", "Lomography", "Mitakon", "Nikon", "Noktor", "Olympus", "Panasonic", "Pentax", "Ricoh", "Samyung", "Schneider Kreuznach", "Sigma", "Sony", "Tamron", "Tokina", "Voigtlander", "YI"]))
+            filters.append(Filter(name: "Brand", include: ["Canon", "Carl Zeiss", "Fujifilm", "Kenko Tokina", "Konica Minolta", "Leica", "Lensbaby", "Lomography", "Mitakon", "Nikon", "Noktor", "Olympus", "Panasonic", "Pentax", "Ricoh", "Samyang", "Schneider Kreuznach", "Sigma", "Sony", "Tamron", "Tokina", "Voigtlander", "YI"]))
             filters.append(Filter(name: "Mount Type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
             filters.append(Filter(name: "Zoom Type", include: ["Zoom", "Prime"]))
             filters.append(Filter(name: "Lens Size", include: ["Super Wide-angle", "Wide-angle", "Wtandard", "Telephoto", "Tuper Telephoto"]))
-            filters.append(Filter(name: "Focal Range", from: 1, to: 1500))
-            filters.append(Filter(name: "Aperture", from: 0.95, to: 45))
+            filters.append(Filter(name: "Focal Range", min: 1, max: 1500))
+            filters.append(Filter(name: "Aperture", min: 0.95, max: 45))
         case .cameras:
             filters.append(Filter(name: "Brand", include: ["Canon", "Casio", "DJI", "DxO", "GoPro", "Hasselblad", "Konica Minolta", "Fujifilm", "Leaf", "Leica", "Mamiya", "Nikon", "Nokia", "Olympus", "Panasonic", "Pentax", "Phase One", "Ricoh", "Samsung", "Sigma", "Sony", "YI", "YUNEEC"]))
             filters.append(Filter(name: "Mount Type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
             filters.append(Filter(name: "Sensor Format", include: ["Full Frame", "Medium Format", "APS-H", "APS-C", "4/3\"", "1\"", "2/3\"", "1/1.7\"", "1/2.3\""]))
-            filters.append(Filter(name: "Resolution(M)", from: 1.0, to: 100.0))
+            filters.append(Filter(name: "Resolution(M)", min: 1.0, max: 100.0))
         default:
             break
         }
         
         // 开始加载
-        self.tableView.mj_header.beginRefreshing()
+        switch self.tab! {
+        case .equipment, .news:
+            self.tableView.mj_header.beginRefreshing()
+        default:
+            self.refresh()
+        }
     }
     
     func lastUpdatedTimeText(date: Date?) -> String {
@@ -153,32 +156,39 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 } catch { }
             }
             Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+                self.header.endRefreshing()
                 if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                     if status == "success", let hits = json["hits"] as? [[String : Any]] {
-                        if from == 0 {
-                            self.ids.removeAll()
-                            self.data.removeAll()
-                        }
                         if hits.count == 0 {
                             self.footer?.endRefreshingWithNoMoreData()
+                            if from == 0 {
+                                OperationQueue.main.addOperation {
+                                    self.header.endRefreshing()
+                                    self.ids.removeAll()
+                                    self.data.removeAll()
+                                    self.tableView.reloadData()
+                                }
+                            }
                         } else {
+                            var ids = [String]()
+                            var data = [Any?]()
                             for hit in hits {
                                 if let pid = hit["_id"] as? String {
-                                    self.ids.append(pid)
+                                    ids.append(pid)
                                     if let source = hit["_source"] as? [String : Any] {
                                         switch self.category! {
                                         case .lenses:
-                                            let product = Product(pid: pid, image: source["small_image"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
+                                            let product = Product(pid: pid, image: source["small_image"] as! String, name: source["name"] as! String, dxoScore: source["dxo_score"] as! Int, tags: [source["mount_type"] as! String])
                                             product.cache()
-                                            self.data.append(product)
+                                            data.append(product)
                                         case .cameras:
-                                            let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
+                                            let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, dxoScore: source["dxo_score"] as! Int, tags: [source["mount_type"] as! String])
                                             product.cache()
-                                            self.data.append(product)
+                                            data.append(product)
                                         case .accessories:
-                                            let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [])
+                                            let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, dxoScore: source["dxo_score"] as! Int, tags: [])
                                             product.cache()
-                                            self.data.append(product)
+                                            data.append(product)
                                         }
                                         
                                     }
@@ -186,14 +196,18 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                             }
                             if from == 0 {
                                 OperationQueue.main.addOperation {
+                                    self.ids = ids
+                                    self.data = data
                                     self.tableView.reloadData()
                                 }
                             } else {
                                 var rows = [IndexPath]()
-                                for i in from..<self.ids.count {
+                                for i in from..<(from + data.count) {
                                     rows.append(IndexPath(row: i, section: 0))
                                 }
                                 OperationQueue.main.addOperation {
+                                    self.ids.append(contentsOf: ids)
+                                    self.data.append(contentsOf: data)
                                     self.tableView.insertRows(at: rows, with: .automatic)
                                 }
                             }
@@ -201,6 +215,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                         }
                     } else if status == "failure" {
                         print(json["error"]!)
+                        self.footer?.endRefreshing()
                     }
                 }
             }
@@ -210,31 +225,42 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 "from": from
             ]
             Alamofire.request(Server.newsUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+                self.header.endRefreshing()
                 if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                     if status == "success", let hits = json["hits"] as? [[String : Any]] {
-                        if from == 0 {
-                            self.ids.removeAll()
-                            self.data.removeAll()
-                        }
                         if hits.count == 0 {
                             self.footer?.endRefreshingWithNoMoreData()
+                            if from == 0 {
+                                OperationQueue.main.addOperation {
+                                    self.header.endRefreshing()
+                                    self.ids.removeAll()
+                                    self.data.removeAll()
+                                    self.tableView.reloadData()
+                                }
+                            }
                         } else {
+                            var ids = [String]()
+                            var data = [Any?]()
                             for hit in hits {
                                 if let source = hit["_source"] as? [String : Any] {
-                                    self.ids.append("")
-                                    self.data.append(News(title: source["title"] as! String, source: source["source"] as! String, timestamp: source["timestamp"] as! String, content: source["content"] as! String, link: source["link"] as! String, image: source["image"] as! String))
+                                    ids.append("")
+                                    data.append(News(title: source["title"] as! String, source: source["source"] as! String, timestamp: source["timestamp"] as! String, content: source["content"] as! String, link: source["link"] as! String, image: source["image"] as! String))
                                 }
                             }
                             if from == 0 {
                                 OperationQueue.main.addOperation {
+                                    self.ids = ids
+                                    self.data = data
                                     self.tableView.reloadData()
                                 }
                             } else {
                                 var rows = [IndexPath]()
-                                for i in from..<self.ids.count {
+                                for i in from..<(from + data.count) {
                                     rows.append(IndexPath(row: i, section: 0))
                                 }
                                 OperationQueue.main.addOperation {
+                                    self.ids.append(contentsOf: ids)
+                                    self.data.append(contentsOf: data)
                                     self.tableView.insertRows(at: rows, with: .automatic)
                                 }
                             }
@@ -242,26 +268,18 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                         }
                     } else if status == "failure" {
                         print(json["error"]!)
+                        self.footer?.endRefreshing()
                     }
                 }
             }
-        case .libraries:
-            for pid in user.libraries[self.category!] {
-                self.ids.removeAll()
-                self.data.removeAll()
+        case .libraries, .wishlist:
+            self.ids.removeAll()
+            self.data.removeAll()
+            for pid in user[self.tab!]![self.category!] {
                 self.ids.append(pid)
                 self.data.append(nil)
             }
-            self.footer?.endRefreshing()
-            self.tableView.reloadData()
-        case .wishlist:
-            for pid in user.wishlist[self.category!] {
-                self.ids.removeAll()
-                self.data.removeAll()
-                self.ids.append(pid)
-                self.data.append(nil)
-            }
-            self.footer?.endRefreshing()
+            self.header.endRefreshing()
             self.tableView.reloadData()
         default: break
         }
@@ -304,7 +322,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                     Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                         if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                             if status == "success", let source = json["source"] as? [String : Any] {
-                                let product = Product(pid: id, image: source["small_image"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
+                                let product = Product(pid: id, image: source["small_image"] as! String, name: source["name"] as! String, dxoScore: source["dxo_score"] as! Int, tags: [source["mount_type"] as! String])
                                 product.cache()
                                 self.data[indexPath.row] = product
                                 OperationQueue.main.addOperation {
@@ -374,7 +392,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if tab == Context.Tab.libraries || tab == Context.Tab.wishlist {
+        if self.tab == .libraries || self.tab == .wishlist {
             return true
         }
         return false
@@ -382,8 +400,8 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            ids.remove(at: indexPath.row)
-            data.remove(at: indexPath.row)
+            self.ids.remove(at: indexPath.row)
+            self.data.remove(at: indexPath.row)
             switch self.tab! {
             case .libraries:
                 user.libraries[self.category].remove(at: indexPath.row)
@@ -397,20 +415,37 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         }
     }
 
-    /*
-    // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+        let list = user[self.tab]![self.category]
+        let fromRow = fromIndexPath.row
+        let toRow = to.row
+        let tempId = self.ids[fromRow]
+        let tempData = self.data[fromRow]
+        let temp = list[fromRow]
+        if fromRow < toRow {
+            for i in fromRow..<toRow {
+                list[i] = list[i + 1]
+                self.ids[i] = self.ids[i + 1]
+                self.data[i] = self.data[i + 1]
+            }
+        } else {
+            for i in (toRow..<fromRow).reversed() {
+                list[i + 1] = list[i]
+                self.ids[i + 1] = self.ids[i]
+                self.data[i + 1] = self.data[i]
+            }
+        }
+        self.ids[toRow] = tempId
+        self.data[toRow] = tempData
+        list[toRow] = temp
     }
-    */
 
-    /*
-    // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+        if tab == .libraries || tab == .wishlist {
+            return true
+        }
+        return false
     }
-    */
 
     /*
     // MARK: - Navigation

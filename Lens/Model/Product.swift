@@ -96,6 +96,7 @@ class Product: NSObject, NSCoding {
     var pid: String
     var image: String
     var name: String
+    var dxoScore: Int
     var tags: [String]
     var detail: Detail?
     
@@ -103,14 +104,16 @@ class Product: NSObject, NSCoding {
         aCoder.encode(self.pid, forKey: "pid")
         aCoder.encode(self.name, forKey: "name")
         aCoder.encode(self.image, forKey: "image")
+        aCoder.encode(self.dxoScore, forKey: "dxoScore")
         aCoder.encode(self.tags, forKey: "tags")
         aCoder.encode(self.detail, forKey: "detail")
     }
     
-    init(pid: String, image: String, name: String, tags: [String]) {
+    init(pid: String, image: String, name: String, dxoScore: Int, tags: [String]) {
         self.pid = pid
         self.image = image
         self.name = name
+        self.dxoScore = dxoScore
         self.tags = tags
     }
     
@@ -118,6 +121,7 @@ class Product: NSObject, NSCoding {
         self.pid = aDecoder.decodeObject(forKey: "pid") as! String
         self.name = aDecoder.decodeObject(forKey: "name") as! String
         self.image = aDecoder.decodeObject(forKey: "image") as! String
+        self.dxoScore = aDecoder.decodeInteger(forKey: "dxoScore")
         self.tags = aDecoder.decodeObject(forKey: "tags") as! [String]
     }
     
