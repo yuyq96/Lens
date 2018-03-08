@@ -304,9 +304,10 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 cell.productImage.kf.setImage(with: URL(string: (product.image)))
                 cell.nameLabel.text = product.name
                 cell.tagButton.setTitle(product.tags[0], for: .normal)
-                if self.tab == Context.Tab.equipment {
-                    cell.tagButton.isEnabled = true
-                }
+                cell.showScore(score: product.dxoScore)
+//                if self.tab == Context.Tab.equipment {
+//                    cell.tagButton.isEnabled = true
+//                }
             } else {
                 // product未加载(Libraries/Wishlist)
                 let id = self.ids[indexPath.row]

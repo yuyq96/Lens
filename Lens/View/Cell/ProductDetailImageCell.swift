@@ -18,6 +18,7 @@ class ProductDetailImageCell: UITableViewCell {
         self.clipsToBounds = true
         self.productImage.contentMode = .scaleAspectFit
         self.dxomark = Bundle.main.loadNibNamed("DxOMARK", owner: nil, options: nil)?.first as! DxOMARK
+        self.dxomark.isHidden = true
         self.dxomark.alpha = 0.8
         self.contentView.addSubview(self.productImage)
         self.contentView.addSubview(self.dxomark)
@@ -38,6 +39,23 @@ class ProductDetailImageCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func showScore(category: Context.Category, score: Int) {
+        if score == 0 {
+            self.dxomark.isHidden = true
+            return
+        }
+        switch category {
+        case .lenses:
+            self.dxomark.lensLabel.isHidden = false
+        case .cameras:
+            self.dxomark.lensLabel.isHidden = false
+        default:
+            return
+        }
+        self.dxomark.scoreLabel.text = "\(score)"
+        self.dxomark.isHidden = false
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

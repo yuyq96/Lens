@@ -41,7 +41,7 @@ class PersonalViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tableView.reloadRows(at: [IndexPath(row: 2, section: 1)], with: .automatic)
+        self.tableView.reloadRows(at: [IndexPath(row: 0, section: 1), IndexPath(row: 1, section: 1), IndexPath(row: 2, section: 1)], with: .automatic)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
