@@ -365,7 +365,7 @@ class User {
     }
     
     func syncSettings(completion: ((Bool) -> Void)?) {
-        if self.settings.needsSync {
+        if self.token != nil && self.settings.needsSync {
             let parameters: Parameters = ["task": "sync_settings", "token": self.token!, "budget": self.settings.budget, "show_budget": self.settings.showBudget]
             Alamofire.request(Server.userInfoUrl, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 if let json = response.result.value as? [String : Any] {

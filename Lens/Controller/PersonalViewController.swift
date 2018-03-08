@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Alamofire
 import Kingfisher
 
-class PersonalViewController: UITableViewController {
+class PersonalViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     var shadowConstraint: NSLayoutConstraint!
     
@@ -146,6 +147,72 @@ class PersonalViewController: UITableViewController {
         return 4
     }
     
+    func beginRegister(message: String?, username oldUsername: String? = nil, password oldPassword: String? = nil) {
+        let alertController = UIAlertController(title: "Register", message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+            let username = alertController.textFields?[0].text
+            let password = alertController.textFields?[1].text
+            let password1 = alertController.textFields?[2].text
+            if password != password1 {
+                self.beginRegister(message: "⚠️ Passwords do not match", username: username)
+            } else {
+                user.register(username: username!, password: password!) { result in
+                    if result {
+                        self.tableView.reloadData()
+                    } else {
+                        self.beginRegister(message: "⚠️ Username already exists", password: password)
+                    }
+                }
+            }
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(confirmAction)
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.text = oldUsername
+            textField.placeholder = "username"
+        })
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.text = oldPassword
+            textField.isSecureTextEntry = true
+            textField.placeholder = "password"
+        })
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.text = oldPassword
+            textField.isSecureTextEntry = true
+            textField.placeholder = "password again"
+        })
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func beginLogin(message: String?, username oldUsername: String? = nil, password oldPassword: String? = nil) {
+        let alertController = UIAlertController(title: "Login", message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+            let username = alertController.textFields?[0].text
+            let password = alertController.textFields?[1].text
+            user.login(username: username!, password: password!) { result in
+                if result {
+                    self.tableView.reloadData()
+                } else {
+                    self.beginLogin(message: "⚠️ Wrong username or password", username: username, password: password)
+                }
+            }
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(confirmAction)
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.text = oldUsername
+            textField.placeholder = "username"
+        })
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.text = oldPassword
+            textField.isSecureTextEntry = true
+            textField.placeholder = "password"
+        })
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
         switch indexPath.section {
@@ -153,57 +220,9 @@ class PersonalViewController: UITableViewController {
             if user.token == nil {
                 switch indexPath.row {
                 case 0:
-                    let alertController = UIAlertController(title: "Login", message: nil, preferredStyle: .alert)
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
-                        let username = alertController.textFields?.first?.text
-                        let passwd = alertController.textFields?.last?.text
-                        user.login(username: username!, password: passwd!) { result in
-                            if result {
-                                tableView.reloadData()
-                            } else {
-                                // TODO
-                            }
-                        }
-                    })
-                    alertController.addAction(cancelAction)
-                    alertController.addAction(confirmAction)
-                    alertController.addTextField(configurationHandler: { (textField) in
-                        textField.placeholder = "username"
-                    })
-                    alertController.addTextField(configurationHandler: { (textField) in
-                        textField.isSecureTextEntry = true
-                        textField.placeholder = "password"
-                    })
-                    self.present(alertController, animated: true, completion: nil)
+                    self.beginLogin(message: nil)
                 case 1:
-                    let alertController = UIAlertController(title: "Register", message: "Please input username and password", preferredStyle: .alert)
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
-                        let id = alertController.textFields?.first?.text
-                        let passwd = alertController.textFields?.last?.text
-                        user.register(username: id!, password: passwd!) { result in
-                            if result {
-                                tableView.reloadData()
-                            } else {
-                                // TODO
-                            }
-                        }
-                    })
-                    alertController.addAction(cancelAction)
-                    alertController.addAction(confirmAction)
-                    alertController.addTextField(configurationHandler: { (textField) in
-                        textField.placeholder = "username"
-                    })
-                    alertController.addTextField(configurationHandler: { (textField) in
-                        textField.isSecureTextEntry = true
-                        textField.placeholder = "password"
-                    })
-                    alertController.addTextField(configurationHandler: { (textField) in
-                        textField.isSecureTextEntry = true
-                        textField.placeholder = "password again"
-                    })
-                    self.present(alertController, animated: true, completion: nil)
+                    self.beginRegister(message: "Please input your username and password")
                 default: break
                 }
             } else {
@@ -230,7 +249,23 @@ class PersonalViewController: UITableViewController {
                     self.present(alertController, animated: true, completion: nil)
                 })
                 let changeAvatarAction = UIAlertAction(title: "Change Avatar", style: .default, handler: { (action) in
-                    // TODO
+                    let imagePickerController = UIImagePickerController()
+                    imagePickerController.delegate = self
+                    imagePickerController.allowsEditing = true
+                    let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                    let photoLibraryAction = UIAlertAction(title: "Select from photo library", style: .default, handler: { (action) in
+                        imagePickerController.sourceType = .photoLibrary
+                        self.present(imagePickerController, animated: true, completion: nil)
+                    })
+                    let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+                        imagePickerController.sourceType = .camera
+                        self.present(imagePickerController, animated: true, completion: nil)
+                    })
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    alertController.addAction(photoLibraryAction)
+                    alertController.addAction(cameraAction)
+                    alertController.addAction(cancelAction)
+                    self.present(alertController, animated: true, completion: nil)
                 })
                 let changePassAction = UIAlertAction(title: "Change Password", style: .default, handler: { (action) in
                     let alertController = UIAlertController(title: "Change Password", message: nil, preferredStyle: .alert)
@@ -273,29 +308,7 @@ class PersonalViewController: UITableViewController {
             }
         case 1:
             if user.token == nil {
-                let alertController = UIAlertController(title: "Login first", message: nil, preferredStyle: .alert)
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
-                    let username = alertController.textFields?.first?.text
-                    let passwd = alertController.textFields?.last?.text
-                    user.login(username: username!, password: passwd!) { result in
-                        if result {
-                            tableView.reloadData()
-                        } else {
-                            // TODO
-                        }
-                    }
-                })
-                alertController.addAction(cancelAction)
-                alertController.addAction(confirmAction)
-                alertController.addTextField(configurationHandler: { (textField) in
-                    textField.placeholder = "username"
-                })
-                alertController.addTextField(configurationHandler: { (textField) in
-                    textField.isSecureTextEntry = true
-                    textField.placeholder = "password"
-                })
-                self.present(alertController, animated: true, completion: nil)
+                self.beginRegister(message: "Please login before you using these functions")
             } else {
                 switch indexPath.row {
                 case 0:
@@ -366,6 +379,34 @@ class PersonalViewController: UITableViewController {
             }
             textField.text = newText
         }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        if picker.sourceType == .camera {
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        }
+        self.dismiss(animated: true, completion: nil)
+        
+//        let imageData = UIImageJPEGRepresentation(image, 0.1)
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyyMMddHHmmss"
+//        let fileName = "\(user.username)\(dateFormatter.string(from: Date())).jpg"
+//
+//        Alamofire.upload(multipartFormData: { multipartFormData in
+//            multipartFormData.append(imageData!, withName: "file", fileName: fileName, mimeType: "image/jpeg")
+//        }, usingThreshold: 1, to: "https://", method: .post, headers: nil, encodingCompletion: { encodingResult in
+//            switch encodingResult {
+//            case .success(let upload,_,_):
+//                upload.responseJSON { response in
+//                    if let JSON = response.result.value {
+//                        //这里处理JSON数据
+//                    }
+//                }
+//            case .failure(let encodingError):
+//                print(encodingError)
+//            }
+//        })
     }
     
 //    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {

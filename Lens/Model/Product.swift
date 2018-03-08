@@ -38,23 +38,27 @@ class Detail: NSObject, NSCoding {
                     text! += "\n" + spec.key + ": " + spec.value
                 }
             }
-            let info = NSMutableAttributedString(string: text!)
-            var pos = -1
-            var len: Int!
-            for spec in self.specs {
-                if pos == -1 {
-                    pos = 0
-                    len = spec.key.count + 2
-                } else {
-                    len = spec.key.count + 3
+            if text != nil {
+                let info = NSMutableAttributedString(string: text!)
+                var pos = -1
+                var len: Int!
+                for spec in self.specs {
+                    if pos == -1 {
+                        pos = 0
+                        len = spec.key.count + 2
+                    } else {
+                        len = spec.key.count + 3
+                    }
+                    info.addAttributes(attribAttributes, range: NSMakeRange(pos, len))
+                    pos += len
+                    len = spec.value.count
+                    info.addAttributes(valueAttributes, range: NSMakeRange(pos, len))
+                    pos += len
                 }
-                info.addAttributes(attribAttributes, range: NSMakeRange(pos, len))
-                pos += len
-                len = spec.value.count
-                info.addAttributes(valueAttributes, range: NSMakeRange(pos, len))
-                pos += len
+                return info
+            } else {
+                return nil
             }
-            return info
         }
     }
     

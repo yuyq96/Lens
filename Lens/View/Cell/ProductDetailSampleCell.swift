@@ -89,6 +89,8 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
 //            if tableView.cellForRow(at: indexPath) != nil {
 //                tableView.reloadRows(at: [indexPath], with: .automatic)
 //            }
+            tableView.beginUpdates()
+            tableView.endUpdates()
         })
         return cell
     }

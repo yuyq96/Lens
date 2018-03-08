@@ -134,7 +134,23 @@ class ProductDetailViewController: UITableViewController {
                             KV("Color", source["color"] as! String)
                         ]
                     case .cameras:
-                        specs = []
+                        let resolution = source["resolution"] as! [String : Any]
+                        let sensor_size = source["sensor_size"] as! [String : Any]
+                        let iso_latitude = source["iso_latitude"] as! [String : Any]
+                        let timeInterval = TimeInterval(source["launch_date"] as! Int)
+                        let date = Date(timeIntervalSince1970: timeInterval)
+                        let dformatter = DateFormatter()
+                        dformatter.dateFormat = "MMM. yyyy"
+                        specs = [
+                            KV("Brand", source["brand"] as! String),
+                            KV("Launch Date", dformatter.string(from: date)),
+                            KV("Mount Type", source["mount_type"] as! String),
+                            KV("Resolution", "\(resolution["width"] as! Int) x \(resolution["height"] as! Int)"),
+                            KV("Sensor Type", source["sensor_type"] as! String),
+                            KV("Sensor Size", "\(sensor_size["width"] as! Float) x \(sensor_size["height"] as! Float)"),
+                            KV("ISO latitude", "\(iso_latitude["min"] as! Int) - \(iso_latitude["max"] as! Int)"),
+                            KV("Bits per pixel", "\(source["bits_per_pixel"] as! Float)")
+                        ]
                     case .accessories:
                         specs = []
                     }
@@ -206,7 +222,7 @@ class ProductDetailViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailBasicCell", for: indexPath) as! ProductDetailBasicCell
             cell.nameLabel.text = product.name
             if let detail = product.detail {
-                cell.attribLabel.attributedText = detail.info!
+                cell.attribLabel.attributedText = detail.info
                 cell.notifyTableView = {
                     tableView.beginUpdates()
                     tableView.endUpdates()

@@ -186,11 +186,11 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                                             product.cache()
                                             data.append(product)
                                         case .cameras:
-                                            let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, dxoScore: source["dxo_score"] as! Int, tags: [source["mount_type"] as! String])
+                                            let product = Product(pid: pid, image: source["small_image"] as! String, name: source["name"] as! String, dxoScore: source["dxo_score"] as! Int, tags: [source["mount_type"] as! String])
                                             product.cache()
                                             data.append(product)
                                         case .accessories:
-                                            let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, dxoScore: source["dxo_score"] as! Int, tags: [])
+                                            let product = Product(pid: pid, image: source["small_image"] as! String, name: source["name"] as! String, dxoScore: source["dxo_score"] as! Int, tags: [])
                                             product.cache()
                                             data.append(product)
                                         }
@@ -308,16 +308,15 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 cell.productImage.kf.setImage(with: URL(string: (product.image)))
                 cell.nameLabel.text = product.name
                 cell.clearTags()
-                cell.add(tag: product.tags[0])
+                for tag in product.tags {
+                    cell.add(tag: tag)
+                }
                 if user.libraries[self.category].contains(product.pid) {
                     cell.add(tag: "Library", tint: true)
                 } else if user.wishlist[self.category].contains(product.pid) {
                     cell.add(tag: "Wishlist", tint: true)
                 }
                 cell.show(score: product.dxoScore)
-//                if self.tab == Context.Tab.equipment {
-//                    cell.tagButton.isEnabled = true
-//                }
             } else {
                 // product未加载(Libraries/Wishlist)
                 let id = self.ids[indexPath.row]
