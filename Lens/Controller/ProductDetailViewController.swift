@@ -66,7 +66,7 @@ class ProductDetailViewController: UITableViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        if (tab! == .libraries || tab! == .wishlist) && self.needsRefresh {
+        if (tab! == .library || tab! == .wishlist) && self.needsRefresh {
             self.browseViewController.refresh()
         }
     }

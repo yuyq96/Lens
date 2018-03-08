@@ -100,6 +100,10 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+    }
+    
     func lastUpdatedTimeText(date: Date?) -> String {
         if date == nil {
             return "Last Updated: No record"
@@ -272,7 +276,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                     }
                 }
             }
-        case .libraries, .wishlist:
+        case .library, .wishlist:
             self.ids.removeAll()
             self.data.removeAll()
             for pid in user[self.tab!]![self.category!] {
@@ -297,14 +301,20 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch self.tab! {
-        case .equipment, .libraries, .wishlist:
+        case .equipment, .library, .wishlist:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
             // product已加载
             if let product = data[indexPath.row] as? Product {
                 cell.productImage.kf.setImage(with: URL(string: (product.image)))
                 cell.nameLabel.text = product.name
-                cell.tagButton.setTitle(product.tags[0], for: .normal)
-                cell.showScore(score: product.dxoScore)
+                cell.clearTags()
+                cell.add(tag: product.tags[0])
+                if user.libraries[self.category].contains(product.pid) {
+                    cell.add(tag: "Library", tint: true)
+                } else if user.wishlist[self.category].contains(product.pid) {
+                    cell.add(tag: "Wishlist", tint: true)
+                }
+                cell.show(score: product.dxoScore)
 //                if self.tab == Context.Tab.equipment {
 //                    cell.tagButton.isEnabled = true
 //                }
@@ -371,7 +381,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
         switch self.tab! {
-        case .equipment, .libraries, .wishlist:
+        case .equipment, .library, .wishlist:
             let productDetailTableViewController = ProductDetailViewController()
             productDetailTableViewController.browseViewController = self
             productDetailTableViewController.product = data[indexPath.row] as! Product
@@ -393,7 +403,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if self.tab == .libraries || self.tab == .wishlist {
+        if self.tab == .library || self.tab == .wishlist {
             return true
         }
         return false
@@ -404,7 +414,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             self.ids.remove(at: indexPath.row)
             self.data.remove(at: indexPath.row)
             switch self.tab! {
-            case .libraries:
+            case .library:
                 user.libraries[self.category].remove(at: indexPath.row)
             case .wishlist:
                 user.wishlist[self.category].remove(at: indexPath.row)
@@ -442,7 +452,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
 
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        if tab == .libraries || tab == .wishlist {
+        if tab == .library || tab == .wishlist {
             return true
         }
         return false

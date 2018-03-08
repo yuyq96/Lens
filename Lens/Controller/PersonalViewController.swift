@@ -104,7 +104,7 @@ class PersonalViewController: UITableViewController {
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
-                cell.label?.text = Context.Tab.libraries.rawValue
+                cell.label?.text = Context.Tab.library.rawValue
                 return cell
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
@@ -300,13 +300,13 @@ class PersonalViewController: UITableViewController {
                 switch indexPath.row {
                 case 0:
                     let librariesViewController = BrowsePagerTabStripViewController()
-                    librariesViewController.tab = Context.Tab.libraries
+                    librariesViewController.tab = .library
                     librariesViewController.hidesBottomBarWhenPushed = true
                     self.navigationController?.navigationBar.shadowImage = UIImage()
                     navigationController?.pushViewController(librariesViewController, animated: true)
                 case 1:
                     let wishlistViewController = BrowsePagerTabStripViewController()
-                    wishlistViewController.tab = Context.Tab.wishlist
+                    wishlistViewController.tab = .wishlist
                     wishlistViewController.hidesBottomBarWhenPushed = true
                     self.navigationController?.navigationBar.shadowImage = UIImage()
                     navigationController?.pushViewController(wishlistViewController, animated: true)

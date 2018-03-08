@@ -248,7 +248,7 @@ class User {
     
     subscript(tab: Context.Tab) -> ProductsGroup? {
         switch tab {
-        case .libraries:
+        case .library:
             return libraries
         case .wishlist:
             return wishlist

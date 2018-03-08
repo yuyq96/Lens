@@ -50,7 +50,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         switch self.tab! {
         case .equipment:
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(setProdutFilter))
-        case .libraries, .wishlist:
+        case .library, .wishlist:
 //            // 在库和愿望清单中禁用PagerTab滑动，避免和TableView编辑冲突
 //            self.containerView.isScrollEnabled = false
             self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(beginEditing)), animated: false)

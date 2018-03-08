@@ -15,7 +15,7 @@ class Context {
         case news = "News"
         case personal = "Personal"
         case wishlist = "Wishlist"
-        case libraries = "My Equipment"
+        case library = "Library"
         case budget = "Budget"
     }
     

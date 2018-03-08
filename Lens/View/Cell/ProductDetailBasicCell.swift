@@ -12,7 +12,7 @@ class ProductDetailBasicCell: UITableViewCell {
     
     var nameLabel = UILabel()
     var attribLabel = UILabel()
-    var showMoreButton = UIButton()
+    var showMoreButton = UIButton(type: UIButtonType.system)
     var notifyTableView: (() -> Void)?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

@@ -67,6 +67,7 @@ class FilterViewController: UITableViewController {
     }
     
     @objc func clear(_ sender: UIButton) {
+        self.keyword = nil
         self.searchCell.keyword = nil
         for filter in self.filters {
             filter.clear()
