@@ -15,14 +15,14 @@ import XLPagerTabStrip
 class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
     var header: MJRefreshNormalHeader!
-    var footer: MJRefreshAutoStateFooter?
+    var footer: MJRefreshBackStateFooter?
     
     var tab: Context.Tab!
     var category: Context.Category!
     var keyword: String?
     var filters = [Filter]()
     var ids = [String]()
-    var data: [Any?]!
+    var data = [Any?]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +45,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         // 下拉刷新
         self.header = MJRefreshNormalHeader(refreshingBlock: {
             self.refresh()
+            // TODO
             self.header.endRefreshing()
         })
         self.header.lastUpdatedTimeKey = "\(self.tab!.rawValue)_\(self.category!.rawValue)"
@@ -59,7 +60,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         self.header.lastUpdatedTimeLabel.font = UIFont.systemFont(ofSize: 14)
         self.tableView.mj_header = self.header
         if self.tab! == .equipment || self.tab! == .news {
-            self.footer = MJRefreshAutoStateFooter(refreshingBlock: {
+            self.footer = MJRefreshBackStateFooter(refreshingBlock: {
                 self.loadMore()
             })
             self.footer?.setTitle("PULL UP TO LOAD MORE", for: .idle)
@@ -67,8 +68,8 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             self.footer?.setTitle("LOADING", for: .refreshing)
             self.footer?.setTitle("NO MORE DATA", for: .noMoreData)
             self.footer?.stateLabel.font = UIFont.systemFont(ofSize: 14)
+            self.tableView.mj_footer = self.footer
         }
-        self.tableView.mj_footer = self.footer
         
         // 注册复用Cell
         self.tableView.register(UINib(nibName: "ProductCell", bundle: nil), forCellReuseIdentifier: "ProductCell")
@@ -92,7 +93,8 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             break
         }
         
-        self.refresh()
+        // 开始加载
+        self.tableView.mj_header.beginRefreshing()
     }
     
     func lastUpdatedTimeText(date: Date?) -> String {
@@ -119,22 +121,21 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
     
     func refresh() {
-        self.ids = []
-        self.data = []
-        self.tableView.reloadData()
-        self.loadMore()
+        self.loadMore(from: 0)
     }
     
     func loadMore() {
+        self.loadMore(from: self.data.count)
+    }
+    
+    private func loadMore(from: Int) {
         switch self.tab! {
         case .equipment:
             var parameters: Parameters = [
                 "category": self.category.rawValue.lowercased(),
-                "from": self.ids.count
+                "keyword": keyword ?? "",
+                "from": from
             ]
-            if keyword != nil {
-                parameters["keyword"] = keyword!
-            }
             var filtersJson: [String : [String : [Any]]]?
             for filter in self.filters {
                 if let filterJson = filter.json {
@@ -154,33 +155,49 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                     if status == "success", let hits = json["hits"] as? [[String : Any]] {
+                        if from == 0 {
+                            self.ids.removeAll()
+                            self.data.removeAll()
+                        }
                         if hits.count == 0 {
                             self.footer?.endRefreshingWithNoMoreData()
-                        }
-                        for hit in hits {
-                            if let pid = hit["_id"] as? String {
-                                self.ids.append(pid)
-                                if let source = hit["_source"] as? [String : Any] {
-                                    switch self.category! {
-                                    case .lenses:
-                                        let product = Product(pid: pid, image: source["small_image"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
-                                        product.cache()
-                                        self.data.append(product)
-                                    case .cameras:
-                                        let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
-                                        product.cache()
-                                        self.data.append(product)
-                                    case .accessories:
-                                        let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [])
-                                        product.cache()
-                                        self.data.append(product)
+                        } else {
+                            for hit in hits {
+                                if let pid = hit["_id"] as? String {
+                                    self.ids.append(pid)
+                                    if let source = hit["_source"] as? [String : Any] {
+                                        switch self.category! {
+                                        case .lenses:
+                                            let product = Product(pid: pid, image: source["small_image"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
+                                            product.cache()
+                                            self.data.append(product)
+                                        case .cameras:
+                                            let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [source["mount_type"] as! String])
+                                            product.cache()
+                                            self.data.append(product)
+                                        case .accessories:
+                                            let product = Product(pid: pid, image: source["preview"] as! String, name: source["name"] as! String, tags: [])
+                                            product.cache()
+                                            self.data.append(product)
+                                        }
+                                        
                                     }
-                                    
                                 }
                             }
-                        }
-                        OperationQueue.main.addOperation {
-                            self.tableView.reloadData()
+                            if from == 0 {
+                                OperationQueue.main.addOperation {
+                                    self.tableView.reloadData()
+                                }
+                            } else {
+                                var rows = [IndexPath]()
+                                for i in from..<self.ids.count {
+                                    rows.append(IndexPath(row: i, section: 0))
+                                }
+                                OperationQueue.main.addOperation {
+                                    self.tableView.insertRows(at: rows, with: .automatic)
+                                }
+                            }
+                            self.footer?.endRefreshing()
                         }
                     } else if status == "failure" {
                         print(json["error"]!)
@@ -188,49 +205,66 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 }
             }
         case .news:
-            switch self.category! {
-            case .lenses:
-                let parameters: Parameters = [
-                    "category": self.category.rawValue.lowercased(),
-                    "from": self.ids.count
-                ]
-                Alamofire.request(Server.newsUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
-                    if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
-                        if status == "success", let hits = json["hits"] as? [[String : Any]] {
-                            if hits.count == 0 {
-                                self.footer?.endRefreshingWithNoMoreData()
-                            }
+            let parameters: Parameters = [
+                "category": self.category.rawValue.lowercased(),
+                "from": from
+            ]
+            Alamofire.request(Server.newsUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+                if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
+                    if status == "success", let hits = json["hits"] as? [[String : Any]] {
+                        if from == 0 {
+                            self.ids.removeAll()
+                            self.data.removeAll()
+                        }
+                        if hits.count == 0 {
+                            self.footer?.endRefreshingWithNoMoreData()
+                        } else {
                             for hit in hits {
                                 if let source = hit["_source"] as? [String : Any] {
                                     self.ids.append("")
                                     self.data.append(News(title: source["title"] as! String, source: source["source"] as! String, timestamp: source["timestamp"] as! String, content: source["content"] as! String, link: source["link"] as! String, image: source["image"] as! String))
                                 }
                             }
-                            OperationQueue.main.addOperation {
-                                self.tableView.reloadData()
+                            if from == 0 {
+                                OperationQueue.main.addOperation {
+                                    self.tableView.reloadData()
+                                }
+                            } else {
+                                var rows = [IndexPath]()
+                                for i in from..<self.ids.count {
+                                    rows.append(IndexPath(row: i, section: 0))
+                                }
+                                OperationQueue.main.addOperation {
+                                    self.tableView.insertRows(at: rows, with: .automatic)
+                                }
                             }
-                        } else if status == "failure" {
-                            print(json["error"]!)
+                            self.footer?.endRefreshing()
                         }
+                    } else if status == "failure" {
+                        print(json["error"]!)
                     }
                 }
-            default: break
             }
         case .libraries:
             for pid in user.libraries[self.category!] {
+                self.ids.removeAll()
+                self.data.removeAll()
                 self.ids.append(pid)
                 self.data.append(nil)
             }
+            self.footer?.endRefreshing()
             self.tableView.reloadData()
         case .wishlist:
             for pid in user.wishlist[self.category!] {
+                self.ids.removeAll()
+                self.data.removeAll()
                 self.ids.append(pid)
                 self.data.append(nil)
             }
+            self.footer?.endRefreshing()
             self.tableView.reloadData()
         default: break
         }
-        self.footer?.endRefreshing()
     }
 
     // MARK: - Table view data source
