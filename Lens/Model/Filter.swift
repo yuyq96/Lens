@@ -19,6 +19,8 @@ class Filter {
     var name = ""
     var type = FilterType.option
     var options: [String]!
+    var jsonHandlers: [() -> Any]?
+    var jsonHandler: ((Any, Any) -> Any)?
     var selections: [Bool]!
     var min: Any!
     var max: Any!
@@ -78,23 +80,42 @@ class Filter {
             }
         }
     }
-    var json: [String : [String : [Any]]]? {
+    var json: [Any]? {
         get {
             switch self.type {
             case .option:
                 if allSelected {
                     return nil
-                } else {
-                    var terms = [[String : [String : String]]]()
+                } else if self.jsonHandlers != nil {
+                    var ranges = [Any]()
                     for i in 0..<self.count {
                         if self.selections[i] {
-                            terms.append(["term": [self.name.lowercased().replacingOccurrences(of: " ", with: "_"): self.options[i]]])
+                            ranges.append(self.jsonHandlers![i]())
                         }
                     }
-                    return ["bool": ["should": terms]]
+                    return [
+                        ["bool": ["should": ranges]]
+                    ]
+                } else {
+                    var selectedOptions = [String]()
+                    for i in 0..<self.count {
+                        if self.selections[i] {
+                            selectedOptions.append(self.options[i])
+                        }
+                    }
+                    return [
+                        ["terms": [self.name.lowercased().replacingOccurrences(of: " ", with: "_"): selectedOptions]]
+                    ]
                 }
             case .int, .float:
-                return nil
+                if self.jsonHandler != nil {
+                    return [self.jsonHandler!(self.min, self.max)]
+                }
+                let attrName = self.name.lowercased().replacingOccurrences(of: " ", with: "_")
+                return [
+                    ["range": [attrName + "_max": ["lte": self.max]]],
+                    ["range": [attrName + "_min": ["gte": self.min]]]
+                ]
             }
         }
     }
@@ -120,6 +141,11 @@ class Filter {
         self.selectAll()
     }
     
+    convenience init(name: String, include options: [String], jsonHandlers: [() -> Any]) {
+        self.init(name: name, include: options)
+        self.jsonHandlers = jsonHandlers
+    }
+    
     init(name: String, min defaultMin: Int, max defaultMax: Int) {
         self.name = name
         self.type = .int
@@ -129,6 +155,11 @@ class Filter {
         self.max = defaultMax
     }
     
+    convenience init(name: String, min defaultMin: Int, max defaultMax: Int, jsonHandler: @escaping (Any, Any) -> Any) {
+        self.init(name: name, min: defaultMin, max: defaultMax)
+        self.jsonHandler = jsonHandler
+    }
+    
     init(name: String, min defaultMin: Float, max defaultMax: Float) {
         self.name = name
         self.type = .float
@@ -136,6 +167,11 @@ class Filter {
         self.defaultMax = defaultMax
         self.min = defaultMin
         self.max = defaultMax
+    }
+    
+    convenience init(name: String, min defaultMin: Float, max defaultMax: Float, jsonHandler: @escaping (Any, Any) -> Any) {
+        self.init(name: name, min: defaultMin, max: defaultMax)
+        self.jsonHandler = jsonHandler
     }
     
     init(name: String, min defaultMin: Int, max defaultMax: Int, from min: Int, to max: Int) {

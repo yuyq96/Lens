@@ -50,7 +50,7 @@ class ProductDetailImageCell: UITableViewCell {
         case .lenses:
             self.dxomark.lensLabel.isHidden = false
         case .cameras:
-            self.dxomark.lensLabel.isHidden = false
+            self.dxomark.sensorLabel.isHidden = false
         default:
             return
         }

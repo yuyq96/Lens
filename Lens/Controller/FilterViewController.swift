@@ -118,9 +118,86 @@ class FilterViewController: UITableViewController {
         }
     }
     
+    private func beginSettingFilter(filter: Filter, message: String? = nil, min oldMin: Any? = nil, max oldMax: Any? = nil, completionHandler: (() -> Void)? = nil) {
+        let alertController = UIAlertController(title: filter.name, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+            if filter.type == .int {
+                if let min = Int(alertController.textFields![0].text!), let max = Int(alertController.textFields![1].text!) {
+                    let defaultMin = filter.defaultMin as! Int
+                    let defaultMax = filter.defaultMax as! Int
+                    if min > max {
+                        return self.beginSettingFilter(filter: filter, message: "⚠️ Minimum is greater than maximum", min: min, max: max)
+                    } else if min < defaultMin {
+                        return self.beginSettingFilter(filter: filter, message: "⚠️ Minimum should not less than \(defaultMin)", max: max)
+                    } else if max > defaultMax {
+                        return self.beginSettingFilter(filter: filter, message: "⚠️ Maximum should not greater than \(defaultMax)", min: min)
+                    }
+                    filter.min = min
+                    filter.max = max
+                    completionHandler?()
+                } else {
+                    return self.beginSettingFilter(filter: filter, message: "⚠️ Wrong value")
+                }
+            } else if filter.type == .float {
+                if let min = Float(alertController.textFields![0].text!), let max = Float(alertController.textFields![1].text!) {
+                    let defaultMin = filter.defaultMin as! Float
+                    let defaultMax = filter.defaultMax as! Float
+                    if min > max {
+                        return self.beginSettingFilter(filter: filter, message: "⚠️ Minimum is greater than maximum", min: min, max: max)
+                    } else if min < defaultMin {
+                        return self.beginSettingFilter(filter: filter, message: "⚠️ Minimum should not less than \(defaultMin)", max: max)
+                    } else if max > defaultMax {
+                        return self.beginSettingFilter(filter: filter, message: "⚠️ Maximum should not greater than \(defaultMax)", min: min)
+                    }
+                    filter.min = min
+                    filter.max = max
+                    completionHandler?()
+                } else {
+                    return self.beginSettingFilter(filter: filter, message: "⚠️ Wrong value")
+                }
+            }
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(confirmAction)
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.keyboardType = .decimalPad
+            if oldMin != nil {
+                textField.text = "\(oldMin!)"
+            } else {
+                textField.text = "\(filter.min!)"
+            }
+            let hint = UITextView()
+            hint.text = ">="
+            hint.font = textField.font
+            hint.sizeToFit()
+            hint.backgroundColor = Color.translucent
+            textField.leftView = hint
+            textField.leftViewMode = .always
+            textField.placeholder = "\(filter.defaultMin!)"
+            print(hint.frame)
+        })
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.keyboardType = .decimalPad
+            if oldMax != nil {
+                textField.text = "\(oldMax!)"
+            } else {
+                textField.text = "\(filter.max!)"
+            }
+            let hint = UITextView()
+            hint.text = "<="
+            hint.font = textField.font
+            hint.sizeToFit()
+            hint.backgroundColor = Color.translucent
+            textField.leftView = hint
+            textField.leftViewMode = .always
+            textField.placeholder = "\(filter.defaultMax!)"
+        })
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 1:
+        if indexPath.section == 1 {
             let filter = self.filters[indexPath.row]
             switch filter.type {
             case .option:
@@ -130,13 +207,11 @@ class FilterViewController: UITableViewController {
                     tableView.reloadRows(at: [indexPath], with: .automatic)
                 }
                 self.navigationController?.pushViewController(filterOptionsViewController, animated: true)
-            case .int:
-                break
-            case .float:
-                break
+            case .int, .float:
+                self.beginSettingFilter(filter: filter) {
+                    tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
             }
-        default:
-            break
         }
     }
     

@@ -23,13 +23,13 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     var filters = [Filter]()
     var ids = [String]()
     var data = [Any?]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
@@ -74,19 +74,44 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         self.tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
         self.tableView.register(UINib(nibName: "NewsImageCell", bundle: nil), forCellReuseIdentifier: "NewsImageCell")
         
+        // 设置可选过滤方式
         switch self.category! {
         case .lenses:
             filters.append(Filter(name: "Brand", include: ["Canon", "Carl Zeiss", "Fujifilm", "Kenko Tokina", "Konica Minolta", "Leica", "Lensbaby", "Lomography", "Mitakon", "Nikon", "Noktor", "Olympus", "Panasonic", "Pentax", "Ricoh", "Samyang", "Schneider Kreuznach", "Sigma", "Sony", "Tamron", "Tokina", "Voigtlander", "YI"]))
             filters.append(Filter(name: "Mount Type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
-            filters.append(Filter(name: "Zoom Type", include: ["Zoom", "Prime"]))
-            filters.append(Filter(name: "Lens Size", include: ["Super Wide-angle", "Wide-angle", "Wtandard", "Telephoto", "Tuper Telephoto"]))
+            filters.append(Filter(name: "Zoom Type", include: ["Zoom", "Prime"], jsonHandlers: [
+                {
+                    return ["script": ["script": [
+                        "source": "doc['focal_range_min'].value != doc['focal_range_max'].value",
+                        "lang": "painless"
+                        ]]]
+                },
+                {
+                    return ["script": ["script": [
+                        "source": "doc['focal_range_min'].value == doc['focal_range_max'].value",
+                        "lang": "painless"
+                        ]]]
+                }
+                ]))
+            filters.append(Filter(name: "Lens Size", include: ["Super Wide-angle", "Wide-angle", "Standard", "Telephoto", "Super Telephoto"], jsonHandlers: [
+                {return ["range": ["focal_range_min": ["lte": 20]]]},
+                {return ["range": ["focal_range_min": ["lte": 35]]]},
+                {return ["range": ["focal_range_min": ["lte": 85], "focal_range_max": ["gte": 35]]]},
+                {return ["range": ["focal_range_max": ["gte": 85]]]},
+                {return ["range": ["focal_range_max": ["gte": 180]]]}
+                ]))
             filters.append(Filter(name: "Focal Range", min: 1, max: 1500))
             filters.append(Filter(name: "Aperture", min: 0.95, max: 45))
         case .cameras:
             filters.append(Filter(name: "Brand", include: ["Canon", "Casio", "DJI", "DxO", "GoPro", "Hasselblad", "Konica Minolta", "Fujifilm", "Leaf", "Leica", "Mamiya", "Nikon", "Nokia", "Olympus", "Panasonic", "Pentax", "Phase One", "Ricoh", "Samsung", "Sigma", "Sony", "YI", "YUNEEC"]))
             filters.append(Filter(name: "Mount Type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
             filters.append(Filter(name: "Sensor Format", include: ["Full Frame", "Medium Format", "APS-H", "APS-C", "4/3\"", "1\"", "2/3\"", "1/1.7\"", "1/2.3\""]))
-            filters.append(Filter(name: "Resolution(M)", min: 1.0, max: 100.0))
+            filters.append(Filter(name: "Resolution(M)", min: 1.0, max: 100.0, jsonHandler: { (min, max) in
+                return ["script": ["script": [
+                    ["source": "doc['resolution.width'].value * doc['resolution.height'].value / 1000000 > \(min)", "lang": "painless"],
+                    ["source": "doc['resolution.width'].value * doc['resolution.height'].value / 1000000 < \(max)", "lang": "painless"]
+                    ]]]
+            }))
         default:
             break
         }
@@ -116,7 +141,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             return "Last Updated: \(dateFormatter.string(from: date!)) \(timeFormatter.string(from: date!))"
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -143,18 +168,15 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 "keyword": keyword ?? "",
                 "from": from
             ]
-            var filtersJson: [String : [String : [Any]]]?
+            var filtersJson = [Any]()
             for filter in self.filters {
                 if let filterJson = filter.json {
-                    if filtersJson == nil {
-                        filtersJson = ["bool": ["must": []]]
-                    }
-                    filtersJson!["bool"]!["must"]!.append(filterJson)
+                    filtersJson.append(contentsOf: filterJson)
                 }
             }
-            if filtersJson != nil {
+            if filtersJson.count != 0 {
                 do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: filtersJson!, options: [])
+                    let jsonData = try JSONSerialization.data(withJSONObject: ["bool": ["must": filtersJson]], options: [])
                     let jsonString = String(data: jsonData, encoding: String.Encoding.utf8)
                     parameters["filters"] = jsonString
                 } catch { }
@@ -288,17 +310,17 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         default: break
         }
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.data.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch self.tab! {
         case .equipment, .library, .wishlist:
@@ -400,14 +422,14 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             return
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if self.tab == .library || self.tab == .wishlist {
             return true
         }
         return false
     }
-
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             self.ids.remove(at: indexPath.row)
@@ -424,7 +446,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         let list = user[self.tab]![self.category]
         let fromRow = fromIndexPath.row
@@ -449,22 +471,23 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         self.data[toRow] = tempData
         list[toRow] = temp
     }
-
+    
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         if tab == .library || tab == .wishlist {
             return true
         }
         return false
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
+
