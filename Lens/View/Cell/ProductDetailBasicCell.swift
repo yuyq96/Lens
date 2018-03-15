@@ -22,7 +22,7 @@ class ProductDetailBasicCell: UITableViewCell {
         self.nameLabel.font = .boldSystemFont(ofSize: 16)
         self.attribLabel.numberOfLines = 6
         self.showMoreButton.backgroundColor = Color.tint
-        self.showMoreButton.setTitle("Show More", for: .normal)
+        self.showMoreButton.setTitle(NSLocalizedString("Show More", comment: "Show More"), for: .normal)
         self.showMoreButton.titleLabel?.font = .systemFont(ofSize: 11)
         self.showMoreButton.setTitleColor(.white, for: .normal)
         self.showMoreButton.layer.cornerRadius = 15
@@ -61,10 +61,10 @@ class ProductDetailBasicCell: UITableViewCell {
     @objc func showMore(_ sender: UIButton) {
         if self.attribLabel.numberOfLines == 6 {
             self.attribLabel.numberOfLines = 30
-            sender.setTitle("Hide", for: .normal)
+            sender.setTitle(NSLocalizedString("Hide", comment: "Hide"), for: .normal)
         } else {
             self.attribLabel.numberOfLines = 6
-            sender.setTitle("Show More", for: .normal)
+            sender.setTitle(NSLocalizedString("Show More", comment: "Show More"), for: .normal)
         }
         self.notifyTableView?()
     }

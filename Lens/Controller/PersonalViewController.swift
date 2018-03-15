@@ -42,7 +42,7 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tableView.reloadRows(at: [IndexPath(row: 0, section: 1), IndexPath(row: 1, section: 1), IndexPath(row: 2, section: 1)], with: .automatic)
+        self.tableView.reloadData()
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -81,11 +81,11 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
                 switch indexPath.row {
                 case 0:
                     let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
-                    cell.label.text = "Login"
+                    cell.label.text = NSLocalizedString("Login", comment: "Login")
                     return cell
                 case 1:
                     let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
-                    cell.label.text = "Register"
+                    cell.label.text = NSLocalizedString("Register", comment: "Register")
                     return cell
                 default: return UITableViewCell()
                 }
@@ -105,15 +105,15 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
-                cell.label?.text = Context.Tab.library.rawValue
+                cell.label?.text = NSLocalizedString("Library", comment: "Library")
                 return cell
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
-                cell.label?.text = Context.Tab.wishlist.rawValue
+                cell.label?.text = NSLocalizedString("Wishlist", comment: "Wishlist")
                 return cell
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "PersonalBudgetCell", for: indexPath) as! PersonalBudgetCell
-                cell.label?.text = Context.Tab.budget.rawValue
+                cell.label?.text = NSLocalizedString("Budget", comment: "Budget")
                 cell.budget?.text = "****"
                 if user.settings.showBudget == true {
                     cell.budget?.text = user.settings.budget
@@ -125,9 +125,9 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
             switch indexPath.row {
             case 0:
-                cell.label?.text = "Settings"
+                cell.label?.text = NSLocalizedString("Settings", comment: "Settings")
             case 1:
-                cell.label?.text = "About"
+                cell.label?.text = NSLocalizedString("About", comment: "About")
             default: break
             }
             return cell
@@ -148,20 +148,20 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
     }
     
     func beginRegister(message: String?, username oldUsername: String? = nil, password oldPassword: String? = nil) {
-        let alertController = UIAlertController(title: "Register", message: message, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+        let alertController = UIAlertController(title: NSLocalizedString("Register", comment: "Register"), message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: "Confirm"), style: .default, handler: { (action) in
             let username = alertController.textFields?[0].text
             let password = alertController.textFields?[1].text
             let password1 = alertController.textFields?[2].text
             if password != password1 {
-                self.beginRegister(message: "⚠️ Passwords do not match", username: username)
+                self.beginRegister(message: "⚠️ " + NSLocalizedString("Passwords do not match", comment: "Passwords do not match"), username: username)
             } else {
                 user.register(username: username!, password: password!) { result in
                     if result {
                         self.tableView.reloadData()
                     } else {
-                        self.beginRegister(message: "⚠️ Username already exists", password: password)
+                        self.beginRegister(message: "⚠️ " + NSLocalizedString("Username already exists", comment: "Username already exists"), password: password)
                     }
                 }
             }
@@ -170,32 +170,32 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
         alertController.addAction(confirmAction)
         alertController.addTextField(configurationHandler: { (textField) in
             textField.text = oldUsername
-            textField.placeholder = "username"
+            textField.placeholder = NSLocalizedString("username", comment: "username")
         })
         alertController.addTextField(configurationHandler: { (textField) in
             textField.text = oldPassword
             textField.isSecureTextEntry = true
-            textField.placeholder = "password"
+            textField.placeholder = NSLocalizedString("password", comment: "password")
         })
         alertController.addTextField(configurationHandler: { (textField) in
             textField.text = oldPassword
             textField.isSecureTextEntry = true
-            textField.placeholder = "password again"
+            textField.placeholder = NSLocalizedString("password again", comment: "password again")
         })
         self.present(alertController, animated: true, completion: nil)
     }
     
     func beginLogin(message: String?, username oldUsername: String? = nil, password oldPassword: String? = nil) {
-        let alertController = UIAlertController(title: "Login", message: message, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+        let alertController = UIAlertController(title: NSLocalizedString("Login", comment: "Login"), message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: "Confirm"), style: .default, handler: { (action) in
             let username = alertController.textFields?[0].text
             let password = alertController.textFields?[1].text
             user.login(username: username!, password: password!) { result in
                 if result {
                     self.tableView.reloadData()
                 } else {
-                    self.beginLogin(message: "⚠️ Wrong username or password", username: username, password: password)
+                    self.beginLogin(message: "⚠️ " + NSLocalizedString("Wrong username or password", comment: "Wrong username or password"), username: username, password: password)
                 }
             }
         })
@@ -203,12 +203,12 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
         alertController.addAction(confirmAction)
         alertController.addTextField(configurationHandler: { (textField) in
             textField.text = oldUsername
-            textField.placeholder = "username"
+            textField.placeholder = NSLocalizedString("username", comment: "username")
         })
         alertController.addTextField(configurationHandler: { (textField) in
             textField.text = oldPassword
             textField.isSecureTextEntry = true
-            textField.placeholder = "password"
+            textField.placeholder = NSLocalizedString("password", comment: "password")
         })
         self.present(alertController, animated: true, completion: nil)
     }
@@ -222,15 +222,15 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
                 case 0:
                     self.beginLogin(message: nil)
                 case 1:
-                    self.beginRegister(message: "Please input your username and password")
+                    self.beginRegister(message: NSLocalizedString("Please input your username and password", comment: "Please input your username and password"))
                 default: break
                 }
             } else {
                 let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                let changeNameAction = UIAlertAction(title: "Change Nickname", style: .default, handler: { (action) in
-                    let alertController = UIAlertController(title: "Change Nickname", message: nil, preferredStyle: .alert)
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+                let changeNameAction = UIAlertAction(title: NSLocalizedString("Change Nickname", comment: "Change Nickname"), style: .default, handler: { (action) in
+                    let alertController = UIAlertController(title: NSLocalizedString("Change Nickname", comment: "Change Nickname"), message: nil, preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .cancel, handler: nil)
+                    let confirmAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: "Confirm"), style: .default, handler: { (action) in
                         if let nickname = alertController.textFields?.first?.text {
                             user.update(nickname: nickname) { result in
                                 if result {
@@ -244,33 +244,33 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
                     alertController.addAction(cancelAction)
                     alertController.addAction(confirmAction)
                     alertController.addTextField(configurationHandler: { (textField) in
-                        textField.placeholder = "new nickname"
+                        textField.placeholder = NSLocalizedString("new nickname", comment: "new nickname")
                     })
                     self.present(alertController, animated: true, completion: nil)
                 })
-                let changeAvatarAction = UIAlertAction(title: "Change Avatar", style: .default, handler: { (action) in
+                let changeAvatarAction = UIAlertAction(title: NSLocalizedString("Change Userhead", comment: "Change Userhead"), style: .default, handler: { (action) in
                     let imagePickerController = UIImagePickerController()
                     imagePickerController.delegate = self
                     imagePickerController.allowsEditing = true
                     let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                    let photoLibraryAction = UIAlertAction(title: "Select from photo library", style: .default, handler: { (action) in
+                    let photoLibraryAction = UIAlertAction(title: NSLocalizedString("Select from photo library", comment: "Select from photo library"), style: .default, handler: { (action) in
                         imagePickerController.sourceType = .photoLibrary
                         self.present(imagePickerController, animated: true, completion: nil)
                     })
-                    let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+                    let cameraAction = UIAlertAction(title: NSLocalizedString("Camera", comment: "Camera"), style: .default, handler: { (action) in
                         imagePickerController.sourceType = .camera
                         self.present(imagePickerController, animated: true, completion: nil)
                     })
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .cancel, handler: nil)
                     alertController.addAction(photoLibraryAction)
                     alertController.addAction(cameraAction)
                     alertController.addAction(cancelAction)
                     self.present(alertController, animated: true, completion: nil)
                 })
-                let changePassAction = UIAlertAction(title: "Change Password", style: .default, handler: { (action) in
-                    let alertController = UIAlertController(title: "Change Password", message: nil, preferredStyle: .alert)
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+                let changePassAction = UIAlertAction(title: NSLocalizedString("Change Password", comment: "Change Password"), style: .default, handler: { (action) in
+                    let alertController = UIAlertController(title: NSLocalizedString("Change Password", comment: "Change Password"), message: nil, preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .cancel, handler: nil)
+                    let confirmAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: "Confirm"), style: .default, handler: { (action) in
                         if let oldPass = alertController.textFields?.first?.text,
                             let newPass = alertController.textFields?.last?.text {
                             user.updatePassword(old: oldPass, new: newPass) { result in
@@ -283,22 +283,22 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
                     alertController.addAction(cancelAction)
                     alertController.addAction(confirmAction)
                     alertController.addTextField(configurationHandler: { (textField) in
-                        textField.placeholder = "old password"
+                        textField.placeholder = NSLocalizedString("old password", comment: "old password")
                     })
                     alertController.addTextField(configurationHandler: { (textField) in
-                        textField.placeholder = "new password"
+                        textField.placeholder = NSLocalizedString("new password", comment: "new password")
                     })
                     alertController.addTextField(configurationHandler: { (textField) in
-                        textField.placeholder = "new password again"
+                        textField.placeholder = NSLocalizedString("new password again", comment: "new password again")
                     })
                     self.present(alertController, animated: true, completion: nil)
                 })
-                let logoutAction = UIAlertAction(title: "Logout", style: .destructive, handler: { (action) in
+                let logoutAction = UIAlertAction(title: NSLocalizedString("Logout", comment: "Logout"), style: .destructive, handler: { (action) in
                     user.logout() {
                         tableView.reloadData()
                     }
                 })
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .cancel, handler: nil)
                 alertController.addAction(changeNameAction)
                 alertController.addAction(changeAvatarAction)
                 alertController.addAction(changePassAction)
@@ -308,7 +308,7 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
             }
         case 1:
             if user.token == nil {
-                self.beginRegister(message: "Please login before you using these functions")
+                self.beginRegister(message: NSLocalizedString("Please login before you using these functions", comment: "Please login before you using these functions"))
             } else {
                 switch indexPath.row {
                 case 0:
@@ -324,9 +324,9 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
                     self.navigationController?.navigationBar.shadowImage = UIImage()
                     navigationController?.pushViewController(wishlistViewController, animated: true)
                 case 2:
-                    let alertController = UIAlertController(title: "Budget", message: "Please input your budget", preferredStyle: .alert)
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+                    let alertController = UIAlertController(title: NSLocalizedString("Budget", comment: "Budget"), message: NSLocalizedString("Please input your budget", comment: "Please input your budget"), preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .cancel, handler: nil)
+                    let confirmAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: "Confirm"), style: .default, handler: { (action) in
                         if let budget = alertController.textFields?.last?.text {
                             if budget != "" {
                                 user.settings.budget = budget
@@ -353,12 +353,12 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
             case 0:
                 let settingsViewController = SettingsViewController(style: .grouped)
                 settingsViewController.hidesBottomBarWhenPushed = true
-                settingsViewController.navigationItem.title = "Settings"
+                settingsViewController.navigationItem.title = NSLocalizedString("Settings", comment: "Settings")
                 navigationController?.pushViewController(settingsViewController, animated: true)
             case 1:
                 let aboutViewController = WebViewController()
                 aboutViewController.hidesBottomBarWhenPushed = true
-                aboutViewController.navigationItem.title = "About"
+                aboutViewController.navigationItem.title = NSLocalizedString("About", comment: "About")
                 aboutViewController.urlString = "https://github.com/archie-yu/Lens"
                 navigationController?.pushViewController(aboutViewController, animated: true)
             default:

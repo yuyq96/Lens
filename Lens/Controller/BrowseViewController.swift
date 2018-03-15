@@ -16,9 +16,10 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
     var header: MJRefreshNormalHeader!
     var footer: MJRefreshBackStateFooter?
+    var shadowConstraint: NSLayoutConstraint?
     
     var tab: Context.Tab!
-    var category: Context.Category!
+    var category: Context.Category?
     var keyword: String?
     var filters = [Filter]()
     var ids = [String]()
@@ -33,6 +34,13 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
+        if self.tab == .news {
+            // 根据tab设置标题
+            self.navigationItem.title = NSLocalizedString("Explore", comment: "Explore")
+            // 设置NavigationBar阴影
+            self.navigationController?.navigationBar.shadowImage = nil
+        }
+        
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
         } else {
@@ -46,26 +54,30 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         self.header = MJRefreshNormalHeader(refreshingBlock: {
             self.refresh()
         })
-        self.header.lastUpdatedTimeKey = "\(self.tab!.rawValue)_\(self.category!.rawValue)"
-        self.header.setTitle("PULL DOWN TO REFRESH", for: .idle)
-        self.header.setTitle("RELEASE TO REFRESH", for: .pulling)
-        self.header.setTitle("LOADING", for: .refreshing)
-        self.header.lastUpdatedTimeLabel.text = self.lastUpdatedTimeText(date: self.header.lastUpdatedTime)
-        self.header.lastUpdatedTimeText = { date in
-            return self.lastUpdatedTimeText(date: date)
+        self.header.lastUpdatedTimeKey = "\(self.tab!.rawValue)_\(self.category?.rawValue ?? "all")"
+        if getCurrentLanguage() == "en" {
+            self.header.setTitle("PULL DOWN TO REFRESH", for: .idle)
+            self.header.setTitle("RELEASE TO REFRESH", for: .pulling)
+            self.header.setTitle("LOADING", for: .refreshing)
+            self.header.lastUpdatedTimeLabel.text = self.lastUpdatedTimeText(date: self.header.lastUpdatedTime)
+            self.header.lastUpdatedTimeText = { date in
+                return self.lastUpdatedTimeText(date: date)
+            }
+            self.header.stateLabel.font = UIFont.systemFont(ofSize: 15)
+            self.header.lastUpdatedTimeLabel.font = UIFont.systemFont(ofSize: 14)
         }
-        self.header.stateLabel.font = UIFont.systemFont(ofSize: 15)
-        self.header.lastUpdatedTimeLabel.font = UIFont.systemFont(ofSize: 14)
         self.tableView.mj_header = self.header
         if self.tab! == .equipment || self.tab! == .news {
             self.footer = MJRefreshBackStateFooter(refreshingBlock: {
                 self.loadMore()
             })
-            self.footer?.setTitle("PULL UP TO LOAD MORE", for: .idle)
-            self.footer?.setTitle("RELEASE TO LOAD MORE", for: .pulling)
-            self.footer?.setTitle("LOADING", for: .refreshing)
-            self.footer?.setTitle("NO MORE DATA", for: .noMoreData)
-            self.footer?.stateLabel.font = UIFont.systemFont(ofSize: 14)
+            if getCurrentLanguage() == "en" {
+                self.footer?.setTitle("PULL UP TO LOAD MORE", for: .idle)
+                self.footer?.setTitle("RELEASE TO LOAD MORE", for: .pulling)
+                self.footer?.setTitle("LOADING", for: .refreshing)
+                self.footer?.setTitle("NO MORE DATA", for: .noMoreData)
+                self.footer?.stateLabel.font = UIFont.systemFont(ofSize: 14)
+            }
             self.tableView.mj_footer = self.footer
         }
         
@@ -75,45 +87,47 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         self.tableView.register(UINib(nibName: "NewsImageCell", bundle: nil), forCellReuseIdentifier: "NewsImageCell")
         
         // 设置可选过滤方式
-        switch self.category! {
-        case .lenses:
-            filters.append(Filter(name: "Brand", include: ["Canon", "Carl Zeiss", "Fujifilm", "Kenko Tokina", "Konica Minolta", "Leica", "Lensbaby", "Lomography", "Mitakon", "Nikon", "Noktor", "Olympus", "Panasonic", "Pentax", "Ricoh", "Samyang", "Schneider Kreuznach", "Sigma", "Sony", "Tamron", "Tokina", "Voigtlander", "YI"]))
-            filters.append(Filter(name: "Mount Type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
-            filters.append(Filter(name: "Zoom Type", include: ["Zoom", "Prime"], jsonHandlers: [
-                {
+        if self.tab == .equipment {
+            switch self.category! {
+            case .lenses:
+                filters.append(Filter(name: NSLocalizedString("Brand", comment: "Brand"), attribName: "brand", include: ["Canon", "Carl Zeiss", "Fujifilm", "Kenko Tokina", "Konica Minolta", "Leica", "Lensbaby", "Lomography", "Mitakon", "Nikon", "Noktor", "Olympus", "Panasonic", "Pentax", "Ricoh", "Samyang", "Schneider Kreuznach", "Sigma", "Sony", "Tamron", "Tokina", "Voigtlander", "YI"]))
+                filters.append(Filter(name: NSLocalizedString("Mount Type", comment: "Mount Type"), attribName: "mount_type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
+                filters.append(Filter(name: NSLocalizedString("Zoom Type", comment: "Zoom Type"), attribName: "zoom_type", include: ["Zoom", "Prime"], jsonHandlers: [
+                    {
+                        return ["script": ["script": [
+                            "source": "doc['focal_range_min'].value != doc['focal_range_max'].value",
+                            "lang": "painless"
+                            ]]]
+                    },
+                    {
+                        return ["script": ["script": [
+                            "source": "doc['focal_range_min'].value == doc['focal_range_max'].value",
+                            "lang": "painless"
+                            ]]]
+                    }
+                    ]))
+                filters.append(Filter(name: NSLocalizedString("Lens Size", comment: "Lens Size"), attribName: "lens_size", include: ["Super Wide-angle", "Wide-angle", "Standard", "Telephoto", "Super Telephoto"], jsonHandlers: [
+                    {return ["range": ["focal_range_min": ["lte": 20]]]},
+                    {return ["range": ["focal_range_min": ["lte": 35]]]},
+                    {return ["range": ["focal_range_min": ["lte": 85], "focal_range_max": ["gte": 35]]]},
+                    {return ["range": ["focal_range_max": ["gte": 85]]]},
+                    {return ["range": ["focal_range_max": ["gte": 180]]]}
+                    ]))
+                filters.append(Filter(name: NSLocalizedString("Focal Range", comment: "Focal Range"), attribName: "focal_range", min: 1, max: 1500))
+                filters.append(Filter(name: NSLocalizedString("Aperture", comment: "Aperture"), attribName: "aperture", min: 0.95, max: 45))
+            case .cameras:
+                filters.append(Filter(name: NSLocalizedString("Brand", comment: "Brand"), attribName: "brand", include: ["Canon", "Casio", "DJI", "DxO", "GoPro", "Hasselblad", "Konica Minolta", "Fujifilm", "Leaf", "Leica", "Mamiya", "Nikon", "Nokia", "Olympus", "Panasonic", "Pentax", "Phase One", "Ricoh", "Samsung", "Sigma", "Sony", "YI", "YUNEEC"]))
+                filters.append(Filter(name: NSLocalizedString("Mount Type", comment: "Mount Type"), attribName: "mount_type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
+                filters.append(Filter(name: NSLocalizedString("Sensor Format", comment: "Sensor Format"), attribName: "sensor_format", include: ["Full Frame", "Medium Format", "APS-H", "APS-C", "4/3\"", "1\"", "2/3\"", "1/1.7\"", "1/2.3\""]))
+                filters.append(Filter(name: NSLocalizedString("Resolution(M)", comment: "Resolution(M)"), attribName: "resolution", min: 1.0, max: 100.0, jsonHandler: { (min, max) in
                     return ["script": ["script": [
-                        "source": "doc['focal_range_min'].value != doc['focal_range_max'].value",
-                        "lang": "painless"
+                        ["source": "doc['resolution.width'].value * doc['resolution.height'].value / 1000000 > \(min)", "lang": "painless"],
+                        ["source": "doc['resolution.width'].value * doc['resolution.height'].value / 1000000 < \(max)", "lang": "painless"]
                         ]]]
-                },
-                {
-                    return ["script": ["script": [
-                        "source": "doc['focal_range_min'].value == doc['focal_range_max'].value",
-                        "lang": "painless"
-                        ]]]
-                }
-                ]))
-            filters.append(Filter(name: "Lens Size", include: ["Super Wide-angle", "Wide-angle", "Standard", "Telephoto", "Super Telephoto"], jsonHandlers: [
-                {return ["range": ["focal_range_min": ["lte": 20]]]},
-                {return ["range": ["focal_range_min": ["lte": 35]]]},
-                {return ["range": ["focal_range_min": ["lte": 85], "focal_range_max": ["gte": 35]]]},
-                {return ["range": ["focal_range_max": ["gte": 85]]]},
-                {return ["range": ["focal_range_max": ["gte": 180]]]}
-                ]))
-            filters.append(Filter(name: "Focal Range", min: 1, max: 1500))
-            filters.append(Filter(name: "Aperture", min: 0.95, max: 45))
-        case .cameras:
-            filters.append(Filter(name: "Brand", include: ["Canon", "Casio", "DJI", "DxO", "GoPro", "Hasselblad", "Konica Minolta", "Fujifilm", "Leaf", "Leica", "Mamiya", "Nikon", "Nokia", "Olympus", "Panasonic", "Pentax", "Phase One", "Ricoh", "Samsung", "Sigma", "Sony", "YI", "YUNEEC"]))
-            filters.append(Filter(name: "Mount Type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
-            filters.append(Filter(name: "Sensor Format", include: ["Full Frame", "Medium Format", "APS-H", "APS-C", "4/3\"", "1\"", "2/3\"", "1/1.7\"", "1/2.3\""]))
-            filters.append(Filter(name: "Resolution(M)", min: 1.0, max: 100.0, jsonHandler: { (min, max) in
-                return ["script": ["script": [
-                    ["source": "doc['resolution.width'].value * doc['resolution.height'].value / 1000000 > \(min)", "lang": "painless"],
-                    ["source": "doc['resolution.width'].value * doc['resolution.height'].value / 1000000 < \(max)", "lang": "painless"]
-                    ]]]
-            }))
-        default:
-            break
+                }))
+            default:
+                break
+            }
         }
         
         // 开始加载
@@ -149,7 +163,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         // 设置选项卡标题
-        return IndicatorInfo(title: self.category.rawValue)
+        return IndicatorInfo(title: NSLocalizedString(self.category!.rawValue, comment: "second title"))
     }
     
     func refresh() {
@@ -164,7 +178,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         switch self.tab! {
         case .equipment:
             var parameters: Parameters = [
-                "category": self.category.rawValue.lowercased(),
+                "category": self.category!.rawValue.lowercased(),
                 "keyword": keyword ?? "",
                 "from": from
             ]
@@ -247,7 +261,6 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             }
         case .news:
             let parameters: Parameters = [
-                "category": self.category.rawValue.lowercased(),
                 "from": from
             ]
             Alamofire.request(Server.newsUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
@@ -333,10 +346,10 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 for tag in product.tags {
                     cell.add(tag: tag)
                 }
-                if user.libraries[self.category].contains(product.pid) {
-                    cell.add(tag: "Library", tint: true)
-                } else if user.wishlist[self.category].contains(product.pid) {
-                    cell.add(tag: "Wishlist", tint: true)
+                if user.libraries[self.category!].contains(product.pid) {
+                    cell.add(tag: NSLocalizedString("In Library", comment: "In Library"), tint: true)
+                } else if user.wishlist[self.category!].contains(product.pid) {
+                    cell.add(tag: NSLocalizedString("In Wishlist", comment: "In Wishlist"), tint: true)
                 }
                 cell.show(score: product.dxoScore)
             } else {
@@ -350,7 +363,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                     }
                 }) {
                     // 缓存加载失败，从服务器获取并缓存
-                    let parameters: Parameters = ["category": self.category.rawValue.lowercased(), "pid": id]
+                    let parameters: Parameters = ["category": self.category!.rawValue.lowercased(), "pid": id]
                     Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                         if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                             if status == "success", let source = json["source"] as? [String : Any] {
@@ -436,9 +449,9 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             self.data.remove(at: indexPath.row)
             switch self.tab! {
             case .library:
-                user.libraries[self.category].remove(at: indexPath.row)
+                user.libraries[self.category!].remove(at: indexPath.row)
             case .wishlist:
-                user.wishlist[self.category].remove(at: indexPath.row)
+                user.wishlist[self.category!].remove(at: indexPath.row)
             default: break
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -448,7 +461,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        let list = user[self.tab]![self.category]
+        let list = user[self.tab]![self.category!]
         let fromRow = fromIndexPath.row
         let toRow = to.row
         let tempId = self.ids[fromRow]

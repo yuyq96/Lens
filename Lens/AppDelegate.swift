@@ -23,12 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         productRootViewContoller.tab = .equipment
         let productViewController = NavigationController(rootViewController: productRootViewContoller)
         
-        let newsRootViewContoller = BrowsePagerTabStripViewController()
+        let newsRootViewContoller = BrowseViewController(style: .grouped)
         newsRootViewContoller.tab = .news
         let newsViewController = NavigationController(rootViewController: newsRootViewContoller)
         
         let personalRootViewController = PersonalViewController(style: .grouped)
-        personalRootViewController.navigationItem.title = Context.Tab.personal.rawValue
+        personalRootViewController.navigationItem.title = NSLocalizedString("Personal", comment: "Personal")
         let personalViewController = NavigationController(rootViewController: personalRootViewController)
         
         let tabBarController = UITabBarController()

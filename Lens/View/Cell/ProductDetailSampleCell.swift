@@ -22,7 +22,7 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
         self.clipsToBounds = true
         
         // 设置标题
-        self.sampleLabel.text = "Sample"
+        self.sampleLabel.text = NSLocalizedString("Sample", comment: "Sample")
         self.sampleLabel.font = .systemFont(ofSize: 17)
         
         // 设置样片列表

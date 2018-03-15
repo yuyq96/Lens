@@ -31,11 +31,15 @@ class Detail: NSObject, NSCoding {
                 NSAttributedStringKey.paragraphStyle: paraph
             ]
             var text: String?
+            var colon = ": "
+            if getCurrentLanguage() == "cn" {
+                colon = "："
+            }
             for spec in self.specs {
                 if text == nil {
-                    text = spec.key + ":\t" + spec.value
+                    text = spec.key + colon + spec.value
                 } else {
-                    text! += "\n" + spec.key + ": " + spec.value
+                    text! += "\n" + spec.key + colon + spec.value
                 }
             }
             if text != nil {
@@ -45,9 +49,9 @@ class Detail: NSObject, NSCoding {
                 for spec in self.specs {
                     if pos == -1 {
                         pos = 0
-                        len = spec.key.count + 2
+                        len = spec.key.count + colon.count
                     } else {
-                        len = spec.key.count + 3
+                        len = spec.key.count + colon.count + 1
                     }
                     info.addAttributes(attribAttributes, range: NSMakeRange(pos, len))
                     pos += len

@@ -36,7 +36,7 @@ class FilterOptionsViewController: UITableViewController {
         self.tableView.estimatedSectionFooterHeight = 0
         self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         
-        self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Finish", style: .plain, target: self, action: #selector(finished)), animated: false)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(title:  NSLocalizedString("Finish", comment: "Finish"), style: .plain, target: self, action: #selector(finished)), animated: false)
         
         self.tableView.register(CheckmarkCell.self, forCellReuseIdentifier: "CheckmarkCell")
     }
@@ -71,7 +71,7 @@ class FilterOptionsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CheckmarkCell", for: indexPath) as! CheckmarkCell
         if indexPath.row == 0 {
-            cell.textLabel?.text = "All"
+            cell.textLabel?.text = NSLocalizedString("All", comment: "All")
             if filter.allSelected {
                 cell.setCheck(true)
             }

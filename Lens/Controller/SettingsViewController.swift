@@ -63,7 +63,7 @@ class SettingsViewController: UITableViewController {
         cell.mSwitch.onTintColor = Color.tint
         cell.mSwitch.setOn(user.settings.showBudget, animated: false)
         cell.mSwitch.addTarget(self, action: #selector(budgetSwitchChanged), for: UIControlEvents.valueChanged)
-        cell.label.text = "Show exact budget"
+        cell.label.text = NSLocalizedString("Show exact budget", comment: "Show exact budget")
         return cell
     }
     

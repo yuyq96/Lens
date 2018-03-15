@@ -73,9 +73,9 @@ class ProductDetailViewController: UITableViewController {
     
     func boolText(_ bool: Bool) -> String {
         if bool {
-            return "Yes"
+            return NSLocalizedString("Yes", comment: "Yes")
         } else {
-            return "No"
+            return NSLocalizedString("No", comment: "No")
         }
     }
     
@@ -85,6 +85,12 @@ class ProductDetailViewController: UITableViewController {
             if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                 if status == "success", let source = json["source"] as? [String : Any] {
                     var specs: [KV]!
+                    let dformatter = DateFormatter()
+                    if getCurrentLanguage() == "cn" {
+                        dformatter.dateFormat = "yyyy年MM月"
+                    } else {
+                        dformatter.dateFormat = "MMM. yyyy"
+                    }
                     switch self.category! {
                     case .lenses:
                         let aperture_min = source["aperture_min"] as! Float
@@ -109,29 +115,27 @@ class ProductDetailViewController: UITableViewController {
                         }
                         let timeInterval = TimeInterval(source["launch_date"] as! Int)
                         let date = Date(timeIntervalSince1970: timeInterval)
-                        let dformatter = DateFormatter()
-                        dformatter.dateFormat = "MMM. yyyy"
                         specs = [
-                            KV("Brand", source["brand"] as! String),
-                            KV("Launch Date", dformatter.string(from: date)),
-                            KV("Mount Type", source["mount_type"] as! String),
-                            KV("Zoom Type", zoom_type),
-                            KV("Aperture", "f/ " + aperture),
-                            KV("Focal range (mm)", focal_range),
-                            KV("Filter diameter (mm)", "\(source["filter_diameter"] as! Float)"),
-                            KV("Max diameter (mm)", "\(source["max_diameter"] as! Float)"),
-                            KV("Stabilization", self.boolText(source["stabilization"] as! Bool)),
-                            KV("AF Motor", source["af_motor"] as! String),
-                            KV("Rotating front element", self.boolText(source["rotating_front_element"] as! Bool)),
-                            KV("Tripod mount", self.boolText(source["tripod_mount"] as! Bool)),
-                            KV("Full-Time manual focus", self.boolText(source["full-time_manual_focus"] as! Bool)),
-                            KV("Number of lenses", "\(source["number_of_lenses"] as! Int)"),
-                            KV("Number of groups", "\(source["number_of_groups"] as! Int)"),
-                            KV("Diaphragm blades", "\(source["diaphragm_blades"] as! Int)"),
-                            KV("Circular aperture", self.boolText(source["circular_aperture"] as! Bool)),
-                            KV("Length (mm)", "\(source["length"] as! Float)"),
-                            KV("Weight (gr)", "\(source["weight"] as! Float)"),
-                            KV("Color", source["color"] as! String)
+                            KV(NSLocalizedString("Brand", comment: "Brand"), source["brand"] as! String),
+                            KV(NSLocalizedString("Launch Date", comment: "Launch Date"), dformatter.string(from: date)),
+                            KV(NSLocalizedString("Mount Type", comment: "Mount Type"), source["mount_type"] as! String),
+                            KV(NSLocalizedString("Zoom Type", comment: "Zoom Type"), zoom_type),
+                            KV(NSLocalizedString("Aperture", comment: "Aperture"), "f/ " + aperture),
+                            KV(NSLocalizedString("Focal range(mm)", comment: "Focal range (mm)"), focal_range),
+                            KV(NSLocalizedString("Filter diameter(mm)", comment: "Filter diameter (mm)"), "\(source["filter_diameter"] as! Float)"),
+                            KV(NSLocalizedString("Max diameter(mm)", comment: "Max diameter (mm)"), "\(source["max_diameter"] as! Float)"),
+                            KV(NSLocalizedString("Stabilization", comment: "Stabilization"), self.boolText(source["stabilization"] as! Bool)),
+                            KV(NSLocalizedString("AF Motor", comment: "AF Motor"), source["af_motor"] as! String),
+                            KV(NSLocalizedString("Rotating front element", comment: "Rotating front element"), self.boolText(source["rotating_front_element"] as! Bool)),
+                            KV(NSLocalizedString("Tripod mount", comment: "Tripod mount"), self.boolText(source["tripod_mount"] as! Bool)),
+                            KV(NSLocalizedString("Full-Time manual focus", comment: "Full-Time manual focus"), self.boolText(source["full-time_manual_focus"] as! Bool)),
+                            KV(NSLocalizedString("Number of lenses", comment: "Number of lenses"), "\(source["number_of_lenses"] as! Int)"),
+                            KV(NSLocalizedString("Number of groups", comment: "Number of groups"), "\(source["number_of_groups"] as! Int)"),
+                            KV(NSLocalizedString("Diaphragm blades", comment: "Diaphragm blades"), "\(source["diaphragm_blades"] as! Int)"),
+                            KV(NSLocalizedString("Circular aperture", comment: "Circular aperture"), self.boolText(source["circular_aperture"] as! Bool)),
+                            KV(NSLocalizedString("Length(mm)", comment: "Length(mm)"), "\(source["length"] as! Float)"),
+                            KV(NSLocalizedString("Weight(gr)", comment: "Weight(gr)"), "\(source["weight"] as! Float)"),
+                            KV(NSLocalizedString("Color", comment: "Color"), source["color"] as! String)
                         ]
                     case .cameras:
                         let resolution = source["resolution"] as! [String : Any]
@@ -139,17 +143,15 @@ class ProductDetailViewController: UITableViewController {
                         let iso_latitude = source["iso_latitude"] as! [String : Any]
                         let timeInterval = TimeInterval(source["launch_date"] as! Int)
                         let date = Date(timeIntervalSince1970: timeInterval)
-                        let dformatter = DateFormatter()
-                        dformatter.dateFormat = "MMM. yyyy"
                         specs = [
-                            KV("Brand", source["brand"] as! String),
-                            KV("Launch Date", dformatter.string(from: date)),
-                            KV("Mount Type", source["mount_type"] as! String),
-                            KV("Resolution", "\(resolution["width"] as! Int) x \(resolution["height"] as! Int)"),
-                            KV("Sensor Type", source["sensor_type"] as! String),
-                            KV("Sensor Size", "\(sensor_size["width"] as! Float) x \(sensor_size["height"] as! Float)"),
-                            KV("ISO latitude", "\(iso_latitude["min"] as! Int) - \(iso_latitude["max"] as! Int)"),
-                            KV("Bits per pixel", "\(source["bits_per_pixel"] as! Float)")
+                            KV(NSLocalizedString("Brand", comment: "Brand"), source["brand"] as! String),
+                            KV(NSLocalizedString("Launch Date", comment: "Launch Date"), dformatter.string(from: date)),
+                            KV(NSLocalizedString("Mount Type", comment: "Mount Type"), source["mount_type"] as! String),
+                            KV(NSLocalizedString("Resolution", comment: "Resolution"), "\(resolution["width"] as! Int) x \(resolution["height"] as! Int)"),
+                            KV(NSLocalizedString("Sensor Type", comment: "Sensor Type"), source["sensor_type"] as! String),
+                            KV(NSLocalizedString("Sensor Size", comment: "Sensor Size"), "\(sensor_size["width"] as! Float) x \(sensor_size["height"] as! Float)"),
+                            KV(NSLocalizedString("ISO latitude", comment: "ISO latitude"), "\(iso_latitude["min"] as! Int) - \(iso_latitude["max"] as! Int)"),
+                            KV(NSLocalizedString("Bits per pixel", comment: "Bits per pixel"), "\(source["bits_per_pixel"] as! Float)")
                         ]
                     case .accessories:
                         specs = []

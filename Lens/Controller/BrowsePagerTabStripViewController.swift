@@ -17,7 +17,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
     
     override func viewDidLoad() {
         // 根据tab设置标题
-        self.navigationItem.title = self.tab.rawValue
+        self.navigationItem.title = NSLocalizedString(self.tab.rawValue, comment: "title")
         
         // 设置PagerTabStripView风格
         self.settings.style.buttonBarItemBackgroundColor = .white
@@ -51,9 +51,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         case .equipment:
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(setProdutFilter))
         case .library, .wishlist:
-//            // 在库和愿望清单中禁用PagerTab滑动，避免和TableView编辑冲突
-//            self.containerView.isScrollEnabled = false
-            self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(beginEditing)), animated: false)
+            self.navigationItem.setRightBarButton(UIBarButtonItem(title: NSLocalizedString("Edit", comment: "Edit"), style: .plain, target: self, action: #selector(beginEditing)), animated: false)
         default:
             break
         }
@@ -61,12 +59,12 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
     
     @objc func beginEditing(_ sender: UIButton) {
         self.subViewControllers[self.currentIndex].tableView.isEditing = true
-        self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Finish", style: .plain, target: self, action: #selector(endEditing)), animated: true)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(title: NSLocalizedString("Finish", comment: "Finish"), style: .plain, target: self, action: #selector(endEditing)), animated: true)
     }
     
     @objc func endEditing(_ sender: UIButton) {
         self.subViewControllers[self.currentIndex].tableView.isEditing = false
-        self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(beginEditing)), animated: true)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(title: NSLocalizedString("Edit", comment: "Edit"), style: .plain, target: self, action: #selector(beginEditing)), animated: true)
     }
 
     override public func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
@@ -99,7 +97,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
             filterViewController.filters.append(filter.copy)
         }
         filterViewController.hidesBottomBarWhenPushed = true
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         self.navigationController?.pushViewController(filterViewController, animated: true)
     }
     

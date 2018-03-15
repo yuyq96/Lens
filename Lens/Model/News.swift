@@ -18,7 +18,11 @@ class News {
             let timeInterval = TimeInterval(timestamp)
             let date = Date(timeIntervalSince1970: timeInterval!)
             let dformatter = DateFormatter()
-            dformatter.dateFormat = "MMM.dd yyyy"
+            if getCurrentLanguage() == "cn" {
+                dformatter.dateFormat = "yyyy年MM月dd日"
+            } else {
+                dformatter.dateFormat = "MMM.dd yyyy"
+            }
             return "\(source!)    \(dformatter.string(from: date))"
         }
     }

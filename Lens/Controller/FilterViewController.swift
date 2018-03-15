@@ -47,7 +47,7 @@ class FilterViewController: UITableViewController {
         self.tableView.estimatedSectionFooterHeight = 0
         self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         
-        self.navigationItem.setRightBarButton(UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(clear)), animated: false)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(title: NSLocalizedString("Clear", comment: "Clear"), style: .plain, target: self, action: #selector(clear)), animated: false)
         
         self.tableView.register(SearchCell.self, forCellReuseIdentifier: "SearchCell")
         self.tableView.register(FilterCell.self, forCellReuseIdentifier: "FilterCell")
@@ -120,8 +120,8 @@ class FilterViewController: UITableViewController {
     
     private func beginSettingFilter(filter: Filter, message: String? = nil, min oldMin: Any? = nil, max oldMax: Any? = nil, completionHandler: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: filter.name, message: message, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action) in
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: NSLocalizedString("Confirm", comment: "Confirm"), style: .default, handler: { (action) in
             if filter.type == .int {
                 if let min = Int(alertController.textFields![0].text!), let max = Int(alertController.textFields![1].text!) {
                     let defaultMin = filter.defaultMin as! Int
@@ -218,9 +218,9 @@ class FilterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "search"
+            return NSLocalizedString("Search", comment: "Search")
         case 1:
-            return "filters"
+            return NSLocalizedString("Filters", comment: "Filters")
         default:
             return nil
         }
@@ -233,7 +233,7 @@ class FilterViewController: UITableViewController {
             confirmButton.backgroundColor = Color.tint
             confirmButton.layer.cornerRadius = 6
             confirmButton.layer.masksToBounds = true
-            confirmButton.setTitle("Confirm", for: .normal)
+            confirmButton.setTitle(NSLocalizedString("Confirm", comment: "Confirm"), for: .normal)
             confirmButton.setTitleColor(.white, for: .normal)
             confirmButton.addTarget(self, action: #selector(confirm), for: .touchUpInside)
             footerView.addSubview(confirmButton)

@@ -1,0 +1,106 @@
+/* 
+  Localizable.strings
+  Lens
+
+  Created by Archie Yu on 2018/3/16.
+  Copyright © 2018年 Archie Yu. All rights reserved.
+*/
+
+"Back" = "Back";
+"Edit" = "Edit";
+"Finish" = "Finish";
+"Cancel" = "Cancel";
+"Confirm" = "Confirm";
+"Clear" = "Clear";
+"Yes" = "Yes";
+"No" = "No";
+
+"Equipment" = "Equipment";
+"Lenses" = "Lenses";
+"Cameras" = "Cameras";
+"Accessories" = "Accessories";
+"Search" = "Search";
+"Filters" = "Filters";
+"All" = "All";
+"Brand" = "Brand";
+"Mount Type" = "Mount Type";
+"Zoom Type" = "Zoom Type";
+"Zoom" = "Zoom";
+"Prime" = "Prime";
+"Lens Size" = "Lens Size";
+"Super Wide-angle" = "Super Wide-angle";
+"Wide-angle" = "Wide-angle";
+"Standard" = "Standard";
+"Telephoto" = "Telephoto";
+"Super Telephoto" = "Super Telephoto";
+"Focal Range" = "Focal Range";
+"Aperture" = "Aperture";
+"Launch Date" = "Launch Date";
+"Focal range(mm)" = "Focal range(mm)";
+"Filter diameter(mm)" = "Filter diameter(mm)";
+"Max diameter(mm)" = "Max diameter(mm)";
+"Stabilization" = "Stabilization";
+"AF Motor" = "AF Motor";
+"Rotating front element" = "Rotating front element";
+"Tripod mount" = "Tripod mount";
+"Full-Time manual focus" = "Full-Time manual focus";
+"Number of lenses" = "Number of lenses";
+"Number of groups" = "Number of groups";
+"Diaphragm blades" = "Diaphragm blades";
+"Circular aperture" = "Circular aperture";
+"Length(mm)" = "Length(mm)";
+"Weight(gr)" = "Weight(gr)";
+"Color" = "Color";
+"Black" = "Black";
+"White" = "White";
+"Gray" = "Gray";
+"Silver" = "Silver";
+"Red" = "Red";
+"Yellow" = "Yellow";
+"Blue" = "Blue";
+"Show More" = "Show More";
+"Hide" = "Hide";
+"Sample" = "Sample";
+"Sensor Type" = "Sensor Type";
+"Sensor Size" = "Sensor Size";
+"Sensor Format" = "Sensor Format";
+"Resolution" = "Resolution";
+"Resolution(M)" = "Resolution(M)";
+"ISO latitude" = "ISO latitude";
+"Bits per pixel" = "Bits per pixel";
+
+"Explore" = "Explore";
+"News" = "News";
+"Reviews" = "Reviews";
+"Articles" = "Articles";
+
+"Personal" = "Personal";
+"Library" = "Library";
+"Wishlist" = "Wishlist";
+"In Library" = "Library";
+"In Wishlist" = "Wishlist";
+"Budget" = "Budget";
+"Settings" = "Settings";
+"Show exact budget" = "Show exact budget";
+"About" = "About";
+"Change Nickname" = "Change Nickname";
+"Change Userhead" = "Change Userhead";
+"Change Password" = "Change Password";
+"Login" = "Login";
+"Logout" = "Logout";
+
+"Please input your budget" = "Please input your budget";
+"Select from photo library" = "Select from photo library";
+"Camera" = "Camera";
+"username" = "username";
+"password" = "password";
+"password again" = "password again";
+"new nickname" = "new nickname";
+"old password" = "old password";
+"new password" = "new password";
+"new password again" = "new password again";
+"Please login before you using these functions" = "Please login before you using these functions";
+"Passwords do not match" = "Passwords do not match";
+"Username already exists" = "Username already exists";
+"Wrong username or password" = "Wrong username or password";
+"Please input your username and password" = "Please input your username and password";

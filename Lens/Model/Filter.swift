@@ -17,6 +17,7 @@ class Filter {
     }
     
     var name = ""
+    var attribName = ""
     var type = FilterType.option
     var options: [String]!
     var jsonHandlers: [() -> Any]?
@@ -104,17 +105,16 @@ class Filter {
                         }
                     }
                     return [
-                        ["terms": [self.name.lowercased().replacingOccurrences(of: " ", with: "_"): selectedOptions]]
+                        ["terms": [self.attribName: selectedOptions]]
                     ]
                 }
             case .int, .float:
                 if self.jsonHandler != nil {
                     return [self.jsonHandler!(self.min, self.max)]
                 }
-                let attrName = self.name.lowercased().replacingOccurrences(of: " ", with: "_")
                 return [
-                    ["range": [attrName + "_max": ["lte": self.max]]],
-                    ["range": [attrName + "_min": ["gte": self.min]]]
+                    ["range": [self.attribName + "_max": ["lte": self.max]]],
+                    ["range": [self.attribName + "_min": ["gte": self.min]]]
                 ]
             }
         }
@@ -123,31 +123,33 @@ class Filter {
         get {
             switch self.type {
             case .option:
-                let copy = FilterCopy(root: self, name: name, include: options)
+                let copy = FilterCopy(root: self, name: name, attribName: attribName, include: options)
                 copy.selections = self.selections
                 return copy
             case .int:
-                return FilterCopy(root: self, name: name, min: defaultMin as! Int, max: defaultMax as! Int, from: min as! Int, to: max as! Int)
+                return FilterCopy(root: self, name: name, attribName: attribName, min: defaultMin as! Int, max: defaultMax as! Int, from: min as! Int, to: max as! Int)
             case .float:
-                return FilterCopy(root: self, name: name, min: defaultMin as! Float, max: defaultMax as! Float, from: min as! Float, to: max as! Float)
+                return FilterCopy(root: self, name: name, attribName: attribName, min: defaultMin as! Float, max: defaultMax as! Float, from: min as! Float, to: max as! Float)
             }
         }
     }
     
-    init(name: String, include options: [String]) {
+    init(name: String, attribName: String, include options: [String]) {
         self.name = name
+        self.attribName = attribName
         self.type = .option
         self.options = options
         self.selectAll()
     }
     
-    convenience init(name: String, include options: [String], jsonHandlers: [() -> Any]) {
-        self.init(name: name, include: options)
+    convenience init(name: String, attribName: String, include options: [String], jsonHandlers: [() -> Any]) {
+        self.init(name: name, attribName: attribName, include: options)
         self.jsonHandlers = jsonHandlers
     }
     
-    init(name: String, min defaultMin: Int, max defaultMax: Int) {
+    init(name: String, attribName: String, min defaultMin: Int, max defaultMax: Int) {
         self.name = name
+        self.attribName = attribName
         self.type = .int
         self.defaultMin = defaultMin
         self.defaultMax = defaultMax
@@ -155,13 +157,14 @@ class Filter {
         self.max = defaultMax
     }
     
-    convenience init(name: String, min defaultMin: Int, max defaultMax: Int, jsonHandler: @escaping (Any, Any) -> Any) {
-        self.init(name: name, min: defaultMin, max: defaultMax)
+    convenience init(name: String, attribName: String, min defaultMin: Int, max defaultMax: Int, jsonHandler: @escaping (Any, Any) -> Any) {
+        self.init(name: name, attribName: attribName, min: defaultMin, max: defaultMax)
         self.jsonHandler = jsonHandler
     }
     
-    init(name: String, min defaultMin: Float, max defaultMax: Float) {
+    init(name: String, attribName: String, min defaultMin: Float, max defaultMax: Float) {
         self.name = name
+        self.attribName = attribName
         self.type = .float
         self.defaultMin = defaultMin
         self.defaultMax = defaultMax
@@ -169,13 +172,14 @@ class Filter {
         self.max = defaultMax
     }
     
-    convenience init(name: String, min defaultMin: Float, max defaultMax: Float, jsonHandler: @escaping (Any, Any) -> Any) {
-        self.init(name: name, min: defaultMin, max: defaultMax)
+    convenience init(name: String, attribName: String, min defaultMin: Float, max defaultMax: Float, jsonHandler: @escaping (Any, Any) -> Any) {
+        self.init(name: name, attribName: attribName, min: defaultMin, max: defaultMax)
         self.jsonHandler = jsonHandler
     }
     
-    init(name: String, min defaultMin: Int, max defaultMax: Int, from min: Int, to max: Int) {
+    init(name: String, attribName: String, min defaultMin: Int, max defaultMax: Int, from min: Int, to max: Int) {
         self.name = name
+        self.attribName = attribName
         self.type = .int
         self.defaultMin = defaultMin
         self.defaultMax = defaultMax
@@ -183,8 +187,9 @@ class Filter {
         self.max = max
     }
     
-    init(name: String, min defaultMin: Float, max defaultMax: Float, from min: Float, to max: Float) {
+    init(name: String, attribName: String, min defaultMin: Float, max defaultMax: Float, from min: Float, to max: Float) {
         self.name = name
+        self.attribName = attribName
         self.type = .float
         self.defaultMin = defaultMin
         self.defaultMax = defaultMax
@@ -212,18 +217,18 @@ class FilterCopy: Filter {
     
     private var root: Filter!
     
-    init(root: Filter, name: String, include options: [String]) {
-        super.init(name: name, include: options)
+    init(root: Filter, name: String, attribName: String, include options: [String]) {
+        super.init(name: name, attribName: attribName, include: options)
         self.root = root
     }
     
-    init(root: Filter, name: String, min: Int, max: Int, from: Int, to: Int) {
-        super.init(name: name, min: min, max: max, from: from, to: to)
+    init(root: Filter, name: String, attribName: String, min: Int, max: Int, from: Int, to: Int) {
+        super.init(name: name, attribName: attribName, min: min, max: max, from: from, to: to)
         self.root = root
     }
     
-    init(root: Filter, name: String, min: Float, max: Float, from: Float, to: Float) {
-        super.init(name: name, min: min, max: max, from: from, to: to)
+    init(root: Filter, name: String, attribName: String, min: Float, max: Float, from: Float, to: Float) {
+        super.init(name: name, attribName: attribName, min: min, max: max, from: from, to: to)
         self.root = root
     }
     

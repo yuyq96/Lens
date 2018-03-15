@@ -1,0 +1,106 @@
+/* 
+  Localizable.strings
+  Lens
+
+  Created by Archie Yu on 2018/3/16.
+  Copyright © 2018年 Archie Yu. All rights reserved.
+*/
+
+"Back" = "返回";
+"Edit" = "编辑";
+"Finish" = "完成";
+"Cancel" = "取消";
+"Confirm" = "确认";
+"Clear" = "清除";
+"Yes" = "是";
+"No" = "否";
+
+"Equipment" = "器材库";
+"Lenses" = "镜头";
+"Cameras" = "相机";
+"Accessories" = "其他";
+"Search" = "搜索";
+"Filters" = "过滤";
+"All" = "全部";
+"Brand" = "品牌";
+"Mount Type" = "卡口";
+"Zoom Type" = "变焦/定焦";
+"Zoom" = "变焦";
+"Prime" = "定焦";
+"Lens Size" = "焦段";
+"Super Wide-angle" = "超广角";
+"Wide-angle" = "广角";
+"Standard" = "标准";
+"Telephoto" = "长焦";
+"Super Telephoto" = "超长焦";
+"Focal Range" = "焦距";
+"Aperture" = "光圈";
+"Launch Date" = "发售日期";
+"Focal range(mm)" = "焦距(毫米)";
+"Filter diameter(mm)" = "滤镜直径(毫米)";
+"Max diameter(mm)" = "最大直径(毫米)";
+"Stabilization" = "防抖";
+"AF Motor" = "自动马达";
+"Rotating front element" = "旋转前景";
+"Tripod mount" = "三脚架接口";
+"Full-Time manual focus" = "全时手动对焦";
+"Number of lenses" = "镜片数量";
+"Number of groups" = "镜组数量";
+"Diaphragm blades" = "光圈叶片";
+"Circular aperture" = "圆形光圈";
+"Length(mm)" = "长度(毫米)";
+"Weight(gr)" = "重量(克)";
+"Color" = "颜色";
+"Black" = "黑色";
+"White" = "白色";
+"Gray" = "灰色";
+"Silver" = "银色";
+"Red" = "红色";
+"Yellow" = "黄色";
+"Blue" = "蓝色";
+"Show More" = "显示更多";
+"Hide" = "隐藏";
+"Sample" = "样片";
+"Sensor Type" = "传感器种类";
+"Sensor Size" = "传感器尺寸";
+"Sensor Format" = "画幅";
+"Resolution" = "分辨率";
+"Resolution(M)" = "分辨率(百万)";
+"ISO latitude" = "感光度(ISO)";
+"Bits per pixel" = "像素位深(Bits)";
+
+"Explore" = "发现";
+"News" = "新闻";
+"Reviews" = "评测";
+"Articles" = "文章";
+
+"Personal" = "个人";
+"Library" = "我的器材";
+"Wishlist" = "愿望单";
+"In Library" = "已购买";
+"In Wishlist" = "已收藏";
+"Budget" = "预算";
+"Settings" = "设置";
+"Show exact budget" = "直接显示预算";
+"About" = "关于";
+"Change Nickname" = "修改昵称";
+"Change Userhead" = "修改头像";
+"Change Password" = "修改密码";
+"Login" = "登录";
+"Logout" = "注销";
+
+"Please input your budget" = "请输入你的预算";
+"Select from photo library" = "从相册选取";
+"Camera" = "拍照";
+"username" = "输入用户名";
+"password" = "输入密码";
+"password again" = "确认密码";
+"new nickname" = "新的昵称";
+"old password" = "输入旧的密码";
+"new password" = "输入新的密码";
+"new password again" = "确认新的密码";
+"Please login before you using these functions" = "使用这些功能前请先登录";
+"Passwords do not match" = "两次密码不匹配";
+"Username already exists" = "用户名已存在";
+"Wrong username or password" = "错误的用户名/密码";
+"Please input your username and password" = "请输入用户名和密码";

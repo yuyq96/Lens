@@ -33,15 +33,16 @@ class WebViewController: UIViewController, WKNavigationDelegate {
             NSLayoutConstraint(item: self.webView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0)
             ])
         
+        if self.navigationController?.navigationBar.shadowImage != nil {
+            Shadow.add(to: self.view)
+        }
+        
         // 设置进度条
         self.progressView = UIProgressView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 2))
         self.progressView.transform = CGAffineTransform(scaleX: 1, y: 2)
         self.progressView.trackTintColor = Color.translucent
         self.progressView.progressTintColor = Color.tint
         self.view.addSubview(self.progressView)
-        
-        // 设置NavigationBar阴影
-        Shadow.add(to: self.view)
         
         // 开始加载
         if let url = URL(string: urlString) {
