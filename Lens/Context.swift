@@ -10,19 +10,23 @@ import Foundation
 
 class Context {
     
-    enum Tab: String {
+    enum Category: String {
         case equipment = "Equipment"
-        case news = "News"
-        case personal = "Personal"
+        case explore = "Explore"
         case wishlist = "Wishlist"
         case library = "Library"
-        case budget = "Budget"
     }
     
-    enum Category: String {
+    enum EquipmentCategory: String {
         case lenses = "Lenses"
         case cameras = "Cameras"
         case accessories = "Accessories"
+    }
+    
+    enum ExploreCategory: String {
+        case articles = "Articles"
+        case reviews = "Reviews"
+        case news = "News"
     }
     
 }

@@ -11,13 +11,13 @@ import XLPagerTabStrip
 
 class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
     
-    var tab: Context.Tab!
+    var category: Context.Category!
     
     var subViewControllers: [BrowseViewController] = []
     
     override func viewDidLoad() {
         // 根据tab设置标题
-        self.navigationItem.title = NSLocalizedString(self.tab.rawValue, comment: "title")
+        self.navigationItem.title = NSLocalizedString(self.category.rawValue, comment: "title")
         
         // 设置PagerTabStripView风格
         self.settings.style.buttonBarItemBackgroundColor = .white
@@ -47,7 +47,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         let constraint = Shadow.add(to: self.buttonBarView.superview!)
         constraint.constant = self.buttonBarView.frame.height
         
-        switch self.tab! {
+        switch self.category! {
         case .equipment:
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(setProdutFilter))
         case .library, .wishlist:
@@ -69,22 +69,42 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
 
     override public func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         // 创建各个选项卡对应的页面
-        let lensViewController = BrowseViewController(style: .grouped)
-        lensViewController.tab = tab
-        lensViewController.category = Context.Category.lenses
-        lensViewController.filters = []
-        self.subViewControllers.append(lensViewController)
-        let cameraViewController = BrowseViewController(style: .grouped)
-        cameraViewController.tab = tab
-        cameraViewController.category = Context.Category.cameras
-        cameraViewController.filters = []
-        self.subViewControllers.append(cameraViewController)
-        let accessoriesViewController = BrowseViewController(style: .grouped)
-        accessoriesViewController.tab = tab
-        accessoriesViewController.category = Context.Category.accessories
-        accessoriesViewController.filters = []
-        self.subViewControllers.append(accessoriesViewController)
-        return self.subViewControllers
+        switch self.category! {
+        case .equipment, .library, .wishlist:
+            let lensViewController = BrowseViewController(style: .grouped)
+            lensViewController.category = category
+            lensViewController.equipmentCategory = Context.EquipmentCategory.lenses
+            lensViewController.filters = []
+            self.subViewControllers.append(lensViewController)
+            let cameraViewController = BrowseViewController(style: .grouped)
+            cameraViewController.category = category
+            cameraViewController.equipmentCategory = Context.EquipmentCategory.cameras
+            cameraViewController.filters = []
+            self.subViewControllers.append(cameraViewController)
+            let accessoriesViewController = BrowseViewController(style: .grouped)
+            accessoriesViewController.category = category
+            accessoriesViewController.equipmentCategory = Context.EquipmentCategory.accessories
+            accessoriesViewController.filters = []
+            self.subViewControllers.append(accessoriesViewController)
+            return self.subViewControllers
+        case .explore:
+            let articlesViewController = BrowseViewController(style: .grouped)
+            articlesViewController.category = category
+            articlesViewController.exploreCategory = Context.ExploreCategory.articles
+            articlesViewController.filters = []
+            self.subViewControllers.append(articlesViewController)
+            let reviewsViewController = BrowseViewController(style: .grouped)
+            reviewsViewController.category = category
+            reviewsViewController.exploreCategory = Context.ExploreCategory.reviews
+            reviewsViewController.filters = []
+            self.subViewControllers.append(reviewsViewController)
+            let newsViewController = BrowseViewController(style: .grouped)
+            newsViewController.category = category
+            newsViewController.exploreCategory = Context.ExploreCategory.news
+            newsViewController.filters = []
+            self.subViewControllers.append(newsViewController)
+            return self.subViewControllers
+        }
     }
     
     @objc func setProdutFilter(sender: UIBarButtonItem) {

@@ -16,8 +16,8 @@ class ProductDetailViewController: UITableViewController {
     var needsRefresh = false
     var shadowConstraint: NSLayoutConstraint!
     
-    var tab: Context.Tab!
     var category: Context.Category!
+    var equipmentCategory: Context.EquipmentCategory!
     var product: Product!
     
     var wishlistButton = [UIBarButtonItem]()
@@ -40,9 +40,9 @@ class ProductDetailViewController: UITableViewController {
         self.wishlistButton.append(UIBarButtonItem(image: UIImage(named: "wish_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(removeFromWishlist)))
         self.librariesButton.append(UIBarButtonItem(image: UIImage(named: "inbox")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToLibraries)))
         self.librariesButton.append(UIBarButtonItem(image: UIImage(named: "inbox_s")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(removeFromLibraries)))
-        if user.libraries[category].contains(product.pid) {
+        if user.libraries[self.equipmentCategory].contains(product.pid) {
             self.navigationItem.setRightBarButtonItems([self.librariesButton[1]], animated: false)
-        } else if user.wishlist[category].contains(product.pid) {
+        } else if user.wishlist[self.equipmentCategory].contains(product.pid) {
             self.navigationItem.setRightBarButtonItems([self.wishlistButton[1], self.librariesButton[0]], animated: false)
         } else {
             self.navigationItem.setRightBarButtonItems([self.wishlistButton[0], self.librariesButton[0]], animated: false)
@@ -66,7 +66,7 @@ class ProductDetailViewController: UITableViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        if (tab! == .library || tab! == .wishlist) && self.needsRefresh {
+        if (self.category! == .library || self.category! == .wishlist) && self.needsRefresh {
             self.browseViewController.refresh()
         }
     }
@@ -80,7 +80,7 @@ class ProductDetailViewController: UITableViewController {
     }
     
     func refresh() {
-        let parameters: Parameters = ["category": self.category.rawValue.lowercased(), "pid": self.product.pid]
+        let parameters: Parameters = ["category": self.equipmentCategory.rawValue.lowercased(), "pid": self.product.pid]
         Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
             if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                 if status == "success", let source = json["source"] as? [String : Any] {
@@ -91,7 +91,7 @@ class ProductDetailViewController: UITableViewController {
                     } else {
                         dformatter.dateFormat = "MMM. yyyy"
                     }
-                    switch self.category! {
+                    switch self.equipmentCategory! {
                     case .lenses:
                         let aperture_min = source["aperture_min"] as! Float
                         let aperture_max = source["aperture_max"] as! Float
@@ -173,26 +173,26 @@ class ProductDetailViewController: UITableViewController {
     
     @objc func addToLibraries(sender: UIBarButtonItem) {
         self.needsRefresh = true
-        user.wishlist[category].remove(product.pid)
-        user.libraries[category].append(product.pid)
+        user.wishlist[self.equipmentCategory].remove(product.pid)
+        user.libraries[self.equipmentCategory].append(product.pid)
         self.navigationItem.setRightBarButtonItems([self.librariesButton[1]], animated: true)
     }
     
     @objc func removeFromLibraries(sender: UIBarButtonItem) {
         self.needsRefresh = true
-        user.libraries[category].remove(product.pid)
+        user.libraries[self.equipmentCategory].remove(product.pid)
         self.navigationItem.setRightBarButtonItems([self.wishlistButton[0], self.librariesButton[0]], animated: true)
     }
     
     @objc func addToWishlist(sender: UIBarButtonItem) {
         self.needsRefresh = true
-        user.wishlist[category].append(product.pid)
+        user.wishlist[self.equipmentCategory].append(product.pid)
         self.navigationItem.setRightBarButtonItems([self.wishlistButton[1], self.librariesButton[0]], animated: true)
     }
     
     @objc func removeFromWishlist(sender: UIBarButtonItem) {
         self.needsRefresh = true
-        user.wishlist[category].remove(product.pid)
+        user.wishlist[self.equipmentCategory].remove(product.pid)
         self.navigationItem.setRightBarButtonItems([self.wishlistButton[0], self.librariesButton[0]], animated: true)
     }
     
@@ -216,7 +216,7 @@ class ProductDetailViewController: UITableViewController {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailImageCell", for: indexPath) as! ProductDetailImageCell
             if let detail = product.detail {
-                cell.showScore(category: self.category, score: product.dxoScore)
+                cell.showScore(equipmentCategory: self.equipmentCategory, score: product.dxoScore)
                 cell.productImage.kf.setImage(with: URL(string: detail.image))
             }
             return cell

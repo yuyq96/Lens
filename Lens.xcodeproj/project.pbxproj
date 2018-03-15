@@ -186,12 +186,10 @@
 		214D1A8F204457F100A523AD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				21019187205092B7000CF1D4 /* KV.swift */,
 				214D1A902044584D00A523AD /* Product.swift */,
 				214D1A922044597000A523AD /* News.swift */,
 				21AABCE320464CF70013BA40 /* User.swift */,
 				216E96EF204D472200BB6CB7 /* Filter.swift */,
-				21050CD4205AF599003A9ED6 /* Local.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -218,9 +216,11 @@
 			isa = PBXGroup;
 			children = (
 				215B0832203FFF3000802011 /* AppDelegate.swift */,
+				21019187205092B7000CF1D4 /* KV.swift */,
 				214D1A8D2044504F00A523AD /* Color.swift */,
 				214D1A982045140000A523AD /* Context.swift */,
 				21A16CAC204A47CA0049FF55 /* Server.swift */,
+				21050CD4205AF599003A9ED6 /* Local.swift */,
 				215B083E203FFF3000802011 /* Info.plist */,
 				21050CD1205ADF78003A9ED6 /* Localizable.strings */,
 				21050CCA205ADED3003A9ED6 /* InfoPlist.strings */,

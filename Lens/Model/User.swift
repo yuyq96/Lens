@@ -150,8 +150,8 @@ class ProductsGroup {
         }
     }
     
-    subscript(category: Context.Category) -> Products {
-        switch category {
+    subscript(equipmentCategory: Context.EquipmentCategory) -> Products {
+        switch equipmentCategory {
         case .lenses:
             return lenses
         case .cameras:
@@ -246,8 +246,8 @@ class User {
         }
     }
     
-    subscript(tab: Context.Tab) -> ProductsGroup? {
-        switch tab {
+    subscript(category: Context.Category) -> ProductsGroup? {
+        switch category {
         case .library:
             return libraries
         case .wishlist:

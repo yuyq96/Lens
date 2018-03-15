@@ -26,9 +26,9 @@ class Server {
             return "\(url)/product"
         }
     }
-    static var newsUrl: String {
+    static var exploreUrl: String {
         get {
-            return "\(url)/news"
+            return "\(url)/explore"
         }
     }
     

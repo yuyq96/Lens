@@ -41,12 +41,12 @@ class ProductDetailImageCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func showScore(category: Context.Category, score: Int) {
+    func showScore(equipmentCategory: Context.EquipmentCategory, score: Int) {
         if score == 0 {
             self.dxomark.isHidden = true
             return
         }
-        switch category {
+        switch equipmentCategory {
         case .lenses:
             self.dxomark.lensLabel.isHidden = false
         case .cameras:

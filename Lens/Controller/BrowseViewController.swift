@@ -18,8 +18,9 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     var footer: MJRefreshBackStateFooter?
     var shadowConstraint: NSLayoutConstraint?
     
-    var tab: Context.Tab!
-    var category: Context.Category?
+    var category: Context.Category!
+    var equipmentCategory: Context.EquipmentCategory?
+    var exploreCategory: Context.ExploreCategory?
     var keyword: String?
     var filters = [Filter]()
     var ids = [String]()
@@ -34,13 +35,6 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        if self.tab == .news {
-            // 根据tab设置标题
-            self.navigationItem.title = NSLocalizedString("Explore", comment: "Explore")
-            // 设置NavigationBar阴影
-            self.navigationController?.navigationBar.shadowImage = nil
-        }
-        
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
         } else {
@@ -54,7 +48,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         self.header = MJRefreshNormalHeader(refreshingBlock: {
             self.refresh()
         })
-        self.header.lastUpdatedTimeKey = "\(self.tab!.rawValue)_\(self.category?.rawValue ?? "all")"
+        self.header.lastUpdatedTimeKey = "\(self.category!.rawValue)_\(self.equipmentCategory?.rawValue ?? "all")"
         if getCurrentLanguage() == "en" {
             self.header.setTitle("PULL DOWN TO REFRESH", for: .idle)
             self.header.setTitle("RELEASE TO REFRESH", for: .pulling)
@@ -67,7 +61,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             self.header.lastUpdatedTimeLabel.font = UIFont.systemFont(ofSize: 14)
         }
         self.tableView.mj_header = self.header
-        if self.tab! == .equipment || self.tab! == .news {
+        if self.category! == .equipment || self.category! == .explore {
             self.footer = MJRefreshBackStateFooter(refreshingBlock: {
                 self.loadMore()
             })
@@ -87,8 +81,8 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         self.tableView.register(UINib(nibName: "NewsImageCell", bundle: nil), forCellReuseIdentifier: "NewsImageCell")
         
         // 设置可选过滤方式
-        if self.tab == .equipment {
-            switch self.category! {
+        if self.category == .equipment {
+            switch self.equipmentCategory! {
             case .lenses:
                 filters.append(Filter(name: NSLocalizedString("Brand", comment: "Brand"), attribName: "brand", include: ["Canon", "Carl Zeiss", "Fujifilm", "Kenko Tokina", "Konica Minolta", "Leica", "Lensbaby", "Lomography", "Mitakon", "Nikon", "Noktor", "Olympus", "Panasonic", "Pentax", "Ricoh", "Samyang", "Schneider Kreuznach", "Sigma", "Sony", "Tamron", "Tokina", "Voigtlander", "YI"]))
                 filters.append(Filter(name: NSLocalizedString("Mount Type", comment: "Mount Type"), attribName: "mount_type", include: ["Canon EF", "Canon EF-M", "Canon EF-S", "Compact", "Composor Pro", "Four Thirds", "Fujifilm G", "Fujifilm X", "Leica M", "Leica S", "Leica T", "Mamiya 645 AF", "Nikon 1 CX", "Nikon F DX", "Nikon F FX", "Pentax KAF", "Pentax Q", "Samsung NX", "Samsung NX-M", "Sigma SA", "Sony Alpha", "Sony Alpha DT", "Sony E", "Sony FE"]))
@@ -131,8 +125,8 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         }
         
         // 开始加载
-        switch self.tab! {
-        case .equipment, .news:
+        switch self.category! {
+        case .equipment, .explore:
             self.tableView.mj_header.beginRefreshing()
         default:
             self.refresh()
@@ -163,7 +157,12 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         // 设置选项卡标题
-        return IndicatorInfo(title: NSLocalizedString(self.category!.rawValue, comment: "second title"))
+        switch self.category! {
+        case .equipment, .library, .wishlist:
+            return IndicatorInfo(title: NSLocalizedString(self.equipmentCategory!.rawValue, comment: "second title"))
+        case .explore:
+            return IndicatorInfo(title: NSLocalizedString(self.exploreCategory!.rawValue, comment: "second title"))
+        }
     }
     
     func refresh() {
@@ -175,10 +174,10 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
     
     private func loadMore(from: Int) {
-        switch self.tab! {
+        switch self.category! {
         case .equipment:
             var parameters: Parameters = [
-                "category": self.category!.rawValue.lowercased(),
+                "category": self.equipmentCategory!.rawValue.lowercased(),
                 "keyword": keyword ?? "",
                 "from": from
             ]
@@ -216,7 +215,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                                 if let pid = hit["_id"] as? String {
                                     ids.append(pid)
                                     if let source = hit["_source"] as? [String : Any] {
-                                        switch self.category! {
+                                        switch self.equipmentCategory! {
                                         case .lenses:
                                             let product = Product(pid: pid, image: source["small_image"] as! String, name: source["name"] as! String, dxoScore: source["dxo_score"] as! Int, tags: [source["mount_type"] as! String])
                                             product.cache()
@@ -259,11 +258,12 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                     }
                 }
             }
-        case .news:
+        case .explore:
             let parameters: Parameters = [
+                "category": self.exploreCategory!.rawValue.lowercased(),
                 "from": from
             ]
-            Alamofire.request(Server.newsUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+            Alamofire.request(Server.exploreUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 self.header.endRefreshing()
                 if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                     if status == "success", let hits = json["hits"] as? [[String : Any]] {
@@ -314,13 +314,12 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         case .library, .wishlist:
             self.ids.removeAll()
             self.data.removeAll()
-            for pid in user[self.tab!]![self.category!] {
+            for pid in user[self.category!]![self.equipmentCategory!] {
                 self.ids.append(pid)
                 self.data.append(nil)
             }
             self.header.endRefreshing()
             self.tableView.reloadData()
-        default: break
         }
     }
     
@@ -335,7 +334,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch self.tab! {
+        switch self.category! {
         case .equipment, .library, .wishlist:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as! ProductCell
             // product已加载
@@ -346,9 +345,9 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 for tag in product.tags {
                     cell.add(tag: tag)
                 }
-                if user.libraries[self.category!].contains(product.pid) {
+                if user.libraries[self.equipmentCategory!].contains(product.pid) {
                     cell.add(tag: NSLocalizedString("In Library", comment: "In Library"), tint: true)
-                } else if user.wishlist[self.category!].contains(product.pid) {
+                } else if user.wishlist[self.equipmentCategory!].contains(product.pid) {
                     cell.add(tag: NSLocalizedString("In Wishlist", comment: "In Wishlist"), tint: true)
                 }
                 cell.show(score: product.dxoScore)
@@ -363,7 +362,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                     }
                 }) {
                     // 缓存加载失败，从服务器获取并缓存
-                    let parameters: Parameters = ["category": self.category!.rawValue.lowercased(), "pid": id]
+                    let parameters: Parameters = ["category": self.equipmentCategory!.rawValue.lowercased(), "pid": id]
                     Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                         if let json = response.result.value as? [String : Any], let status = json["status"] as? String {
                             if status == "success", let source = json["source"] as? [String : Any] {
@@ -381,7 +380,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 }
             }
             return cell
-        case .news:
+        case .explore:
             if let news = data[indexPath.row] as? News {
                 if news.image != "" {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "NewsImageCell", for: indexPath) as! NewsImageCell
@@ -399,8 +398,6 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 }
             }
             return UITableViewCell()
-        default:
-            return UITableViewCell()
         }
     }
     
@@ -414,16 +411,16 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
-        switch self.tab! {
+        switch self.category! {
         case .equipment, .library, .wishlist:
             let productDetailTableViewController = ProductDetailViewController()
             productDetailTableViewController.browseViewController = self
             productDetailTableViewController.product = data[indexPath.row] as! Product
-            productDetailTableViewController.tab = self.tab
             productDetailTableViewController.category = self.category
+            productDetailTableViewController.equipmentCategory = self.equipmentCategory
             productDetailTableViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(productDetailTableViewController, animated: true)
-        case .news:
+        case .explore:
             let url = (data[indexPath.row] as! News).link
             if url != "" {
                 let newsDetailViewController = WebViewController()
@@ -431,13 +428,11 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                 newsDetailViewController.hidesBottomBarWhenPushed = true
                 navigationController?.pushViewController(newsDetailViewController, animated: true)
             }
-        default:
-            return
         }
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if self.tab == .library || self.tab == .wishlist {
+        if self.category == .library || self.category == .wishlist {
             return true
         }
         return false
@@ -447,11 +442,11 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         if editingStyle == .delete {
             self.ids.remove(at: indexPath.row)
             self.data.remove(at: indexPath.row)
-            switch self.tab! {
+            switch self.category! {
             case .library:
-                user.libraries[self.category!].remove(at: indexPath.row)
+                user.libraries[self.equipmentCategory!].remove(at: indexPath.row)
             case .wishlist:
-                user.wishlist[self.category!].remove(at: indexPath.row)
+                user.wishlist[self.equipmentCategory!].remove(at: indexPath.row)
             default: break
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -461,7 +456,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        let list = user[self.tab]![self.category!]
+        let list = user[self.category]![self.equipmentCategory!]
         let fromRow = fromIndexPath.row
         let toRow = to.row
         let tempId = self.ids[fromRow]
@@ -486,7 +481,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
     
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        if tab == .library || tab == .wishlist {
+        if self.category == .library || self.category == .wishlist {
             return true
         }
         return false

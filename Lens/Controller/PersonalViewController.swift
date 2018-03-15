@@ -313,13 +313,13 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
                 switch indexPath.row {
                 case 0:
                     let librariesViewController = BrowsePagerTabStripViewController()
-                    librariesViewController.tab = .library
+                    librariesViewController.category = .library
                     librariesViewController.hidesBottomBarWhenPushed = true
                     self.navigationController?.navigationBar.shadowImage = UIImage()
                     navigationController?.pushViewController(librariesViewController, animated: true)
                 case 1:
                     let wishlistViewController = BrowsePagerTabStripViewController()
-                    wishlistViewController.tab = .wishlist
+                    wishlistViewController.category = .wishlist
                     wishlistViewController.hidesBottomBarWhenPushed = true
                     self.navigationController?.navigationBar.shadowImage = UIImage()
                     navigationController?.pushViewController(wishlistViewController, animated: true)
