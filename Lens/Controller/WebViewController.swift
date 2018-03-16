@@ -33,14 +33,14 @@ class WebViewController: UIViewController, WKNavigationDelegate {
             NSLayoutConstraint(item: self.webView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0)
             ])
         
-        if self.navigationController?.navigationBar.shadowImage != nil {
-            Shadow.add(to: self.view)
-        }
+//        if self.navigationController?.navigationBar.shadowImage != nil {
+//            Shadow.add(to: self.view)
+//        }
         
         // 设置进度条
         self.progressView = UIProgressView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 2))
         self.progressView.transform = CGAffineTransform(scaleX: 1, y: 2)
-        self.progressView.trackTintColor = Color.translucent
+        self.progressView.trackTintColor = Color.lightGray
         self.progressView.progressTintColor = Color.tint
         self.view.addSubview(self.progressView)
         
@@ -58,9 +58,6 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "estimatedProgress" {
             self.progressView.progress = Float(self.webView.estimatedProgress)
-            if self.progressView.progress == 1 {
-                self.progressView.isHidden = true
-            }
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
@@ -71,13 +68,13 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
 
 //    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-//        return
+//        self.webView.isOpaque = true
 //    }
-//
-//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        self.progressView.isHidden = true
-//    }
-//
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        self.progressView.isHidden = true
+    }
+
 //    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
 //        self.progressView.isHidden = true
 //    }

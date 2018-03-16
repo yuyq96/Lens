@@ -20,8 +20,14 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         self.navigationItem.title = NSLocalizedString(self.category.rawValue, comment: "title")
         
         // 设置PagerTabStripView风格
+        switch self.category! {
+        case .explore, .equipment:
+            self.settings.style.buttonBarBackgroundColor = .clear
+            self.settings.style.buttonBarItemFont = .boldSystemFont(ofSize: 17)
+        default:
+            self.settings.style.buttonBarItemFont = .systemFont(ofSize: 15)
+        }
         self.settings.style.buttonBarItemBackgroundColor = .white
-        self.settings.style.buttonBarItemFont = .systemFont(ofSize: 14)
         self.settings.style.buttonBarItemTitleColor = .black
         self.settings.style.selectedBarHeight = 4
         self.settings.style.selectedBarBackgroundColor = Color.tint
@@ -44,17 +50,33 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         self.buttonBarView.backgroundColor = .white
         
         // 设置PagerTab阴影
-        let constraint = Shadow.add(to: self.buttonBarView.superview!)
-        constraint.constant = self.buttonBarView.frame.height
+//        let constraint = Shadow.add(to: self.buttonBarView.superview!)
+//        constraint.constant = self.buttonBarView.frame.height
         
         switch self.category! {
         case .equipment:
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(setProdutFilter))
+            self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "filter")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(setProdutFilter)), animated: false)
         case .library, .wishlist:
-            self.navigationItem.setRightBarButton(UIBarButtonItem(title: NSLocalizedString("Edit", comment: "Edit"), style: .plain, target: self, action: #selector(beginEditing)), animated: false)
+            self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "edit")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(beginEditing)), animated: false)
         default:
             break
         }
+        
+        switch self.category! {
+        case .explore, .equipment:
+            self.buttonBarView.removeFromSuperview()
+            let navigationBarView = NavigationBarView(self.buttonBarView)
+            self.navigationItem.titleView = navigationBarView
+            navigationBarView.addConstraints([
+                NSLayoutConstraint(item: navigationBarView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 240)
+                ])
+            // 重置滑动显示区域
+            let oldFrame = self.containerView.frame
+            self.containerView.frame = CGRect(x: 0, y: 0, width: oldFrame.width, height: oldFrame.height + 44)
+        case .library, .wishlist:
+            break
+        }
+        
     }
     
     @objc func beginEditing(_ sender: UIButton) {
@@ -64,7 +86,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
     
     @objc func endEditing(_ sender: UIButton) {
         self.subViewControllers[self.currentIndex].tableView.isEditing = false
-        self.navigationItem.setRightBarButton(UIBarButtonItem(title: NSLocalizedString("Edit", comment: "Edit"), style: .plain, target: self, action: #selector(beginEditing)), animated: true)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "edit"), style: .plain, target: self, action: #selector(beginEditing)), animated: true)
     }
 
     override public func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {

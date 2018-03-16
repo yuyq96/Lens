@@ -14,19 +14,22 @@ class NavigationController: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = .white
         self.navigationBar.backgroundColor = .white
         self.navigationBar.tintColor = Color.tint
         self.navigationBar.isTranslucent = false
-        self.navigationBar.titleTextAttributes = [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 17)]
-        self.navigationBar.shadowImage = UIImage()
-
+        self.navigationBar.titleTextAttributes = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 17)]
+        self.navigationBar.shadowImage = UIImage() // UIImage.with(color: Color.barShadow)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+        viewController.navigationItem.backBarButtonItem = UIBarButtonItem()
+        super.pushViewController(viewController, animated: animated)
     }
 
     /*

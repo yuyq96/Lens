@@ -79,8 +79,8 @@ class ArticleCell: UITableViewCell {
         self.contentView.addConstraints([
             NSLayoutConstraint(item: self.cardView, attribute: .leading, relatedBy: .equal, toItem: self.contentView, attribute: .leading, multiplier: 1, constant: 12),
             NSLayoutConstraint(item: self.cardView, attribute: .trailing, relatedBy: .equal, toItem: self.contentView, attribute: .trailing, multiplier: 1, constant: -12),
-            NSLayoutConstraint(item: self.cardView, attribute: .top, relatedBy: .equal, toItem: self.contentView, attribute: .top, multiplier: 1, constant: 8),
-            NSLayoutConstraint(item: self.cardView, attribute: .bottom, relatedBy: .equal, toItem: self.contentView, attribute: .bottom, multiplier: 1, constant: -8)
+            NSLayoutConstraint(item: self.cardView, attribute: .top, relatedBy: .equal, toItem: self.contentView, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self.cardView, attribute: .bottom, relatedBy: .equal, toItem: self.contentView, attribute: .bottom, multiplier: 1, constant: 0)
             ])
     }
     

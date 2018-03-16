@@ -12,6 +12,7 @@
 "Cancel" = "取消";
 "Confirm" = "确认";
 "Clear" = "清除";
+"Reset" = "重置";
 "Yes" = "是";
 "No" = "否";
 
@@ -88,6 +89,67 @@
 "Change Password" = "修改密码";
 "Login" = "登录";
 "Logout" = "注销";
+
+"Canon" = "佳能 Canon";
+"Carl Zeiss" = "蔡司 Carl Zeiss";
+"Fujifilm" = "富士 Fujifilm";
+"Kenko Tokina" = "图丽(肯高) Kenko Tokina";
+"Konica Minolta" = "美能达 Konica Minolta";
+"Leica" = "徕卡 Leica";
+"Lensbaby" = "Lensbaby";
+"Lomography" = "拍立得 Lomography";
+"Mitakon" = "中一光学 Mitakon";
+"Nikon" = "尼康 Nikon";
+"Noktor" = "Noktor";
+"Olympus" = "奥林巴斯 Olympus";
+"Panasonic" = "松下 Panasonic";
+"Pentax" = "宾得 Pentax";
+"Ricoh" = "理光 Ricoh";
+"Samyang" = "三阳 Samyang";
+"Schneider Kreuznach" = "施耐德 Schneider Kreuznach";
+"Sigma" = "适马 Sigma";
+"Sony" = "索尼 Sony";
+"Tamron" = "腾龙 Tamron";
+"Tokina" = "图丽 Tokina";
+"Voigtlander" = "福伦达 Voigtlander";
+"YI" = "小蚁 YI";
+
+"Casio" = "卡西欧 Casio";
+"DJI" = "大疆 DJI";
+"DxO" = "DxO";
+"GoPro" = "GoPro";
+"Hasselblad" = "哈苏 Hasselblad";
+"Leaf" = "利图 Leaf";
+"Mamiya" = "玛米亚 Mamiya";
+"Nokia" = "诺基亚 Nokia";
+"Phase One" = "飞思 Phase One";
+"Samsung" = "三星 Samsung";
+"YUNEEC" = "昊翔 YUNEEC";
+
+"Canon EF" = "佳能 Canon EF";
+"Canon EF-M" = "佳能 Canon EF-M";
+"Canon EF-S" = "佳能 Canon EF-S";
+"Compact" = "Compact";
+"Composor Pro" = "Composor Pro";
+"Four Thirds" = "M4/3";
+"Fujifilm G" = "富士 Fujifilm G";
+"Fujifilm X" = "富士 Fujifilm X";
+"Leica M" = "徕卡 Leica M";
+"Leica S" = "徕卡 Leica S";
+"Leica T" = "徕卡 Leica T";
+"Mamiya 645 AF" = "玛米亚 Mamiya 645";
+"Nikon 1 CX" = "尼康 Nikon 1 CX";
+"Nikon F DX" = "尼康 Nikon F DX";
+"Nikon F FX" = "尼康 Nikon F FX";
+"Pentax KAF" = "宾得 Pentax KAF";
+"Pentax Q" = "宾得 Pentax Q";
+"Samsung NX" = "三星 Samsung NX";
+"Samsung NX-M" = "三星 Samsung NX-M";
+"Sigma SA" = "适马 Sigma SA";
+"Sony Alpha" = "索尼 Sony A";
+"Sony Alpha DT" = "索尼 Sony A DT";
+"Sony E" = "索尼 Sony E";
+"Sony FE" = "索尼 Sony FE";
 
 "Please input your budget" = "请输入你的预算";
 "Select from photo library" = "从相册选取";

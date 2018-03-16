@@ -20,9 +20,9 @@ class Filter {
     var attribName = ""
     var type = FilterType.option
     var options: [String]!
+    var selections: [Bool]!
     var jsonHandlers: [() -> Any]?
     var jsonHandler: ((Any, Any) -> Any)?
-    var selections: [Bool]!
     var min: Any!
     var max: Any!
     var defaultMin: Any!
@@ -67,10 +67,10 @@ class Filter {
                     for i in 0..<self.count {
                         if selections[i] {
                             if first {
-                                text = text + ": " + options[i]
+                                text = text + ": " + NSLocalizedString(options[i], comment: "Options Name")
                                 first = false
                             } else {
-                                text = text + ", " + options[i]
+                                text = text + ", " + NSLocalizedString(options[i], comment: "Options Name")
                             }
                         }
                     }

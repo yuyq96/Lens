@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FilterCell: UITableViewCell {
+class FilterCell: BasicCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

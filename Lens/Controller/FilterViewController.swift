@@ -8,10 +8,10 @@
 
 import UIKit
 
-class FilterViewController: UITableViewController {
+class FilterViewController: TableViewController {
     
     var browseViewController: BrowseViewController!
-    var shadowConstraint: NSLayoutConstraint!
+//    var shadowConstraint: NSLayoutConstraint!
     var searchCell: SearchCell!
     
     var keyword: String?
@@ -36,26 +36,17 @@ class FilterViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         // 设置NavigationBar阴影
-        self.shadowConstraint = Shadow.add(to: self.tableView)
+//        self.shadowConstraint = Shadow.add(to: self.tableView)
         
-        if #available(iOS 11.0, *) {
-            self.tableView.contentInsetAdjustmentBehavior = .never
-        } else {
-            self.automaticallyAdjustsScrollViewInsets = false
-        }
-        self.tableView.estimatedSectionHeaderHeight = 0
-        self.tableView.estimatedSectionFooterHeight = 0
-        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
-        
-        self.navigationItem.setRightBarButton(UIBarButtonItem(title: NSLocalizedString("Clear", comment: "Clear"), style: .plain, target: self, action: #selector(clear)), animated: false)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(title: NSLocalizedString("Reset", comment: "Reset"), style: .plain, target: self, action: #selector(reset)), animated: false)
         
         self.tableView.register(SearchCell.self, forCellReuseIdentifier: "SearchCell")
         self.tableView.register(FilterCell.self, forCellReuseIdentifier: "FilterCell")
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.shadowConstraint.constant = self.tableView.contentOffset.y
-    }
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        self.shadowConstraint.constant = self.tableView.contentOffset.y
+//    }
     
     @objc func confirm(_ sender: UIButton) {
         self.browseViewController.keyword = self.searchCell.keyword
@@ -66,7 +57,7 @@ class FilterViewController: UITableViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func clear(_ sender: UIButton) {
+    @objc func reset(_ sender: UIButton) {
         self.keyword = nil
         self.searchCell.keyword = nil
         for filter in self.filters {

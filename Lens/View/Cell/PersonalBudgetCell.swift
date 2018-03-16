@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonalBudgetCell: UITableViewCell {
+class PersonalBudgetCell: BasicCell {
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var budget: UILabel!

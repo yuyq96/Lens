@@ -32,13 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let personalViewController = NavigationController(rootViewController: personalRootViewController)
         
         let tabBarController = UITabBarController()
+        tabBarController.tabBar.backgroundImage = UIImage()
         tabBarController.tabBar.backgroundColor = .white
-        tabBarController.tabBar.tintColor = Color.tint
         tabBarController.tabBar.isTranslucent = false
+        tabBarController.tabBar.shadowImage = UIImage.with(color: Color.barShadow)
         
-        exploreViewContoller.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Explore"), selectedImage: UIImage(named: "Explore_S"))
-        productViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Equipment"), selectedImage: UIImage(named: "Equipment_S"))
-        personalViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Personal"), selectedImage: UIImage(named: "Personal_S"))
+        exploreViewContoller.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "explore"), selectedImage: UIImage(named: "explore_tint"))
+        productViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "product"), selectedImage: UIImage(named: "product_tint"))
+        personalViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "personal"), selectedImage: UIImage(named: "personal_tint"))
         let insets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         exploreViewContoller.tabBarItem.imageInsets = insets
         productViewController.tabBarItem.imageInsets = insets

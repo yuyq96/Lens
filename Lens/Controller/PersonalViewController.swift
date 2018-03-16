@@ -10,9 +10,9 @@ import UIKit
 import Alamofire
 import Kingfisher
 
-class PersonalViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class PersonalViewController: TableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-    var shadowConstraint: NSLayoutConstraint!
+//    var shadowConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,30 +24,22 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         // 设置NavigationBar阴影
-        self.shadowConstraint = Shadow.add(to: self.tableView)
-        
-        if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
-        } else {
-            self.automaticallyAdjustsScrollViewInsets = false
-        }
-        tableView.estimatedSectionHeaderHeight = 0
-        tableView.estimatedSectionFooterHeight = 0
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.shadowConstraint = Shadow.add(to: self.tableView)
         
         // 注册复用Cell
-        tableView.register(UINib(nibName: "Cell", bundle: nil), forCellReuseIdentifier: "Cell")
-        tableView.register(UINib(nibName: "PersonalUserCell", bundle: nil), forCellReuseIdentifier: "PersonalUserCell")
-        tableView.register(UINib(nibName: "PersonalBudgetCell", bundle: nil), forCellReuseIdentifier: "PersonalBudgetCell")
+        self.tableView.register(UINib(nibName: "SwitchCell", bundle: nil), forCellReuseIdentifier: "SwitchCell")
+        self.tableView.register(UINib(nibName: "PersonalUserCell", bundle: nil), forCellReuseIdentifier: "PersonalUserCell")
+        self.tableView.register(UINib(nibName: "PersonalBudgetCell", bundle: nil), forCellReuseIdentifier: "PersonalBudgetCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.shadowConstraint.constant = self.tableView.contentOffset.y
-    }
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        self.shadowConstraint.constant = self.tableView.contentOffset.y
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -80,11 +72,11 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
             if user.token == nil {
                 switch indexPath.row {
                 case 0:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
                     cell.label.text = NSLocalizedString("Login", comment: "Login")
                     return cell
                 case 1:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
                     cell.label.text = NSLocalizedString("Register", comment: "Register")
                     return cell
                 default: return UITableViewCell()
@@ -104,11 +96,11 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
         case 1:
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
                 cell.label?.text = NSLocalizedString("Library", comment: "Library")
                 return cell
             case 1:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
                 cell.label?.text = NSLocalizedString("Wishlist", comment: "Wishlist")
                 return cell
             case 2:
@@ -122,7 +114,7 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
             default: return UITableViewCell()
             }
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
             switch indexPath.row {
             case 0:
                 cell.label?.text = NSLocalizedString("Settings", comment: "Settings")
@@ -133,18 +125,6 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
             return cell
         default: return UITableViewCell()
         }
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 8
-        } else {
-            return 4
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 4
     }
     
     func beginRegister(message: String?, username oldUsername: String? = nil, password oldPassword: String? = nil) {
@@ -315,13 +295,11 @@ class PersonalViewController: UITableViewController, UINavigationControllerDeleg
                     let librariesViewController = BrowsePagerTabStripViewController()
                     librariesViewController.category = .library
                     librariesViewController.hidesBottomBarWhenPushed = true
-                    self.navigationController?.navigationBar.shadowImage = UIImage()
                     navigationController?.pushViewController(librariesViewController, animated: true)
                 case 1:
                     let wishlistViewController = BrowsePagerTabStripViewController()
                     wishlistViewController.category = .wishlist
                     wishlistViewController.hidesBottomBarWhenPushed = true
-                    self.navigationController?.navigationBar.shadowImage = UIImage()
                     navigationController?.pushViewController(wishlistViewController, animated: true)
                 case 2:
                     let alertController = UIAlertController(title: NSLocalizedString("Budget", comment: "Budget"), message: NSLocalizedString("Please input your budget", comment: "Please input your budget"), preferredStyle: .alert)

@@ -12,11 +12,11 @@ import Kingfisher
 import MJRefresh
 import XLPagerTabStrip
 
-class BrowseViewController: UITableViewController, IndicatorInfoProvider {
+class BrowseViewController: TableViewController, IndicatorInfoProvider {
     
     var header: MJRefreshNormalHeader!
     var footer: MJRefreshBackStateFooter?
-    var shadowConstraint: NSLayoutConstraint?
+//    var shadowConstraint: NSLayoutConstraint?
     
     var category: Context.Category!
     var equipmentCategory: Context.EquipmentCategory?
@@ -34,15 +34,6 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        if #available(iOS 11.0, *) {
-            self.tableView.contentInsetAdjustmentBehavior = .never
-        } else {
-            self.automaticallyAdjustsScrollViewInsets = false
-        }
-        self.tableView.estimatedSectionHeaderHeight = 0
-        self.tableView.estimatedSectionFooterHeight = 0
-        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         
         // 下拉刷新
         self.header = MJRefreshNormalHeader(refreshingBlock: {
@@ -81,9 +72,9 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         self.tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
         self.tableView.register(UINib(nibName: "NewsImageCell", bundle: nil), forCellReuseIdentifier: "NewsImageCell")
         
-        // 设置可选过滤方式
         switch self.category! {
         case .equipment:
+            // 设置可选过滤方式
             switch self.equipmentCategory! {
             case .lenses:
                 filters.append(Filter(name: NSLocalizedString("Brand", comment: "Brand"), attribName: "brand", include: ["Canon", "Carl Zeiss", "Fujifilm", "Kenko Tokina", "Konica Minolta", "Leica", "Lensbaby", "Lomography", "Mitakon", "Nikon", "Noktor", "Olympus", "Panasonic", "Pentax", "Ricoh", "Samyang", "Schneider Kreuznach", "Sigma", "Sony", "Tamron", "Tokina", "Voigtlander", "YI"]))
@@ -131,7 +122,8 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             case .news:
                 break
             }
-        default:
+        case .library, .wishlist:
+//            self.shadowConstraint = Shadow.add(to: self.tableView)
             break
         }
         
@@ -140,8 +132,14 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tableView.reloadData()
+        if self.category == .equipment {
+            self.tableView.reloadData()
+        }
     }
+    
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        self.shadowConstraint?.constant = self.tableView.contentOffset.y
+//    }
     
     func lastUpdatedTimeText(date: Date?) -> String {
         if date == nil {
@@ -332,10 +330,16 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
+        if self.category == .explore && (self.exploreCategory == .articles || self.exploreCategory == .reviews) {
+            return self.data.count
+        }
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.category == .explore && (self.exploreCategory == .articles || self.exploreCategory == .reviews) {
+            return 1
+        }
         return self.data.count
     }
     
@@ -352,9 +356,11 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                     cell.add(tag: tag)
                 }
                 if user.libraries[self.equipmentCategory!].contains(product.pid) {
-                    cell.add(tag: NSLocalizedString("In Library", comment: "In Library"), tint: true)
+                    cell.add(tag: "✓", tint: true)
+//                    cell.add(tag: NSLocalizedString("In Library", comment: "In Library"), tint: true)
                 } else if user.wishlist[self.equipmentCategory!].contains(product.pid) {
-                    cell.add(tag: NSLocalizedString("In Wishlist", comment: "In Wishlist"), tint: true)
+                    cell.add(tag: "♥︎", tint: true)
+//                    cell.add(tag: NSLocalizedString("In Wishlist", comment: "In Wishlist"), tint: true)
                 }
                 cell.show(score: product.dxoScore)
             } else {
@@ -389,7 +395,7 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         case .explore:
             switch self.exploreCategory! {
             case .articles, .reviews:
-                let news = data[indexPath.row] as! News
+                let news = data[indexPath.section] as! News
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleCell
                 cell.selectionStyle = .none
                 cell.coverImageView.kf.setImage(with: URL(string: news.image))
@@ -427,14 +433,6 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 8
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 8
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.isSelected = false
         switch self.category! {
@@ -447,11 +445,20 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             productDetailTableViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(productDetailTableViewController, animated: true)
         case .explore:
-            let url = (data[indexPath.row] as! News).link
+            var num = 0
+            switch self.exploreCategory! {
+            case .articles, .reviews:
+                num = indexPath.section
+            case .news:
+                num = indexPath.row
+            }
+            let news = data[num] as! News
+            let url = news.link
             if url != "" {
                 let newsDetailViewController = WebViewController()
                 newsDetailViewController.urlString = url
                 newsDetailViewController.hidesBottomBarWhenPushed = true
+                newsDetailViewController.title = news.source
                 navigationController?.pushViewController(newsDetailViewController, animated: true)
             }
         }

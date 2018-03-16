@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchCell: UITableViewCell, UISearchBarDelegate {
+class SearchCell: BasicCell, UISearchBarDelegate {
     
     private let searchBar = UISearchBar()
     var keyword: String? {

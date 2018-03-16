@@ -8,9 +8,9 @@
 
 import UIKit
 
-class FilterOptionsViewController: UITableViewController {
+class FilterOptionsViewController: TableViewController {
     
-    var shadowConstraint: NSLayoutConstraint!
+//    var shadowConstraint: NSLayoutConstraint!
     
     var filter: Filter!
     var completionHandler: (() -> Void)?
@@ -25,16 +25,7 @@ class FilterOptionsViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         // 设置NavigationBar阴影
-        self.shadowConstraint = Shadow.add(to: self.tableView)
-        
-        if #available(iOS 11.0, *) {
-            self.tableView.contentInsetAdjustmentBehavior = .never
-        } else {
-            self.automaticallyAdjustsScrollViewInsets = false
-        }
-        self.tableView.estimatedSectionHeaderHeight = 0
-        self.tableView.estimatedSectionFooterHeight = 0
-        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+//        self.shadowConstraint = Shadow.add(to: self.tableView)
         
         self.navigationItem.setRightBarButton(UIBarButtonItem(title:  NSLocalizedString("Finish", comment: "Finish"), style: .plain, target: self, action: #selector(finished)), animated: false)
         
@@ -45,9 +36,9 @@ class FilterOptionsViewController: UITableViewController {
         completionHandler?()
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.shadowConstraint.constant = self.tableView.contentOffset.y
-    }
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        self.shadowConstraint.constant = self.tableView.contentOffset.y
+//    }
     
     @objc func finished(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -76,7 +67,7 @@ class FilterOptionsViewController: UITableViewController {
                 cell.setCheck(true)
             }
         } else {
-            cell.textLabel?.text = filter.options[indexPath.row - 1]
+            cell.textLabel?.text = NSLocalizedString(filter.options[indexPath.row - 1], comment: "Options Name")
             if filter.allSelected {
                 cell.setCheck(false)
             } else {

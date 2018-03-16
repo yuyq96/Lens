@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SettingsViewController: UITableViewController {
+class SettingsViewController: TableViewController {
     
-    var shadowConstraint: NSLayoutConstraint!
+//    var shadowConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,24 +22,15 @@ class SettingsViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         // 设置NavigationBar阴影
-        self.shadowConstraint = Shadow.add(to: self.tableView)
-        
-        if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
-        } else {
-            self.automaticallyAdjustsScrollViewInsets = false
-        }
-        tableView.estimatedSectionHeaderHeight = 0
-        tableView.estimatedSectionFooterHeight = 0
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+//        self.shadowConstraint = Shadow.add(to: self.tableView)
         
         // 注册复用Cell
-        tableView.register(UINib(nibName: "Cell", bundle: nil), forCellReuseIdentifier: "Cell")
+        self.tableView.register(UINib(nibName: "SwitchCell", bundle: nil), forCellReuseIdentifier: "SwitchCell")
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.shadowConstraint.constant = self.tableView.contentOffset.y
-    }
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        self.shadowConstraint.constant = self.tableView.contentOffset.y
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -57,7 +48,7 @@ class SettingsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
         cell.accessoryType = .none
         cell.mSwitch.isHidden = false
         cell.mSwitch.onTintColor = Color.tint
@@ -70,18 +61,6 @@ class SettingsViewController: UITableViewController {
     @objc func budgetSwitchChanged(mSwitch: UISwitch) {
         user.settings.showBudget = mSwitch.isOn
         user.syncSettings(completion: nil)
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 8
-        } else {
-            return 4
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 4
     }
     
     /*

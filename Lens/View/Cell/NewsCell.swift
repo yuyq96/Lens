@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewsCell: UITableViewCell {
+class NewsCell: BasicCell {
 
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var info: UILabel!

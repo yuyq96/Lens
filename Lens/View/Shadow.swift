@@ -10,9 +10,9 @@ import UIKit
 
 class Shadow {
 
-    @discardableResult static func add(to superView: UIView) -> NSLayoutConstraint {
+    @discardableResult static func add(to superView: UIView, with color: UIColor = Color.barShadow) -> NSLayoutConstraint {
         let shadow = UIView()
-        shadow.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
+        shadow.backgroundColor = color
         superView.addSubview(shadow)
         shadow.translatesAutoresizingMaskIntoConstraints = false
         shadow.addConstraint(NSLayoutConstraint(item: shadow, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0.5))

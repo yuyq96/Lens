@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProductCell: UITableViewCell {
+class ProductCell: BasicCell {
 
     let productImage = UIImageView()
     private let imageWrapper = UIView()

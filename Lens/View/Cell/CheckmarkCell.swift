@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CheckmarkCell: UITableViewCell {
+class CheckmarkCell: BasicCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -33,7 +33,7 @@ class ProductDetailViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         // 设置NavigationBar阴影
-        self.shadowConstraint = Shadow.add(to: self.tableView)
+        self.shadowConstraint = Shadow.add(to: self.tableView, with: Color.gray)
         
         // 设置NavigationBar按钮
         self.wishlistButton.append(UIBarButtonItem(image: UIImage(named: "wish")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(addToWishlist)))
