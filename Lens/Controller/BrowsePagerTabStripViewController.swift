@@ -14,6 +14,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
     var category: Context.Category!
     
     var subViewControllers: [BrowseViewController] = []
+    var filterButton: UIBarButtonItem?
     
     override func viewDidLoad() {
         // 根据tab设置标题
@@ -36,9 +37,17 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         // 更改选中选项卡标题颜色
         self.changeCurrentIndexProgressive = { (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
             guard changeCurrentIndex == true else { return }
-
             oldCell?.label.textColor = .black
             newCell?.label.textColor = Color.tint
+            if self.category == .equipment {
+                var index = 0
+                if newCell?.label.text == NSLocalizedString(Context.EquipmentCategory.cameras.rawValue, comment: "") {
+                    index = 1
+                } else if newCell?.label.text == NSLocalizedString(Context.EquipmentCategory.accessories.rawValue, comment: "") {
+                    index = 2
+                }
+                self.setFiltered(self.subViewControllers[index].filtered)
+            }
         }
         
         super.viewDidLoad()
@@ -55,7 +64,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         
         switch self.category! {
         case .equipment:
-            self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "filter")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(setProdutFilter)), animated: false)
+            self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(setProdutFilter)), animated: false)
         case .library, .wishlist:
             self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(named: "edit")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(beginEditing)), animated: false)
         default:
@@ -93,21 +102,15 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         // 创建各个选项卡对应的页面
         switch self.category! {
         case .equipment, .library, .wishlist:
-            let lensViewController = BrowseViewController(style: .grouped)
-            lensViewController.category = category
-            lensViewController.equipmentCategory = Context.EquipmentCategory.lenses
-            lensViewController.filters = []
-            self.subViewControllers.append(lensViewController)
-            let cameraViewController = BrowseViewController(style: .grouped)
-            cameraViewController.category = category
-            cameraViewController.equipmentCategory = Context.EquipmentCategory.cameras
-            cameraViewController.filters = []
-            self.subViewControllers.append(cameraViewController)
-            let accessoriesViewController = BrowseViewController(style: .grouped)
-            accessoriesViewController.category = category
-            accessoriesViewController.equipmentCategory = Context.EquipmentCategory.accessories
-            accessoriesViewController.filters = []
-            self.subViewControllers.append(accessoriesViewController)
+            let categories = [Context.EquipmentCategory.lenses, Context.EquipmentCategory.cameras, Context.EquipmentCategory.accessories]
+            for category in categories {
+                let subViewController = BrowseViewController(style: .grouped)
+                subViewController.equipmentCategory = category
+                subViewController.category = self.category
+                subViewController.filters = []
+                subViewController.setFilterd = self.setFiltered
+                self.subViewControllers.append(subViewController)
+            }
             return self.subViewControllers
         case .explore:
             let articlesViewController = BrowseViewController(style: .grouped)
@@ -126,6 +129,14 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
             newsViewController.filters = []
             self.subViewControllers.append(newsViewController)
             return self.subViewControllers
+        }
+    }
+    
+    func setFiltered(_ filtered: Bool) {
+        if filtered {
+            self.navigationItem.rightBarButtonItem?.image = UIImage(named: "filtered")
+        } else {
+            self.navigationItem.rightBarButtonItem?.image = UIImage(named: "filter")
         }
     }
     

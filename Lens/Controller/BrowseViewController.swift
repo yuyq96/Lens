@@ -14,6 +14,8 @@ import XLPagerTabStrip
 
 class BrowseViewController: TableViewController, IndicatorInfoProvider {
     
+    var setFilterd: ((Bool) -> Void)?
+    
     var header: MJRefreshNormalHeader!
     var footer: MJRefreshBackStateFooter?
 //    var shadowConstraint: NSLayoutConstraint?
@@ -25,6 +27,8 @@ class BrowseViewController: TableViewController, IndicatorInfoProvider {
     var filters = [Filter]()
     var ids = [String]()
     var data = [Any?]()
+    
+    var filtered = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -198,6 +202,12 @@ class BrowseViewController: TableViewController, IndicatorInfoProvider {
                     parameters["filters"] = jsonString
                 } catch { }
             }
+            if filtersJson.count != 0 || (self.keyword != nil && self.keyword != "") {
+                self.filtered = true
+            } else {
+                self.filtered = false
+            }
+            self.setFilterd?(self.filtered)
             Alamofire.request(Server.productUrl, method: .post, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 self.header.endRefreshing()
                 if let json = response.result.value as? [String : Any], let status = json["status"] as? String {

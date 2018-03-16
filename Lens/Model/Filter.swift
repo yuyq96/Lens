@@ -108,7 +108,21 @@ class Filter {
                         ["terms": [self.attribName: selectedOptions]]
                     ]
                 }
-            case .int, .float:
+            case .int:
+                if (self.min as! Int) == (self.defaultMin as! Int) && (self.max as! Int) == (self.defaultMax as! Int) {
+                    return nil
+                }
+                if self.jsonHandler != nil {
+                    return [self.jsonHandler!(self.min, self.max)]
+                }
+                return [
+                    ["range": [self.attribName + "_max": ["lte": self.max]]],
+                    ["range": [self.attribName + "_min": ["gte": self.min]]]
+                ]
+            case .float:
+                if (self.min as! Float) == (self.defaultMin as! Float) && (self.max as! Float) == (self.defaultMax as! Float) {
+                    return nil
+                }
                 if self.jsonHandler != nil {
                     return [self.jsonHandler!(self.min, self.max)]
                 }
