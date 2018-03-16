@@ -150,7 +150,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
             filterViewController.filters.append(filter.copy)
         }
         filterViewController.hidesBottomBarWhenPushed = true
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIBarButtonItemStyle.plain, target: nil, action: nil)
+//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         self.navigationController?.pushViewController(filterViewController, animated: true)
     }
     
