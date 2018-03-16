@@ -19,13 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = .white
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
-        let productRootViewContoller = BrowsePagerTabStripViewController()
-        productRootViewContoller.category = .equipment
-        let productViewController = NavigationController(rootViewController: productRootViewContoller)
-        
         let exploreRootViewContoller = BrowsePagerTabStripViewController()
         exploreRootViewContoller.category = .explore
         let exploreViewContoller = NavigationController(rootViewController: exploreRootViewContoller)
+        
+        let productRootViewContoller = BrowsePagerTabStripViewController()
+        productRootViewContoller.category = .equipment
+        let productViewController = NavigationController(rootViewController: productRootViewContoller)
         
         let personalRootViewController = PersonalViewController(style: .grouped)
         personalRootViewController.navigationItem.title = NSLocalizedString("Personal", comment: "Personal")
@@ -36,14 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.tabBar.tintColor = Color.tint
         tabBarController.tabBar.isTranslucent = false
         
-        productViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Equipment"), selectedImage: UIImage(named: "Equipment_S"))
         exploreViewContoller.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Explore"), selectedImage: UIImage(named: "Explore_S"))
+        productViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Equipment"), selectedImage: UIImage(named: "Equipment_S"))
         personalViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Personal"), selectedImage: UIImage(named: "Personal_S"))
         let insets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
-        productViewController.tabBarItem.imageInsets = insets
         exploreViewContoller.tabBarItem.imageInsets = insets
+        productViewController.tabBarItem.imageInsets = insets
         personalViewController.tabBarItem.imageInsets = insets
-        tabBarController.viewControllers = [productViewController, exploreViewContoller, personalViewController]
+        tabBarController.viewControllers = [exploreViewContoller, productViewController, personalViewController]
         tabBarController.selectedIndex = 0
         
         self.window?.rootViewController = tabBarController

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NavigationController: UINavigationController { // UIGestureRecognizerDelegate
+class NavigationController: UINavigationController {
     
     var startX: CGFloat!
     

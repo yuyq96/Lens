@@ -77,11 +77,13 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
         
         // 注册复用Cell
         self.tableView.register(ProductCell.self, forCellReuseIdentifier: "ProductCell")
+        self.tableView.register(ArticleCell.self, forCellReuseIdentifier: "ArticleCell")
         self.tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
         self.tableView.register(UINib(nibName: "NewsImageCell", bundle: nil), forCellReuseIdentifier: "NewsImageCell")
         
         // 设置可选过滤方式
-        if self.category == .equipment {
+        switch self.category! {
+        case .equipment:
             switch self.equipmentCategory! {
             case .lenses:
                 filters.append(Filter(name: NSLocalizedString("Brand", comment: "Brand"), attribName: "brand", include: ["Canon", "Carl Zeiss", "Fujifilm", "Kenko Tokina", "Konica Minolta", "Leica", "Lensbaby", "Lomography", "Mitakon", "Nikon", "Noktor", "Olympus", "Panasonic", "Pentax", "Ricoh", "Samyang", "Schneider Kreuznach", "Sigma", "Sony", "Tamron", "Tokina", "Voigtlander", "YI"]))
@@ -122,15 +124,19 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             default:
                 break
             }
+        case .explore:
+            switch self.exploreCategory! {
+            case .articles, .reviews:
+                self.tableView.separatorStyle = .none
+            case .news:
+                break
+            }
+        default:
+            break
         }
         
         // 开始加载
-        switch self.category! {
-        case .equipment, .explore:
-            self.tableView.mj_header.beginRefreshing()
-        default:
-            self.refresh()
-        }
+        self.refresh()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -381,7 +387,28 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
             }
             return cell
         case .explore:
-            if let news = data[indexPath.row] as? News {
+            switch self.exploreCategory! {
+            case .articles, .reviews:
+                let news = data[indexPath.row] as! News
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleCell
+                cell.selectionStyle = .none
+                cell.coverImageView.kf.setImage(with: URL(string: news.image))
+                cell.titleLabel.text = news.title
+                cell.sourceLabel.text = news.source
+                if let timestamp = Int(news.timestamp) {
+                    let timeInterval = TimeInterval(timestamp)
+                    let date = Date(timeIntervalSince1970: timeInterval)
+                    let dformatter = DateFormatter()
+                    if getCurrentLanguage() == "cn" {
+                        dformatter.dateFormat = "MM月dd日"
+                    } else {
+                        dformatter.dateFormat = "MMM.dd"
+                    }
+                    cell.timeLabel.text = dformatter.string(from: date)
+                }
+                return cell
+            case .news:
+                let news = data[indexPath.row] as! News
                 if news.image != "" {
                     let cell = tableView.dequeueReusableCell(withIdentifier: "NewsImageCell", for: indexPath) as! NewsImageCell
                     cell.picture.kf.setImage(with: URL(string: news.image))
@@ -397,7 +424,6 @@ class BrowseViewController: UITableViewController, IndicatorInfoProvider {
                     return cell
                 }
             }
-            return UITableViewCell()
         }
     }
     

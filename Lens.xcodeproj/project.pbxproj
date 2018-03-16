@@ -11,6 +11,8 @@
 		21050CC8205ADED3003A9ED6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21050CCA205ADED3003A9ED6 /* InfoPlist.strings */; };
 		21050CCF205ADF78003A9ED6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 21050CD1205ADF78003A9ED6 /* Localizable.strings */; };
 		21050CD5205AF599003A9ED6 /* Local.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21050CD4205AF599003A9ED6 /* Local.swift */; };
+		21050CD7205B7CCC003A9ED6 /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21050CD6205B7CCC003A9ED6 /* ArticleCell.swift */; };
+		21050CD9205B9B10003A9ED6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21050CD8205B9B10003A9ED6 /* GradientView.swift */; };
 		2120A54E2042A8E600DDA6B8 /* PersonalUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120A54D2042A8E600DDA6B8 /* PersonalUserCell.swift */; };
 		2120A5502042B27800DDA6B8 /* PersonalBudgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120A54F2042B27800DDA6B8 /* PersonalBudgetCell.swift */; };
 		2120A5522042EC6300DDA6B8 /* BrowsePagerTabStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2120A5512042EC6300DDA6B8 /* BrowsePagerTabStripViewController.swift */; };
@@ -65,6 +67,8 @@
 		21050CD0205ADF78003A9ED6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		21050CD2205ADF79003A9ED6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		21050CD4205AF599003A9ED6 /* Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Local.swift; sourceTree = "<group>"; };
+		21050CD6205B7CCC003A9ED6 /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
+		21050CD8205B9B10003A9ED6 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		2120A54D2042A8E600DDA6B8 /* PersonalUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalUserCell.swift; sourceTree = "<group>"; };
 		2120A54F2042B27800DDA6B8 /* PersonalBudgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBudgetCell.swift; sourceTree = "<group>"; };
 		2120A5512042EC6300DDA6B8 /* BrowsePagerTabStripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowsePagerTabStripViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 				214D1A852043B95C00A523AD /* ProductDetailBasicCell.swift */,
 				214D1A7F2043B4DD00A523AD /* ProductDetailSampleCell.swift */,
 				214D1A832043B8C200A523AD /* ProductSampleCell.swift */,
+				21050CD6205B7CCC003A9ED6 /* ArticleCell.swift */,
 				214D1A9420445D0800A523AD /* NewsCell.swift */,
 				21E5F55520430860009D7A71 /* NewsImageCell.swift */,
 				216E96EB204D3B7D00BB6CB7 /* SearchCell.swift */,
@@ -170,6 +175,7 @@
 				21314868204C676100235739 /* Tag.swift */,
 				21FFEA4E205178AE0064AAED /* DxOMARK.swift */,
 				21FFEA4C205174C30064AAED /* DxOMARK.xib */,
+				21050CD8205B9B10003A9ED6 /* GradientView.swift */,
 				214D1A6E2043A54300A523AD /* Cell */,
 				215B083B203FFF3000802011 /* LaunchScreen.storyboard */,
 				21AABCD8204551250013BA40 /* Cell.xib */,
@@ -411,6 +417,7 @@
 				214D1A7A2043B0B900A523AD /* ProductDetailImageCell.swift in Sources */,
 				214D1AA12045384C00A523AD /* NavigationController.swift in Sources */,
 				21AABCE420464CF70013BA40 /* User.swift in Sources */,
+				21050CD9205B9B10003A9ED6 /* GradientView.swift in Sources */,
 				216E96EC204D3B7D00BB6CB7 /* SearchCell.swift in Sources */,
 				21050CD5205AF599003A9ED6 /* Local.swift in Sources */,
 				21A16CAF204A86B30049FF55 /* Shadow.swift in Sources */,
@@ -428,6 +435,7 @@
 				214D1A842043B8C200A523AD /* ProductSampleCell.swift in Sources */,
 				2120A54E2042A8E600DDA6B8 /* PersonalUserCell.swift in Sources */,
 				21314869204C676100235739 /* Tag.swift in Sources */,
+				21050CD7205B7CCC003A9ED6 /* ArticleCell.swift in Sources */,
 				21A16CAD204A47CA0049FF55 /* Server.swift in Sources */,
 				21314866204C66DF00235739 /* FilterCell.swift in Sources */,
 				2166ACAD2042A1A3002D1C36 /* PersonalViewController.swift in Sources */,
