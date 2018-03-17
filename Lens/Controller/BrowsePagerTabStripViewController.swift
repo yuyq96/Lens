@@ -28,7 +28,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         default:
             self.settings.style.buttonBarItemFont = .systemFont(ofSize: 15)
         }
-        self.settings.style.buttonBarItemBackgroundColor = .white
+        self.settings.style.buttonBarItemBackgroundColor = .clear
         self.settings.style.buttonBarItemTitleColor = .black
         self.settings.style.selectedBarHeight = 4
         self.settings.style.selectedBarBackgroundColor = Color.tint
@@ -56,7 +56,7 @@ class BrowsePagerTabStripViewController: ButtonBarPagerTabStripViewController {
         self.containerView.bounces = false
         
         // 防止屏幕旋转时露出橙色的间隔
-        self.buttonBarView.backgroundColor = .white
+        self.buttonBarView.backgroundColor = .clear
         
         // 设置PagerTab阴影
 //        let constraint = Shadow.add(to: self.buttonBarView.superview!)

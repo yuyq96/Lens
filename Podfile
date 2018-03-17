@@ -5,6 +5,7 @@ use_frameworks!
 
 target 'Lens' do
 	pod 'Alamofire', '~> 4.6'
+	pod 'AXPhotoViewer'
 	pod 'Kingfisher', '~> 4.0'
 	pod 'MJRefresh'
 	pod 'PINCache'

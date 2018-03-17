@@ -37,9 +37,9 @@ class Detail: NSObject, NSCoding {
             }
             for spec in self.specs {
                 if text == nil {
-                    text = spec.key + colon + spec.value
+                    text = spec.key + colon + NSLocalizedString(spec.value, comment: "specifications value")
                 } else {
-                    text! += "\n" + spec.key + colon + spec.value
+                    text! += "\n" + spec.key + colon + NSLocalizedString(spec.value, comment: "specifications value")
                 }
             }
             if text != nil {
@@ -55,7 +55,7 @@ class Detail: NSObject, NSCoding {
                     }
                     info.addAttributes(attribAttributes, range: NSMakeRange(pos, len))
                     pos += len
-                    len = spec.value.count
+                    len = NSLocalizedString(spec.value, comment: "specifications value").count
                     info.addAttributes(valueAttributes, range: NSMakeRange(pos, len))
                     pos += len
                 }

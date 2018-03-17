@@ -233,8 +233,11 @@ class ProductDetailViewController: UITableViewController {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailSampleCell", for: indexPath) as! ProductDetailSampleCell
+            cell.present = { (viewController) in
+                self.present(viewController, animated: true)
+            }
             if let detail = product.detail {
-                cell.samples = detail.samples
+                cell.setSamples(detail.samples)
                 cell.sampleTableView.reloadData()
             }
             return cell

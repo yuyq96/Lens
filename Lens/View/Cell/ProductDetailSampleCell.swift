@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AXPhotoViewer
 import Kingfisher
 
 class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
@@ -14,8 +15,11 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
     var sampleLabel = UILabel()
     var sampleTableView = UITableView(frame: .zero, style: .grouped)
     
-    var samples: [String] = []
-    var sampleWidths: [Int : CGFloat] = [:]
+    private var sampleUrls = [String]()
+    private var sampleWidths = [Int : CGFloat]()
+    private var photos = [AXPhoto]()
+    
+    var present: ((UIViewController) -> Void)?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,7 +27,7 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
         
         // 设置标题
         self.sampleLabel.text = NSLocalizedString("Sample", comment: "Sample")
-        self.sampleLabel.font = .systemFont(ofSize: 17)
+        self.sampleLabel.font = .boldSystemFont(ofSize: 17)
         
         // 设置样片列表
         self.sampleTableView.contentMode = .scaleToFill
@@ -57,6 +61,14 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
         ])
     }
     
+    func setSamples(_ sampleUrls: [String]) {
+        self.sampleUrls = sampleUrls
+        self.photos = []
+        for _ in 0..<sampleUrls.count {
+            self.photos.append(AXPhoto())
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -74,7 +86,7 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.samples.count
+        return self.sampleUrls.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,13 +95,21 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductSampleCell", for: indexPath) as! ProductSampleCell
-        cell.sampleImageView.kf.setImage(with: URL(string: samples[indexPath.section]), completionHandler: {
+        cell.sampleImageView.kf.setImage(with: URL(string: sampleUrls[indexPath.section]), completionHandler: {
             (image, error, cacheType, imageUrl) in
+            self.photos[indexPath.section].image = image
             self.sampleWidths[indexPath.section] = (image?.size.width)! / (image?.size.height)! * 90
             tableView.beginUpdates()
             tableView.endUpdates()
         })
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dataSource = AXPhotosDataSource(photos: self.photos, initialPhotoIndex: indexPath.section, prefetchBehavior: .aggressive)
+        let transitionInfo = AXTransitionInfo(interactiveDismissalEnabled: true, startingView: nil, endingView: nil)
+        let photosViewController = AXPhotosViewController(dataSource: dataSource, pagingConfig: nil, transitionInfo: transitionInfo)
+        self.present?(photosViewController)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -108,7 +128,7 @@ class ProductDetailSampleCell: UITableViewCell, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch section {
-        case samples.count - 1:
+        case sampleUrls.count - 1:
             return 12
         default:
             return 4

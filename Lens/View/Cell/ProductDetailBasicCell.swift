@@ -19,7 +19,7 @@ class ProductDetailBasicCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.clipsToBounds = true
         self.nameLabel.numberOfLines = 2
-        self.nameLabel.font = .boldSystemFont(ofSize: 16)
+        self.nameLabel.font = .boldSystemFont(ofSize: 17)
         self.attribLabel.numberOfLines = 6
         self.showMoreButton.backgroundColor = Color.tint
         self.showMoreButton.setTitle(NSLocalizedString("Show More", comment: "Show More"), for: .normal)
