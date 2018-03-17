@@ -24,6 +24,7 @@
 		21314866204C66DF00235739 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21314864204C66DF00235739 /* FilterCell.swift */; };
 		21314867204C66DF00235739 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21314865204C66DF00235739 /* FilterCell.xib */; };
 		21314869204C676100235739 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21314868204C676100235739 /* Tag.swift */; };
+		21383F54205D7B5500665EF3 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21383F53205D7B5500665EF3 /* Time.swift */; };
 		214D1A762043AF1B00A523AD /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214D1A752043AF1B00A523AD /* ProductDetailViewController.swift */; };
 		214D1A7A2043B0B900A523AD /* ProductDetailImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214D1A792043B0B900A523AD /* ProductDetailImageCell.swift */; };
 		214D1A802043B4DD00A523AD /* ProductDetailSampleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214D1A7F2043B4DD00A523AD /* ProductDetailSampleCell.swift */; };
@@ -83,6 +84,7 @@
 		21314864204C66DF00235739 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		21314865204C66DF00235739 /* FilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
 		21314868204C676100235739 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		21383F53205D7B5500665EF3 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		214D1A752043AF1B00A523AD /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		214D1A792043B0B900A523AD /* ProductDetailImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailImageCell.swift; sourceTree = "<group>"; };
 		214D1A7F2043B4DD00A523AD /* ProductDetailSampleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailSampleCell.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				21A16CAC204A47CA0049FF55 /* Server.swift */,
 				21050CD4205AF599003A9ED6 /* Local.swift */,
 				21050CE2205C52B7003A9ED6 /* Extensions.swift */,
+				21383F53205D7B5500665EF3 /* Time.swift */,
 				215B083E203FFF3000802011 /* Info.plist */,
 				21050CD1205ADF78003A9ED6 /* Localizable.strings */,
 				21050CCA205ADED3003A9ED6 /* InfoPlist.strings */,
@@ -443,6 +446,7 @@
 				216E96F4204D5A5800BB6CB7 /* CheckmarkCell.swift in Sources */,
 				214D1A802043B4DD00A523AD /* ProductDetailSampleCell.swift in Sources */,
 				21E5F55620430860009D7A71 /* NewsImageCell.swift in Sources */,
+				21383F54205D7B5500665EF3 /* Time.swift in Sources */,
 				214D1A8A2044397D00A523AD /* WebViewController.swift in Sources */,
 				21314863204C593100235739 /* FilterViewController.swift in Sources */,
 				214D1A932044597000A523AD /* News.swift in Sources */,

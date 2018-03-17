@@ -297,7 +297,7 @@ class BrowseViewController: TableViewController, IndicatorInfoProvider {
                             for hit in hits {
                                 if let source = hit["_source"] as? [String : Any] {
                                     ids.append("")
-                                    data.append(News(title: source["title"] as! String, source: source["source"] as! String, timestamp: source["timestamp"] as! String, content: source["content"] as! String, link: source["link"] as! String, image: source["image"] as! String))
+                                    data.append(News(title: source["title"] as! String, source: source["source"] as! String, timestamp: source["timestamp"] as! Int, content: source["content"] as? String, link: source["link"] as! String, image: source["image"] as! String))
                                 }
                             }
                             if from == 0 {
@@ -308,12 +308,18 @@ class BrowseViewController: TableViewController, IndicatorInfoProvider {
                                 }
                             } else {
                                 var rows = [IndexPath]()
-                                for i in from..<(from + data.count) {
-                                    rows.append(IndexPath(row: i, section: 0))
+                                var sections = IndexSet()
+                                if self.exploreCategory == .news {
+                                    for i in from..<(from + data.count) {
+                                        rows.append(IndexPath(row: i, section: 0))
+                                    }
+                                } else {
+                                    sections = IndexSet(integersIn: Range<IndexSet.Element>(NSRange(location: from, length: data.count))!)
                                 }
                                 OperationQueue.main.addOperation {
                                     self.ids.append(contentsOf: ids)
                                     self.data.append(contentsOf: data)
+                                    self.tableView.insertSections(sections, with: .automatic)
                                     self.tableView.insertRows(at: rows, with: .automatic)
                                 }
                             }
@@ -411,17 +417,15 @@ class BrowseViewController: TableViewController, IndicatorInfoProvider {
                 cell.coverImageView.kf.setImage(with: URL(string: news.image))
                 cell.titleLabel.text = news.title
                 cell.sourceLabel.text = news.source
-                if let timestamp = Int(news.timestamp) {
-                    let timeInterval = TimeInterval(timestamp)
-                    let date = Date(timeIntervalSince1970: timeInterval)
-                    let dformatter = DateFormatter()
-                    if getCurrentLanguage() == "cn" {
-                        dformatter.dateFormat = "MM月dd日"
-                    } else {
-                        dformatter.dateFormat = "MMM.dd"
-                    }
-                    cell.timeLabel.text = dformatter.string(from: date)
-                }
+//                let timeInterval = TimeInterval(news.timestamp)
+//                let date = Date(timeIntervalSince1970: timeInterval)
+//                let dformatter = DateFormatter()
+//                if getCurrentLanguage() == "cn" {
+//                    dformatter.dateFormat = "YYYY年MM月dd日"
+//                } else {
+//                    dformatter.dateFormat = "YYYY MMM.dd"
+//                }
+                cell.timeLabel.text = news.time
                 return cell
             case .news:
                 let news = data[indexPath.row] as! News

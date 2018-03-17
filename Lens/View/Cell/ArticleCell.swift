@@ -44,7 +44,7 @@ class ArticleCell: UITableViewCell {
         let gradientView = GradientView()
         gradientView.translatesAutoresizingMaskIntoConstraints = false
         let gradientLayer = gradientView.layer as! CAGradientLayer
-        gradientLayer.colors = [UIColor(white: 0, alpha: 0).cgColor, UIColor(white: 0, alpha: 0.8).cgColor]
+        gradientLayer.colors = [UIColor(white: 0, alpha: 0).cgColor, UIColor(white: 0, alpha: 0.4).cgColor]
         gradientLayer.locations = [0.0, 1.0]
         self.coverImageView.addSubview(gradientView)
         self.coverImageView.addConstraints([
