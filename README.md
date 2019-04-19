@@ -15,6 +15,6 @@ Searching lenses, cameras and accessories easily using your iPhone.
 
 ## Design
 
-![](https://github.com/archie-yu/Lens-Sketch/blob/master/Export.jpg)
+![](https://github.com/yuyq96/Lens-Sketch/blob/master/Export.jpg)
 
-See [`Sketch`](https://github.com/archie-yu/Lens-Sketch)
+See [`Sketch`](https://github.com/yuyq96/Lens-Sketch)
